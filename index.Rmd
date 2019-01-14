@@ -14,7 +14,7 @@ output:
 
 This site contains workshop notes from the R Spatial Workshop at the [Center for Spatial Data Science](https://spatial.uchicago.edu/). Workshops are held on **Tuesdays at noon** during Winter Quarter 2019. Our goal for running these workshops are to teach researchers how to work effectively with spatial data in R. 
 
-You are welcome to join us in **Searle 240B** for workshops if you're a member of the UChicago campus community!
+You are welcome to join us in **Searle 240B** for workshops if you're a member of the UChicago campus community! Please fill out the following [short survey](https://docs.google.com/forms/d/e/1FAIpQLSeAbyZQrcQuV9-LRwJeYQuwJgalJdL88Q5xYMuMLRTh1GBH6A/viewform) if you plan to attend the workshop this quarter.
 
 ## Workshop Organization {-}
 
