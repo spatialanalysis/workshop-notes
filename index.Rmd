@@ -1,0 +1,51 @@
+---
+title: "R Spatial Workshop Notes"
+subtitle: "Winter Quarter 2019"
+author: "Angela Li"
+github-repo: spatialanalysis/workshop-notes
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook: default
+  bookdown::pdf_book: default
+---
+
+# Introduction {-}
+
+This site contains workshop notes from the R Spatial Workshop at the [Center for Spatial Data Science](https://spatial.uchicago.edu/). Workshops are held on **Tuesdays at noon** during Winter Quarter 2019. Our goal for running these workshops are to teach researchers how to work effectively with spatial data in R. 
+
+You are welcome to join us in **Searle 240B** for workshops if you're a member of the UChicago campus community!
+
+## Workshop Organization {-}
+
+Each chapter of this [bookdown](https://bookdown.org/) book represents a 1-hour workshop taught at the center. Chapters will be uploaded a day before the workshop so you can review the material prior to attending.
+
+**Scripts** from the workshops will be uploaded to Github following each workshop, link coming shortly.
+
+**Data** used in the workshops can be found on the GeoDa Center [data website](https://geodacenter.github.io/data-and-lab/), and will be linked to in each workshop chapter. All data will eventually be found in an R package developed by the CSDS.
+
+## Prior Knowledge {-}
+
+We assume that workshop attendees have used RStudio and are familiar with the basics of R. 
+
+If you need a refresher, this [R for Social Scientists](https://datacarpentry.org/r-socialsci/) tutorial developed by Data Carpentry is a good place to start. Additionally, Luc Anselin's introductory R lab notes can be found on the [CSDS Tutorials page](https://spatialanalysis.github.io/tutorials).
+
+## Topics {-}
+
+We plan to cover the following topics:
+
+- Spatial data formats
+- Projections
+- Spatial data handling
+- Spatial data operations
+- Static maps
+- Interactive maps
+- Organization of research projects
+- Reproducible research with R
+
+## Additional information {-}
+
+Workshops are run by Angela Li, R Spatial Advocate for the CSDS. If you have any questions about the following material, please reach out to her at ali6@uchicago.edu. 
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
