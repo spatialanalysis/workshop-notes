@@ -4,19 +4,26 @@
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Goal {-}
+The goal of this section is to help you:
 
-- Set up a directory on your computer to store scripts and data for workshop
+- Set up a directory on your computer to store scripts and data for this workshop
 - Back up all workshop materials online using Github
 
-## All-purpose project workflow with Git {-}
-
-### Prerequisites {-}
+## Prerequisites for Git workflow {-}
 
 - You have a Github account. If not, [create one here](https://github.com/).
-- You have Git on your computer. Check by typing `git --version` in the Terminal pane in RStudio.
-- You have configured Git. Check by typing `git config --list` in the Terminal pane in RStudio. If you have not configured git, follow [these instructions](https://happygitwithr.com/hello-git.html)
+- You have Git on your computer. Check by typing 
+```{}
+git --version
+```
+ in the Terminal pane in RStudio. Macs should already have Git, Windows will need to install [Git Bash](https://git-scm.com/download/win) on their computer.
+- You have configured Git. Check by typing
+```{}
+git config --list
+```
+in the Terminal pane in RStudio. If you have not configured git, follow [these instructions](https://happygitwithr.com/hello-git.html).
 
+## Workflow with Git {-}
 
 1. Go to [github.com](https://github.com/) and create a new repository. Choose a public or private folder (your choice). Initialize with a README.
 2. Open RStudio. Click "New Project". Click "Version Control". Paste the URL of the repository you just created.
@@ -34,7 +41,7 @@ Put data in `data`, written output in `doc`, and R code scripts in `scripts`.
 - Click "Commit". Type an informative message, i.e. "Added materials from first workshop".
 - Click "Push". You have now uploaded your files to Github. If you go to the web link of the repository you created on Github, your materials should now be there.
 
-## All-purpose project workflow without Git {-}
+## Workflow without Git {-}
 
 1. Open RStudio. Click "New Project". Click "New Directory".
 2. Create the following folders in your project by clicking on "New Folder" in the Files pane in RStudio:
@@ -47,4 +54,5 @@ Put data in `data`, written output in `doc`, and R code scripts in `scripts`.
 
 ## Additional reading {-}
 
-- Guide on [Project Management with RStudio](https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/): great resource for organizing your research files and scripts
+- [Happy Git with R](https://happygitwithr.com/): the comprehensive guide on how to use Git/Github with R
+- [Project Management with RStudio](https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/): great resource for organizing your research files and scripts
