@@ -1,0 +1,26 @@
+# Introduction to Spatial Data
+
+## Learning Objectives
+
+- Understand the difference between vector and raster data
+- Describe some common packages in R for handling spatial data, and what each do
+- Be able to import spatial data into R (make sure everything is installed) and describe the dataset: what is the CRS, is it point/polygon/line?
+
+## 3 main ways to store spatial data in R
+
+- `sf`
+- `sp`
+- `raster`: for raster data - we won't work with this too much during the workshop
+
+## Exercises
+
+- Review vector v. raster, components of the CRS, and how those are stored in a PROJ4 string
+- Import ward data using `st_read`
+- Project data and look at CRS using `st_transform` and `st_crs`
+- Compare and describe CRS
+- Repeat entire process with next year's ward data 
+
+## Additional resources
+- [Introduction to geospatial concepts](https://datacarpentry.org/organization-geospatial/): good overview of main ideas
+- [Migrating from sp to sf](https://github.com/r-spatial/sf/wiki/Migrating): outlines the differences between functions in the two packages
+
