@@ -68,11 +68,9 @@
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#additional-information"><i class="fa fa-check"></i>Additional information</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html"><i class="fa fa-check"></i>Project Setup</a><ul>
-<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#goal"><i class="fa fa-check"></i>Goal</a></li>
-<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#all-purpose-project-workflow-with-git"><i class="fa fa-check"></i>All-purpose project workflow with Git</a><ul>
-<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#all-purpose-project-workflow-without-git"><i class="fa fa-check"></i>All-purpose project workflow without Git</a></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#prerequisites-for-git-workflow"><i class="fa fa-check"></i>Prerequisites for Git workflow</a></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#workflow-with-git"><i class="fa fa-check"></i>Workflow with Git</a></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#workflow-without-git"><i class="fa fa-check"></i>Workflow without Git</a></li>
 <li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#additional-reading"><i class="fa fa-check"></i>Additional reading</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html"><i class="fa fa-check"></i><b>1</b> Introduction to Spatial Data</a><ul>
@@ -100,22 +98,25 @@
             <section class="normal" id="section-">
 <div id="project-setup" class="section level1 unnumbered">
 <h1>Project Setup</h1>
-<div id="goal" class="section level2 unnumbered">
-<h2>Goal</h2>
+<p>The goal of this section is to help you:</p>
 <ul>
-<li>Set up a directory on your computer to store scripts and data for workshop</li>
+<li>Set up a directory on your computer to store scripts and data for this workshop</li>
 <li>Back up all workshop materials online using Github</li>
 </ul>
-</div>
-<div id="all-purpose-project-workflow-with-git" class="section level2 unnumbered">
-<h2>All-purpose project workflow with Git</h2>
-<div id="prerequisites" class="section level3 unnumbered">
-<h3>Prerequisites</h3>
+<div id="prerequisites-for-git-workflow" class="section level2 unnumbered">
+<h2>Prerequisites for Git workflow</h2>
 <ul>
 <li>You have a Github account. If not, <a href="https://github.com/">create one here</a>.</li>
-<li>You have Git on your computer. Check by typing <code>git --version</code> in the Terminal pane in RStudio.</li>
-<li>You have configured Git. Check by typing <code>git config --list</code> in the Terminal pane in RStudio. If you have not configured git, follow <a href="https://happygitwithr.com/hello-git.html">these instructions</a></li>
+<li><p>You have Git on your computer. Check by typing</p>
+<pre><code>git --version</code></pre>
+in the Terminal pane in RStudio. Macs should already have Git, Windows will need to install <a href="https://git-scm.com/download/win">Git Bash</a> on their computer.</li>
+<li><p>You have configured Git. Check by typing</p>
+<pre><code>git config --list</code></pre>
+<p>in the Terminal pane in RStudio. If you have not configured git, follow <a href="https://happygitwithr.com/hello-git.html">these instructions</a>.</p></li>
 </ul>
+</div>
+<div id="workflow-with-git" class="section level2 unnumbered">
+<h2>Workflow with Git</h2>
 <ol style="list-style-type: decimal">
 <li>Go to <a href="https://github.com/">github.com</a> and create a new repository. Choose a public or private folder (your choice). Initialize with a README.</li>
 <li>Open RStudio. Click “New Project”. Click “Version Control”. Paste the URL of the repository you just created.</li>
@@ -136,9 +137,8 @@
 <li>Click “Push”. You have now uploaded your files to Github. If you go to the web link of the repository you created on Github, your materials should now be there.</li>
 </ul>
 </div>
-</div>
-<div id="all-purpose-project-workflow-without-git" class="section level2 unnumbered">
-<h2>All-purpose project workflow without Git</h2>
+<div id="workflow-without-git" class="section level2 unnumbered">
+<h2>Workflow without Git</h2>
 <ol style="list-style-type: decimal">
 <li>Open RStudio. Click “New Project”. Click “New Directory”.</li>
 <li>Create the following folders in your project by clicking on “New Folder” in the Files pane in RStudio:</li>
@@ -153,7 +153,8 @@
 <div id="additional-reading" class="section level2 unnumbered">
 <h2>Additional reading</h2>
 <ul>
-<li>Guide on <a href="https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/">Project Management with RStudio</a>: great resource for organizing your research files and scripts</li>
+<li><a href="https://happygitwithr.com/">Happy Git with R</a>: the comprehensive guide on how to use Git/Github with R</li>
+<li><a href="https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/">Project Management with RStudio</a>: great resource for organizing your research files and scripts</li>
 </ul>
 
 </div>
