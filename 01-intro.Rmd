@@ -5,7 +5,7 @@
 - Understand the difference between vector and raster data
 - Describe the components of a PROJ4 string
 - Name the two main packages for spatial vector data in R
-- Import and project spatial data in R
+- Import, project, and plot spatial data in R
 
 ## Spatial data basics
 
