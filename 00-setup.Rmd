@@ -25,16 +25,16 @@ in the Terminal pane in RStudio. If you have not configured git, follow [these i
 
 ## Workflow with Git {-}
 
-0. Make sure you have the prerequisites for this workflow otherwise you'll be frustrated (see above section).
-1. Go to [github.com](https://github.com/) and create a new repository. Choose a public or private folder (your choice). Initialize with a README.
+0. Make sure you have the prerequisites for this workflow (see above section), otherwise you'll be frustrated.
+1. Go to [github.com](https://github.com/) and create a new repository. Choose to make it public or private (your choice). Initialize with a README.
 2. Open RStudio. Click "New Project". Click "Version Control". Paste the URL of the repository you just created.
 3. Create the following folders in your project by clicking on "New Folder" in the Files pane in RStudio:
 
 - `data`
 - `doc`
-- `scripts`
+- `R`
 
-Put data in `data`, written output in `doc`, and R code scripts in `scripts`.
+Put data in `data`, written output in `doc`, and R code scripts in `R`.
 
 4. Once you've put data and scripts in, you can back up your documents by going to the tab in RStudio called "Git".
 
@@ -49,9 +49,9 @@ Put data in `data`, written output in `doc`, and R code scripts in `scripts`.
 
 - `data`
 - `doc`
-- `scripts`
+- `R`
 
-Put data in `data`, written output in `doc`, and R code scripts in `scripts`.
+Put data in `data`, written output in `doc`, and R code scripts in `R`.
 
 ## Additional reading {-}
 
