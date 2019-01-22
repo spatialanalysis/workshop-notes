@@ -1,0 +1,21 @@
+# Single-Dataset GIS Operations
+
+## Learning Objectives
+
+- Become familiar with several common single-dataset GIS operations
+- Calculate centroids of polygons
+- Create buffers
+- Explore additional single-dataset GIS operations
+
+## Exercises
+
+- Project 1986 ward data into correct UTM projection
+- Cast ward data to "POLYGON" with `st_cast`
+- Calculate centroids of wards with `st_centroid`
+- Calculate bounding box with `st_bbox`
+- Plot centroids, buffered centroids, and wards for each year
+
+## Links
+- Geometric unary operations (aka, single dataset operations): https://r-spatial.github.io/sf/reference/geos_unary.html
+- sf cheatsheet: https://github.com/rstudio/cheatsheets/blob/master/sf.pdf
+- PostGIS cheatsheet (off of which sf is based): http://www.postgis.us/downloads/postgis21_cheatsheet.pdf
