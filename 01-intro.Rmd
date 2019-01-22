@@ -21,6 +21,11 @@
 - Repeat entire process with next year's ward data 
 
 ## Additional resources
+- GeoJSON: http://geojson.org/
+- Software Carpentry Vector Data: https://datacarpentry.org/organization-geospatial/02-intro-vector-data/index.html
+- Software Carpentry CRS: https://datacarpentry.org/organization-geospatial/03-crs/index.html
+- Link to [Chicago ward data](https://www.lib.uchicago.edu/e/collections/maps/chigis.html)
+- Link to good EPSG lookup website: http://spatialreference.org/ 
 - [Introduction to geospatial concepts](https://datacarpentry.org/organization-geospatial/): good overview of main ideas
 - [Migrating from sp to sf](https://github.com/r-spatial/sf/wiki/Migrating): outlines the differences between functions in the two packages
 
