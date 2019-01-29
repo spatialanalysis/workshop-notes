@@ -1,28 +1,26 @@
 # Introduction to Spatial Data
 
-## Learning objectives
+## Learning Objectives
 
 - Understand the difference between vector and raster data
 - Describe the components of a PROJ4 string
 - Name the two main packages for spatial vector data in R
 - Import, project, and plot spatial data in R
 
-## Spatial data basics
+## Spatial Data Basics
 
 We first reviewed some important information about spatial data. The two main types are 
-**vector** (points, lines, polygons) and **raster** (pixels, surfaces). Since this workshop is given in the context of social science research, the rest of our workshop focuses on [vector data](https://datacarpentry.org/organization-geospatial/02-intro-vector-data/index.html) (administrative boundaries, locations of business, road networks).
+**vector** (points, lines, polygons) and **raster** (pixels, surfaces). Since this workshop is given in the context of social science research, the rest of our workshop focuses on [vector data](https://datacarpentry.org/organization-geospatial/02-intro-vector-data/index.html) such as administrative boundaries, locations of business, or road networks.
 
-Next, we went over what a **coordinate reference system** was, as well as the components of a **PROJ4 string**, or how coordinate reference systems are stored electronically. Rather than writing out the whole PROJ4 string, we can use an **EPSG code** as shorthand for it. This [Software Carpentry workshop](https://datacarpentry.org/organization-geospatial/03-crs/index.html) provides an excellent explanations and exercises for understanding coordinate reference systems.
+Next, we went over what a **coordinate reference system** was, as well as the components of a **PROJ4 string**, or how coordinate reference systems are stored electronically. Rather than writing out the whole PROJ4 string, we can use an **EPSG code** as shorthand for it. This [Software Carpentry workshop](https://datacarpentry.org/organization-geospatial/03-crs/index.html) provides excellent explanations and exercises for understanding coordinate reference systems.
 
 Finally, we learned that [`sf`](https://r-spatial.github.io/sf/index.html) is the modern package for handling spatial data in R. Some old packages still use `sp`. However, it has a much more complicated representation of spatial data, so we will focus on `sf`. See [this guide](https://github.com/r-spatial/sf/wiki/Migrating) for a translation of `sp` to `sf` commands, if you're used to using `sp`.
 
-## Interactive tutorial
+## Interactive Tutorial
 
 The rest of the workshop was dedicated to a hands-on exercise where we live coded together. The data we used was 1986 Chicago aldermanic ward boundary data, which can be found on the UChicago Map Collection page [here](https://www.lib.uchicago.edu/e/collections/maps/chigis.html).
 
 ### Functions learned
-
-From the `sf` package:
 
 - `st_read()`
 - `st_crs()`
@@ -106,11 +104,14 @@ plot(ward86_alaska)
 
 Clearly this projection isn't great for Chicago! But something to keep in mind, if, say, you're making maps of places closer to the poles.
 
-## Links in this workshop
+## Links
 
-- Software Carpentry Vector Data: https://datacarpentry.org/organization-geospatial/02-intro-vector-data/index.html
-- Software Carpentry CRS: https://datacarpentry.org/organization-geospatial/03-crs/index.html
-- [Migrating from sp to sf](https://github.com/r-spatial/sf/wiki/Migrating): outlines the differences between functions in the two packages
-- GeoJSON: http://geojson.org/
-- [Chicago ward data](https://www.lib.uchicago.edu/e/collections/maps/chigis.html)
+All the links in this workshop:
+
+- Software Carpentry Vector Data tutorial: https://datacarpentry.org/organization-geospatial/02-intro-vector-data/index.html
+- Software Carpentry CRS tutorial: https://datacarpentry.org/organization-geospatial/03-crs/index.html
+- `sf` reference site: https://r-spatial.github.io/sf/index.html
+- Migrating from sp to sf guide: https://github.com/r-spatial/sf/wiki/Migrating
+- GeoJSON explanation: http://geojson.org/
+- Chicago ward data: https://www.lib.uchicago.edu/e/collections/maps/chigis.html
 - Link to good EPSG lookup website: http://spatialreference.org/ 

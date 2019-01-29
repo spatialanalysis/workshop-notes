@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
+<link rel="prev" href="single-dataset-gis-operations.html">
 
-<link rel="next" href="project-setup.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -153,44 +153,73 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R Spatial Workshop Notes</h1>
-<h3 class="subtitle"><em>Winter Quarter 2019</em></h3>
-<h4 class="author"><em>Angela Li</em></h4>
-</div>
-<div id="introduction" class="section level1 unnumbered">
-<h1>Introduction</h1>
-<p>This site contains workshop notes from the R Spatial Workshop at the <a href="https://spatial.uchicago.edu/">Center for Spatial Data Science</a>. Workshops are held on <strong>Tuesdays at noon</strong> during Winter Quarter 2019. Our goal for running these workshops are to teach researchers how to work effectively with spatial data in R.</p>
-<p>You are welcome to join us in <strong>Searle 240B</strong> for workshops if you’re a member of the UChicago campus community! Bring a laptop to follow along. Additionally, please fill out the following <a href="https://docs.google.com/forms/d/e/1FAIpQLSeAbyZQrcQuV9-LRwJeYQuwJgalJdL88Q5xYMuMLRTh1GBH6A/viewform">short survey</a> if you plan to attend the workshop this quarter.</p>
-<div id="workshop-organization" class="section level2 unnumbered">
-<h2>Workshop Organization</h2>
-<p>Each chapter of this <a href="https://bookdown.org/">bookdown</a> book represents a 1-hour workshop taught at the center. Chapters will be uploaded a day before the workshop so you can review the material prior to attending.</p>
-<p><strong>Scripts</strong> from the workshops will be uploaded to Github following each workshop and can be found in the <code>R</code> folder at <a href="https://github.com/spatialanalysis/workshop-scripts">this link</a>.</p>
-<p><strong>Data</strong> used in the workshops can be found on the GeoDa Center <a href="https://geodacenter.github.io/data-and-lab/">data website</a>, or will be linked to in each workshop chapter. All data will eventually be found in an R package developed by the CSDS.</p>
-</div>
-<div id="prior-knowledge" class="section level2 unnumbered">
-<h2>Prior Knowledge</h2>
-<p>We assume that workshop attendees have used RStudio and are familiar with the basics of R.</p>
-<p>If you need a refresher, this <a href="https://datacarpentry.org/r-socialsci/">R for Social Scientists</a> tutorial developed by Data Carpentry is a good place to start. Additionally, Luc Anselin’s introductory R lab notes can be found on the <a href="https://spatialanalysis.github.io/tutorials">CSDS Tutorials page</a>.</p>
-</div>
-<div id="topics" class="section level2 unnumbered">
-<h2>Topics</h2>
-<p>We plan to cover the following topics:</p>
+<div id="multiple-dataset-gis-operations-visualization" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Multiple-Dataset GIS Operations / Visualization</h1>
+<div id="learning-objectives-2" class="section level2">
+<h2><span class="header-section-number">3.1</span> Learning Objectives</h2>
 <ul>
-<li>Spatial data formats</li>
-<li>Projections</li>
-<li>Spatial data handling</li>
-<li>Spatial data operations</li>
-<li>Static maps</li>
-<li>Interactive maps</li>
-<li>Organization of research projects</li>
-<li>Reproducible research with R</li>
+<li>Create multi-layered maps</li>
+<li>Calculate the area of polygons</li>
+<li>Find spatial intersections</li>
+<li>Save maps for future use</li>
 </ul>
 </div>
-<div id="additional-information" class="section level2 unnumbered">
-<h2>Additional information</h2>
-<p>Workshops are run by Angela Li, R Spatial Advocate for the CSDS. If you have any questions about the following material, please reach out to her at <a href="mailto:ali6@uchicago.edu">ali6@uchicago.edu</a>.</p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+<div id="functions-learned-2" class="section level2">
+<h2><span class="header-section-number">3.2</span> Functions Learned</h2>
+<p>From <code>ggplot2</code> - for visualization:</p>
+<ul>
+<li><code>ggplot()</code></li>
+<li><code>geom_sf()</code></li>
+<li><code>ggsave()</code></li>
+</ul>
+<p>From <code>sf</code> - for GIS operations:</p>
+<ul>
+<li><code>st_cast()</code> / <code>st_union()</code></li>
+<li><code>st_area()</code></li>
+<li><code>st_intersects()</code></li>
+</ul>
+<p>From <code>dplyr</code> - for data manipulation: See below link for a great tutorial on how to use <code>dplyr</code> with <code>sf</code> to do data analysis.</p>
+<ul>
+<li><code>arrange()</code>: changes the ordering of the rows.</li>
+<li><code>filter()</code>: picks cases based on their values.</li>
+<li><code>mutate()</code>: adds new variables that are functions of existing variables.</li>
+</ul>
+</div>
+<div id="challenges" class="section level2">
+<h2><span class="header-section-number">3.3</span> Challenges</h2>
+<ol start="0" style="list-style-type: decimal">
+<li>For each new function we go over, type <code>?</code> in front of it in the console to pull up the help page.</li>
+<li>Import and project the 1998 ward data. Calculate the centroids of the data.</li>
+<li>Map the centroids using ggplot2.</li>
+<li>Import and project the <a href="https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6">Chicago waterways data</a> GeoJSON.</li>
+<li>Map the waterways data.</li>
+<li>Make a ggplot of the wards and the waterways.</li>
+<li>Save the map.</li>
+<li>Make a ggplot of all wards that intersect the river.</li>
+<li>(if time) Customize your map.</li>
+</ol>
+<p>Remember to push your work to Github to back it up!</p>
+</div>
+<div id="notes" class="section level2">
+<h2><span class="header-section-number">3.4</span> Notes</h2>
+<ul>
+<li>If you keep getting the following error message, try reversing the <code>geom_sf</code>s again and/or highlighting/re-running the lines of code multiple times.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Error <span class="cf">in</span> <span class="kw">grid.Call</span>(C_textBounds, <span class="kw">as.graphicsAnnot</span>(x<span class="op">$</span>label), x<span class="op">$</span>x, x<span class="op">$</span>y,  <span class="op">:</span><span class="st"> </span>
+<span class="st">  </span>polygon edge not found</code></pre></div>
+<ul>
+<li>Save all figures in <code>docs/figs</code> in your project.</li>
+</ul>
+</div>
+<div id="links-2" class="section level2">
+<h2><span class="header-section-number">3.5</span> Links</h2>
+<ul>
+<li>Link to current Chicago waterways data: <a href="https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6" class="uri">https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6</a></li>
+<li><code>geom_sf</code> documentation page: <a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="uri">https://ggplot2.tidyverse.org/reference/ggsf.html</a></li>
+<li><code>ggsave</code> documentation page: <a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="uri">https://ggplot2.tidyverse.org/reference/ggsave.html</a></li>
+<li><code>dplyr</code> package documentation site: <a href="https://dplyr.tidyverse.org" class="uri">https://dplyr.tidyverse.org</a></li>
+<li>Excellent blog post on how to manipulate spatial information: <a href="http://strimas.com/r/tidy-sf/" class="uri">http://strimas.com/r/tidy-sf/</a></li>
+</ul>
 
 </div>
 </div>
@@ -199,8 +228,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
+<a href="single-dataset-gis-operations.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="project-setup.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

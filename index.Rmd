@@ -19,9 +19,9 @@ You are welcome to join us in **Searle 240B** for workshops if you're a member o
 
 Each chapter of this [bookdown](https://bookdown.org/) book represents a 1-hour workshop taught at the center. Chapters will be uploaded a day before the workshop so you can review the material prior to attending.
 
-**Scripts** from the workshops will be uploaded to Github following each workshop and can be found in the "R" folder at [this link](https://github.com/spatialanalysis/workshop-scripts).
+**Scripts** from the workshops will be uploaded to Github following each workshop and can be found in the `R` folder at [this link](https://github.com/spatialanalysis/workshop-scripts).
 
-**Data** used in the workshops can be found on the GeoDa Center [data website](https://geodacenter.github.io/data-and-lab/), and will be linked to in each workshop chapter. All data will eventually be found in an R package developed by the CSDS.
+**Data** used in the workshops can be found on the GeoDa Center [data website](https://geodacenter.github.io/data-and-lab/), or will be linked to in each workshop chapter. All data will eventually be found in an R package developed by the CSDS.
 
 ## Prior Knowledge {-}
 
