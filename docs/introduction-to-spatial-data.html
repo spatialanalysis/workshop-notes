@@ -86,6 +86,7 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -126,15 +127,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html"><i class="fa fa-check"></i><b>2</b> Single-Dataset GIS Operations</a><ul>
 <li class="chapter" data-level="2.1" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="2.2" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#functions-learned-1"><i class="fa fa-check"></i><b>2.2</b> Functions Learned</a></li>
-<li class="chapter" data-level="2.3" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
-<li class="chapter" data-level="2.4" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#links-1"><i class="fa fa-check"></i><b>2.4</b> Links</a></li>
+<li class="chapter" data-level="2.3" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#interactive-tutorial-1"><i class="fa fa-check"></i><b>2.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="2.4" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+<li class="chapter" data-level="2.5" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#links-1"><i class="fa fa-check"></i><b>2.5</b> Links</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html"><i class="fa fa-check"></i><b>3</b> Multiple-Dataset GIS Operations / Visualization</a><ul>
 <li class="chapter" data-level="3.1" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#learning-objectives-2"><i class="fa fa-check"></i><b>3.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="3.2" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#functions-learned-2"><i class="fa fa-check"></i><b>3.2</b> Functions Learned</a></li>
-<li class="chapter" data-level="3.3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#challenges"><i class="fa fa-check"></i><b>3.3</b> Challenges</a></li>
-<li class="chapter" data-level="3.4" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#notes"><i class="fa fa-check"></i><b>3.4</b> Notes</a></li>
-<li class="chapter" data-level="3.5" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#links-2"><i class="fa fa-check"></i><b>3.5</b> Links</a></li>
+<li class="chapter" data-level="3.3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#interactive-tutorial-2"><i class="fa fa-check"></i><b>3.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="3.4" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#links-2"><i class="fa fa-check"></i><b>3.4</b> Links</a></li>
 </ul></li>
 </ul>
 
@@ -173,6 +174,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="interactive-tutorial" class="section level2">
 <h2><span class="header-section-number">1.3</span> Interactive Tutorial</h2>
 <p>The rest of the workshop was dedicated to a hands-on exercise where we live coded together. The data we used was 1986 Chicago aldermanic ward boundary data, which can be found on the UChicago Map Collection page <a href="https://www.lib.uchicago.edu/e/collections/maps/chigis.html">here</a>.</p>
+<p>This workshop’s script can be found <a href="https://github.com/spatialanalysis/workshop-scripts/blob/master/R/01-intro.R">here</a>.</p>
 <div id="functions-learned" class="section level3">
 <h3><span class="header-section-number">1.3.1</span> Functions learned</h3>
 <ul>
@@ -191,8 +193,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## Linking to GEOS 3.6.1, GDAL 2.1.3, PROJ 4.9.3</code></pre>
 <p>Tip: You can use the keyboard shortcut Ctrl-Enter to run a line of code in R.</p>
 <p>We’ll use the <code>st_read</code> function. This also reads GeoJSON, PostGIS databases, and more.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ward86 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/chicago-wards/ward1986.shp&quot;</span>)</code></pre></div>
-<pre><code>## Reading layer `ward1986&#39; from data source `/Users/angela/Desktop/Spatial Data Science/workshop-notes/data/chicago-wards/ward1986.shp&#39; using driver `ESRI Shapefile&#39;
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ward86 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/ward1986.shp&quot;</span>)</code></pre></div>
+<pre><code>## Reading layer `ward1986&#39; from data source `/Users/angela/Desktop/Spatial Data Science/workshop-notes/data/ward1986.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 51 features and 1 field (with 1 geometry empty)
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY

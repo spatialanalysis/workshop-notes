@@ -86,6 +86,7 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -126,15 +127,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html"><i class="fa fa-check"></i><b>2</b> Single-Dataset GIS Operations</a><ul>
 <li class="chapter" data-level="2.1" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="2.2" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#functions-learned-1"><i class="fa fa-check"></i><b>2.2</b> Functions Learned</a></li>
-<li class="chapter" data-level="2.3" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#exercises"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
-<li class="chapter" data-level="2.4" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#links-1"><i class="fa fa-check"></i><b>2.4</b> Links</a></li>
+<li class="chapter" data-level="2.3" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#interactive-tutorial-1"><i class="fa fa-check"></i><b>2.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="2.4" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+<li class="chapter" data-level="2.5" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#links-1"><i class="fa fa-check"></i><b>2.5</b> Links</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html"><i class="fa fa-check"></i><b>3</b> Multiple-Dataset GIS Operations / Visualization</a><ul>
 <li class="chapter" data-level="3.1" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#learning-objectives-2"><i class="fa fa-check"></i><b>3.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="3.2" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#functions-learned-2"><i class="fa fa-check"></i><b>3.2</b> Functions Learned</a></li>
-<li class="chapter" data-level="3.3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#challenges"><i class="fa fa-check"></i><b>3.3</b> Challenges</a></li>
-<li class="chapter" data-level="3.4" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#notes"><i class="fa fa-check"></i><b>3.4</b> Notes</a></li>
-<li class="chapter" data-level="3.5" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#links-2"><i class="fa fa-check"></i><b>3.5</b> Links</a></li>
+<li class="chapter" data-level="3.3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#interactive-tutorial-2"><i class="fa fa-check"></i><b>3.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="3.4" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#links-2"><i class="fa fa-check"></i><b>3.4</b> Links</a></li>
 </ul></li>
 </ul>
 
@@ -161,58 +162,201 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Create multi-layered maps</li>
 <li>Calculate the area of polygons</li>
 <li>Find spatial intersections</li>
-<li>Save maps for future use</li>
 </ul>
 </div>
 <div id="functions-learned-2" class="section level2">
 <h2><span class="header-section-number">3.2</span> Functions Learned</h2>
-<p>From <code>ggplot2</code> - for visualization:</p>
 <ul>
 <li><code>ggplot()</code></li>
 <li><code>geom_sf()</code></li>
-<li><code>ggsave()</code></li>
-</ul>
-<p>From <code>sf</code> - for GIS operations:</p>
-<ul>
-<li><code>st_cast()</code> / <code>st_union()</code></li>
-<li><code>st_area()</code></li>
 <li><code>st_intersects()</code></li>
+<li><code>filter()</code>: picks cases based on their values, from the <code>dplyr</code> package.</li>
 </ul>
-<p>From <code>dplyr</code> - for data manipulation: See below link for a great tutorial on how to use <code>dplyr</code> with <code>sf</code> to do data analysis.</p>
-<ul>
-<li><code>arrange()</code>: changes the ordering of the rows.</li>
-<li><code>filter()</code>: picks cases based on their values.</li>
-<li><code>mutate()</code>: adds new variables that are functions of existing variables.</li>
-</ul>
+<p>Hint: For each new function we go over, type <code>?</code> in front of it in the console to pull up the help page.</p>
 </div>
-<div id="challenges" class="section level2">
-<h2><span class="header-section-number">3.3</span> Challenges</h2>
-<ol start="0" style="list-style-type: decimal">
-<li>For each new function we go over, type <code>?</code> in front of it in the console to pull up the help page.</li>
-<li>Import and project the 1998 ward data. Calculate the centroids of the data.</li>
-<li>Map the centroids using ggplot2.</li>
-<li>Import and project the <a href="https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6">Chicago waterways data</a> GeoJSON. <img src="figs/waterways-data.png" /></li>
-<li>Map the waterways data.</li>
-<li>Make a ggplot of the wards and the waterways.</li>
-<li>Save the map.</li>
-<li>Make a ggplot of all wards that intersect the river.</li>
-<li>(if time) Customize your map.</li>
-</ol>
-<p>Remember to push your work to Github to back it up!</p>
+<div id="interactive-tutorial-2" class="section level2">
+<h2><span class="header-section-number">3.3</span> Interactive Tutorial</h2>
+<p>This workshop’s script can be found <a href="https://github.com/spatialanalysis/workshop-scripts/blob/master/R/03-gis-2.R">here</a>.</p>
+<div class="learncheck">
+<p>
+Challenge
+</p>
 </div>
-<div id="notes" class="section level2">
-<h2><span class="header-section-number">3.4</span> Notes</h2>
-<ul>
-<li>If you keep getting the following error message, try reversing the <code>geom_sf</code>s again and/or highlighting/re-running the lines of code multiple times.</li>
-</ul>
+<p>Do you remember how to read in and project data? Try it out! Also calculate the centroids.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+ward98 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/ward1998.shp&quot;</span>)</code></pre></div>
+<pre><code>## Reading layer `ward1998&#39; from data source `/Users/angela/Desktop/Spatial Data Science/workshop-notes/data/ward1998.shp&#39; using driver `ESRI Shapefile&#39;
+## Simple feature collection with 50 features and 2 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -87.94021 ymin: 41.64434 xmax: -87.52404 ymax: 42.02313
+## epsg (SRID):    4269
+## proj4string:    +proj=longlat +datum=NAD83 +no_defs</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ward98 &lt;-<span class="st"> </span><span class="kw">st_transform</span>(ward98, <span class="dv">32616</span>)
+centroids &lt;-<span class="st"> </span><span class="kw">st_centroid</span>(ward98)</code></pre></div>
+<pre><code>## Warning in st_centroid.sf(ward98): st_centroid assumes attributes are
+## constant over geometries of x</code></pre>
+<p>We are going to start plotting with a new package: <code>ggplot2</code>. This is my favorite package for plotting <code>sf</code> objects, as there is a special function in the package called <code>geom_sf</code> that expressly handles spatial data.</p>
+<p>The syntax of a ggplot call is as follows: <img src="" /></p>
+<p>To plot an <code>sf</code> object, use <code>geom_sf()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.4.4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>()</code></pre></div>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="learncheck">
+<p>
+Challenge
+</p>
+</div>
+<p>Use <code>geom_sf</code> to make a ggplot of the centroids data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> centroids) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>()</code></pre></div>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Note: If you keep getting the following error message, try reversing the <code>geom_sf</code>s again and/or highlighting/re-running the lines of code multiple times.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Error <span class="cf">in</span> <span class="kw">grid.Call</span>(C_textBounds, <span class="kw">as.graphicsAnnot</span>(x<span class="op">$</span>label), x<span class="op">$</span>x, x<span class="op">$</span>y,  <span class="op">:</span><span class="st"> </span>
 <span class="st">  </span>polygon edge not found</code></pre></div>
-<ul>
-<li>Save all figures in <code>docs/figs</code> in your project.</li>
-</ul>
+<p>One nice thing about ggplot is that it’s super easy to layer things. For example, if I want to plot the wards and the centroids, I can do that by moving the <code>data =</code> argument to within the <code>geom_sf()</code> call.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> centroids)</code></pre></div>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>I can also change colors and other settings.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98, <span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> centroids, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>So far, we’ve plotted data that was from the same original dataset. What if we want to add a layer with Chicago’s waterways?</p>
+<p>First we download, import, and project data from the Chicago Data Portal. As an exercise, I’m going to download a <a href="https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6">Chicago waterways data</a> GeoJSON, which <code>st_read</code> can also interpret and convert into an <code>sf</code> object.</p>
+<div class="figure">
+<img src="figs/waterways-data.png" />
+
+</div>
+<div class="learncheck">
+<p>
+Challenge
+</p>
+</div>
+<p>Read and project the waterways JSON. Hint: save your JSON file in the data/ folder in your workspace.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+water &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/Waterways.geojson&quot;</span>)</code></pre></div>
+<pre><code>## Reading layer `OGRGeoJSON&#39; from data source `/Users/angela/Desktop/Spatial Data Science/workshop-notes/data/Waterways.geojson&#39; using driver `GeoJSON&#39;
+## Simple feature collection with 605 features and 6 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -87.9389 ymin: 41.6195 xmax: -86.20666 ymax: 43.21631
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">water &lt;-<span class="st"> </span><span class="kw">st_transform</span>(water, <span class="dv">32616</span>)</code></pre></div>
+<p>Now, plot it to see if things are looking alright.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water)</code></pre></div>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>Uh oh, looks like we have Lake Michigan with everything else. We want to filter out that feature. We’ll use the <code>filter()</code> command from <code>dplyr</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.4.4</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">water_clean &lt;-<span class="st"> </span><span class="kw">filter</span>(water, name <span class="op">!=</span><span class="st"> &quot;LAKE MICHIGAN&quot;</span>)</code></pre></div>
+<pre><code>## Warning: package &#39;bindrcpp&#39; was built under R version 3.4.4</code></pre>
+<p>Now we can make a map with both the wards and the waterways in Chicago.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>Note that order matters here! ggplot plots in the order that you give your functions to it, so if you reorder the <code>geom_sf</code> calls, the wards are mapped after - and on top of! - the rivers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98)</code></pre></div>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>The last thing we’ll do is figure out which wards intersect with waterways, using a powerful <code>sf</code> function called <code>st_intersects</code>. The output of <code>st_intersects</code> is a bit strange: it’s a list of indexes of the intersected features for each ward.</p>
+<p>The main thing you need to know is: if there is nothing in the list for a feature, that means nothing intersects with it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">intersects &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(ward98, water_clean)
+<span class="kw">str</span>(intersects)</code></pre></div>
+<pre><code>## List of 50
+##  $ : int [1:146] 21 28 38 39 46 47 59 67 68 71 ...
+##  $ : int [1:28] 2 3 4 5 6 7 8 9 10 11 ...
+##  $ : int [1:24] 1 2 15 16 17 18 19 20 22 23 ...
+##  $ : int(0) 
+##  $ : int(0) 
+##  $ : int [1:3] 186 187 189
+##  $ : int [1:3] 45 62 63
+##  $ : int [1:3] 192 194 195
+##  $ : int(0) 
+##  $ : int [1:6] 381 389 390 569 579 586
+##  $ : int [1:6] 64 65 66 143 155 156
+##  $ : int 224
+##  $ : int [1:14] 37 40 43 44 49 50 51 53 54 55 ...
+##  $ : int(0) 
+##  $ : int 382
+##  $ : int [1:34] 2 3 15 16 17 18 19 20 303 569 ...
+##  $ : int [1:13] 30 314 315 316 328 329 458 463 464 466 ...
+##  $ : int [1:23] 154 228 297 310 311 321 323 325 327 330 ...
+##  $ : int [1:6] 370 581 582 583 584 585
+##  $ : int [1:3] 380 384 386
+##  $ : int 58
+##  $ : int(0) 
+##  $ : int(0) 
+##  $ : int [1:21] 291 292 293 294 295 296 307 308 309 311 ...
+##  $ : int [1:18] 383 400 401 402 411 413 420 422 428 429 ...
+##  $ : int [1:3] 509 510 511
+##  $ : int(0) 
+##  $ : int [1:16] 264 446 447 452 454 455 460 462 465 478 ...
+##  $ : int(0) 
+##  $ : int 449
+##  $ : int [1:34] 168 191 250 255 256 257 267 268 274 275 ...
+##  $ : int(0) 
+##  $ : int [1:15] 227 247 250 253 258 265 275 280 284 290 ...
+##  $ : int [1:67] 29 60 61 79 152 153 162 178 193 213 ...
+##  $ : int [1:59] 70 99 154 228 297 310 331 332 333 334 ...
+##  $ : int [1:17] 48 241 248 298 299 300 301 302 305 306 ...
+##  $ : int 469
+##  $ : int [1:15] 153 200 251 252 254 260 262 263 266 270 ...
+##  $ : int [1:2] 425 438
+##  $ : int [1:8] 432 433 439 440 453 456 458 459
+##  $ : int(0) 
+##  $ : int(0) 
+##  $ : int [1:32] 144 145 146 147 148 149 150 151 157 158 ...
+##  $ : int [1:4] 205 221 227 526
+##  $ : int(0) 
+##  $ : int(0) 
+##  $ : int [1:32] 69 73 87 105 119 121 126 133 135 138 ...
+##  $ : int [1:7] 80 84 89 229 230 232 236
+##  $ : int(0) 
+##  $ : int [1:2] 190 223
+##  - attr(*, &quot;predicate&quot;)= chr &quot;intersects&quot;
+##  - attr(*, &quot;region.id&quot;)= chr [1:50] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  - attr(*, &quot;ncol&quot;)= int 604
+##  - attr(*, &quot;class&quot;)= chr &quot;sgbp&quot;</code></pre>
+<p>Note: This is where projection is extremely important. If you get an error message that says:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Error<span class="op">:</span><span class="st"> </span><span class="kw">st_crs</span>(x) <span class="op">==</span><span class="st"> </span><span class="kw">st_crs</span>(y) is not <span class="ot">TRUE</span></code></pre></div>
+<p>that probably means that you forgot to project one of your datasets. Check the CRS with both and fix it with <code>st_transform</code>.</p>
+<p>This is a little hairy, so in order to use this reasonably, we combine it with the <code>filter</code> command we learned earlier. We are filtering the original data by whether or not it has any water features that intersect with it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">water_wards &lt;-<span class="st"> </span><span class="kw">filter</span>(ward98, <span class="kw">lengths</span>(intersects) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre></div>
+<p>Note: Don’t forget the <code>s</code> in <code>lengths</code> like I did during the workshop!</p>
+<div class="learncheck">
+<p>
+Challenge
+</p>
+</div>
+<p>Can you plot the wards, the rivers, and the wards that intersect with a river?</p>
+<p>The grand finale!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_wards, <span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>Remember to push your work to Github to back it up!</p>
 </div>
 <div id="links-2" class="section level2">
-<h2><span class="header-section-number">3.5</span> Links</h2>
+<h2><span class="header-section-number">3.4</span> Links</h2>
 <ul>
 <li>Link to current Chicago waterways data: <a href="https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6" class="uri">https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6</a></li>
 <li><code>geom_sf</code> documentation page: <a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="uri">https://ggplot2.tidyverse.org/reference/ggsf.html</a></li>

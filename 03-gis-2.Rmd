@@ -1,0 +1,166 @@
+# Multiple-Dataset GIS Operations / Visualization
+
+## Learning Objectives
+
+- Create multi-layered maps
+- Calculate the area of polygons 
+- Find spatial intersections
+
+## Functions Learned
+
+- `ggplot()`
+- `geom_sf()`
+- `st_intersects()`
+- `filter()`: picks cases based on their values, from the `dplyr` package.
+
+Hint: For each new function we go over, type `?` in front of it in the console to pull up the help page.
+
+## Interactive Tutorial
+
+This workshop's script can be found [here](https://github.com/spatialanalysis/workshop-scripts/blob/master/R/03-gis-2.R).
+
+```{block, type='learncheck', purl=FALSE}
+Challenge
+```
+Do you remember how to read in and project data? Try it out! Also calculate the centroids.
+
+
+```{r}
+library(sf)
+ward98 <- st_read("data/ward1998.shp")
+ward98 <- st_transform(ward98, 32616)
+centroids <- st_centroid(ward98)
+```
+
+We are going to start plotting with a new package: `ggplot2`. This is my favorite package for plotting `sf` objects, as there is a special function in the package called `geom_sf` that expressly handles spatial data.
+
+The syntax of a ggplot call is as follows:
+![]()
+
+To plot an `sf` object, use `geom_sf()`.
+```{r}
+library(ggplot2)
+ggplot(data = ward98) +
+  geom_sf()
+```
+
+```{block, type='learncheck', purl=FALSE}
+Challenge
+```
+Use `geom_sf` to make a ggplot of the centroids data.
+
+
+```{r}
+ggplot(data = centroids) +
+  geom_sf()
+```
+
+Note: If you keep getting the following error message, try reversing the `geom_sf`s again and/or highlighting/re-running the lines of code multiple times.
+```{r eval=FALSE}
+Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y,  : 
+  polygon edge not found
+```
+
+One nice thing about ggplot is that it's super easy to layer things. For example, if I want to plot the wards and the centroids, I can do that by moving the `data =` argument to within the `geom_sf()` call.
+```{r}
+ggplot() +
+  geom_sf(data = ward98) +
+  geom_sf(data = centroids)
+```
+
+I can also change colors and other settings.
+```{r}
+ggplot() +
+  geom_sf(data = ward98, fill = "lightblue") +
+  geom_sf(data = centroids, color = "blue")
+```
+
+So far, we've plotted data that was from the same original dataset. What if we want to add a layer with Chicago's waterways?
+
+First we download, import, and project data from the Chicago Data Portal. As an exercise, I'm going to download a [Chicago waterways data](https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6) GeoJSON, which `st_read` can also interpret and convert into an `sf` object.
+
+![](figs/waterways-data.png)
+
+```{block, type='learncheck', purl=FALSE}
+Challenge
+```
+Read and project the waterways JSON. Hint: save your JSON file in the data/ folder in your workspace.
+
+```{r}
+library(sf)
+water <- st_read("data/Waterways.geojson")
+water <- st_transform(water, 32616)
+```
+
+Now, plot it to see if things are looking alright.
+```{r}
+library(ggplot2)
+ggplot() +
+  geom_sf(data = water)
+```
+
+Uh oh, looks like we have Lake Michigan with everything else. We want to filter out that feature. We'll use the `filter()` command from `dplyr`.
+```{r}
+library(dplyr)
+water_clean <- filter(water, name != "LAKE MICHIGAN")
+```
+
+Now we can make a map with both the wards and the waterways in Chicago.
+```{r}
+ggplot() +
+  geom_sf(data = ward98) +
+  geom_sf(data = water_clean, color = "blue")
+```
+
+Note that order matters here! ggplot plots in the order that you give your functions to it, so if you reorder the `geom_sf` calls, the wards are mapped after - and on top of! - the rivers.
+```{r}
+ggplot() +
+  geom_sf(data = water_clean, color = "blue") +
+  geom_sf(data = ward98)
+```
+
+The last thing we'll do is figure out which wards intersect with waterways, using a powerful `sf` function called `st_intersects`. The output of `st_intersects` is a bit strange: it's a list of indexes of the intersected features for each ward. 
+
+The main thing you need to know is: if there is nothing in the list for a feature, that means nothing intersects with it.
+```{r}
+intersects <- st_intersects(ward98, water_clean)
+str(intersects)
+```
+
+Note: This is where projection is extremely important. If you get an error message that says:
+```{r eval=FALSE}
+Error: st_crs(x) == st_crs(y) is not TRUE
+```
+that probably means that you forgot to project one of your datasets. Check the CRS with both and fix it with `st_transform`.
+
+This is a little hairy, so in order to use this reasonably, we combine it with the `filter` command we learned earlier. We are filtering the original data by whether or not it has any water features that intersect with it.
+
+```{r}
+water_wards <- filter(ward98, lengths(intersects) > 0)
+```
+
+Note: Don't forget the `s` in `lengths` like I did during the workshop!
+
+```{block, type='learncheck', purl=FALSE}
+Challenge
+```
+Can you plot the wards, the rivers, and the wards that intersect with a river?
+
+The grand finale!
+```{r}
+ggplot() +
+  geom_sf(data = ward98) +
+  geom_sf(data = water_wards, fill = "lightblue") +
+  geom_sf(data = water_clean, color = "blue")
+```
+
+Remember to push your work to Github to back it up!
+
+## Links
+- Link to current Chicago waterways data: https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6
+- `geom_sf` documentation page: https://ggplot2.tidyverse.org/reference/ggsf.html
+- `ggsave` documentation page:
+https://ggplot2.tidyverse.org/reference/ggsave.html
+- `dplyr` package documentation site:
+https://dplyr.tidyverse.org
+- Excellent blog post on how to manipulate spatial information: http://strimas.com/r/tidy-sf/
