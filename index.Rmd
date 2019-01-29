@@ -6,7 +6,8 @@ github-repo: spatialanalysis/workshop-notes
 site: bookdown::bookdown_site
 documentclass: book
 output:
-  bookdown::gitbook: default
+  bookdown::gitbook:
+      css: style.css
 ---
 
 # Introduction {-}
