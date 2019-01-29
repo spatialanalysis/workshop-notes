@@ -34,6 +34,7 @@ See below link for a great tutorial on how to use `dplyr` with `sf` to do data a
 1. Import and project the 1998 ward data. Calculate the centroids of the data.
 2. Map the centroids using ggplot2.
 3. Import and project the [Chicago waterways data](https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6) GeoJSON.
+![](figs/waterways-data.png)
 4. Map the waterways data.
 5. Make a ggplot of the wards and the waterways.
 6. Save the map.
