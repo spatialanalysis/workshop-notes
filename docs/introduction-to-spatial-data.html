@@ -120,7 +120,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.3.3" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#project-your-data"><i class="fa fa-check"></i><b>1.3.3</b> Project your data</a></li>
 <li class="chapter" data-level="1.3.4" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#your-challenge"><i class="fa fa-check"></i><b>1.3.4</b> Your challenge</a></li>
 <li class="chapter" data-level="1.3.5" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#solution"><i class="fa fa-check"></i><b>1.3.5</b> Solution</a></li>
-<li class="chapter" data-level="1.3.6" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#bad-projections"><i class="fa fa-check"></i><b>1.3.6</b> Bad projections</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#links"><i class="fa fa-check"></i><b>1.4</b> Links</a></li>
 </ul></li>
@@ -191,7 +190,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">library</span>(sf)</code></pre></div>
 <pre><code>## Warning: package &#39;sf&#39; was built under R version 3.4.4</code></pre>
 <pre><code>## Linking to GEOS 3.6.1, GDAL 2.1.3, PROJ 4.9.3</code></pre>
-<p>Tip: You can use the keyboard shortcut Ctrl-Enter to run a line of code in R.</p>
+<div class="rmdinfo">
+<p>
+You can use the keyboard shortcut <code>Ctrl-Enter</code> to run a line of code in R.
+</p>
+</div>
 <p>We’ll use the <code>st_read</code> function. This also reads GeoJSON, PostGIS databases, and more.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ward86 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/ward1986.shp&quot;</span>)</code></pre></div>
 <pre><code>## Reading layer `ward1986&#39; from data source `/Users/angela/Desktop/Spatial Data Science/workshop-notes/data/ward1986.shp&#39; using driver `ESRI Shapefile&#39;
@@ -201,7 +204,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## bbox:           xmin: -87.9402 ymin: 41.6443 xmax: -87.524 ymax: 42.0231
 ## epsg (SRID):    4269
 ## proj4string:    +proj=longlat +datum=NAD83 +no_defs</code></pre>
-<p>Press tab after typing in <code>st_read(&quot;&quot;)</code> with your cursor in between the quotation marks and you’ll get a nice autocomplete feature.</p>
+<div class="rmdinfo">
+<p>
+Press tab after typing in <code>st_read(“”)</code> with your cursor in between the quotation marks and you’ll get a nice autocomplete feature.
+</p>
+</div>
 <p>Check what projection the data is in:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(ward86)</code></pre></div>
 <pre><code>## Coordinate Reference System:
@@ -210,7 +217,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Sike, this isn’t projected! You can tell because the proj4string starts with <code>+proj=longlat</code>. You can still plot this, but things will start to get iffy if you try to do distance or area calculations, or plot these ward boundaries with other layers.</p>
 <p>I can still plot the map, but as a good geographic data analyst, I’ll need to project it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(ward86)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="project-your-data" class="section level3">
 <h3><span class="header-section-number">1.3.3</span> Project your data</h3>
@@ -219,7 +226,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <img src="figs/what-projection.png" />
 
 </div>
-<p>I generally do a online search to look up the EPSG codes for the projection I want to use, or use <a href="http://spatialreference.org/">spatialreference.org</a>, which has a database for all EPSG codes for projections.</p>
+<div class="rmdinfo">
+<p>
+I generally do a online search to look up the EPSG codes for the projection I want to use, or use <a href="http://spatialreference.org/">spatialreference.org</a>, which has a database for all EPSG codes for projections.
+</p>
+</div>
 <p>After I do some sleuthing, I find that the EPSG code I want for UTM Zone 16 is <code>32616</code>. I then use <code>st_transform()</code> to project the data, and save it as a new <code>sf</code> dataframe.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ward86_utm &lt;-<span class="st"> </span><span class="kw">st_transform</span>(ward86, <span class="dv">32616</span>)</code></pre></div>
 <p>I check the CRS - yep, looks right!</p>
@@ -230,7 +241,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Question: what datum is this in? What are the units for this projection?</p>
 <p>Plot it:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(ward86_utm)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 <div id="your-challenge" class="section level3">
 <h3><span class="header-section-number">1.3.4</span> Your challenge</h3>
@@ -246,16 +257,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##   EPSG: 3435 
 ##   proj4string: &quot;+proj=tmerc +lat_0=36.66666666666666 +lon_0=-88.33333333333333 +k=0.9999749999999999 +x_0=300000.0000000001 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=us-ft +no_defs&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(ward86_stateplane)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Note that the <code>+units=us-ft</code> part of the proj4string means that any distance calculations you do on the <code>ward86_stateplane</code> data will be done in feet.</p>
+<div class="rmdwarning">
+<p>
+Keep in mind that there are “bad” projections for your data. For example, if I accidentally chose the Alaska Albers projection for my data…
+</p>
 </div>
-<div id="bad-projections" class="section level3">
-<h3><span class="header-section-number">1.3.6</span> Bad projections</h3>
-<p>Keep in mind that there are “bad” projections for your data. For example, if I accidentally chose the Alaska Albers projection for my data…</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ward86_alaska &lt;-<span class="st"> </span><span class="kw">st_transform</span>(ward86, <span class="dv">3338</span>)
 <span class="kw">plot</span>(ward86_alaska)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>Clearly this projection isn’t great for Chicago! But something to keep in mind, if, say, you’re making maps of places closer to the poles.</p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Clearly this projection isn’t great for Chicago! But something to keep in mind, if, say, you’re making maps of places closer to the poles. ```</p>
 </div>
 </div>
 <div id="links" class="section level2">
@@ -320,6 +332,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

@@ -38,14 +38,18 @@ First load the `sf` library. If you don't have it, install it in your console or
 library(sf)
 ```
 
-Tip: You can use the keyboard shortcut Ctrl-Enter to run a line of code in R.
+```{block type="rmdinfo"}
+You can use the keyboard shortcut `Ctrl-Enter` to run a line of code in R.
+```
 
 We'll use the `st_read` function. This also reads GeoJSON, PostGIS databases, and more. 
 
 ```{r}
 ward86 <- st_read("data/ward1986.shp")
 ```
+```{block type="rmdinfo"}
 Press tab after typing in `st_read("")` with your cursor in between the quotation marks and you'll get a nice autocomplete feature.
+```
 
 Check what projection the data is in:
 ```{r}
@@ -64,7 +68,9 @@ We need to project the data: but how do we choose what projection we need? This 
 
 ![](figs/what-projection.png)
 
+```{block type="rmdinfo"}
 I generally do a online search to look up the EPSG codes for the projection I want to use, or use [spatialreference.org](http://spatialreference.org/ ), which has a database for all EPSG codes for projections.
+```
 
 After I do some sleuthing, I find that the EPSG code I want for UTM Zone 16 is `32616`. I then use `st_transform()` to project the data, and save it as a new `sf` dataframe.
 ```{r}
@@ -96,8 +102,7 @@ plot(ward86_stateplane)
 
 Note that the `+units=us-ft` part of the proj4string means that any distance calculations you do on the `ward86_stateplane` data will be done in feet.
 
-### Bad projections
-
+```{block type="rmdwarning"}
 Keep in mind that there are "bad" projections for your data. For example, if I accidentally chose the Alaska Albers projection for my data...
 ```{r}
 ward86_alaska <- st_transform(ward86, 3338)
@@ -105,6 +110,7 @@ plot(ward86_alaska)
 ```
 
 Clearly this projection isn't great for Chicago! But something to keep in mind, if, say, you're making maps of places closer to the poles.
+```
 
 ## Links
 

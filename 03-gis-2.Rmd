@@ -13,7 +13,9 @@
 - `st_intersects()`
 - `filter()`: picks cases based on their values, from the `dplyr` package.
 
+```{block type="rmdinfo"}
 Hint: For each new function we go over, type `?` in front of it in the console to pull up the help page.
+```
 
 ## Interactive Tutorial
 
@@ -55,9 +57,10 @@ ggplot(data = centroids) +
   geom_sf()
 ```
 
+```{block type="rmdwarning"}
 Note: If you keep getting the following error message, try reversing the `geom_sf`s again and/or highlighting/re-running the lines of code multiple times.
-```{r eval=FALSE}
-Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y,  : 
+
+> Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y,  : 
   polygon edge not found
 ```
 
@@ -112,7 +115,10 @@ ggplot() +
   geom_sf(data = water_clean, color = "blue")
 ```
 
+```{block type="rmdwarning"}
 Note that order matters here! ggplot plots in the order that you give your functions to it, so if you reorder the `geom_sf` calls, the wards are mapped after - and on top of! - the rivers.
+```
+
 ```{r}
 ggplot() +
   geom_sf(data = water_clean, color = "blue") +
@@ -127,11 +133,14 @@ intersects <- st_intersects(ward98, water_clean)
 str(intersects)
 ```
 
+```{block type="rmdwarning"}
+
 Note: This is where projection is extremely important. If you get an error message that says:
-```{r eval=FALSE}
-Error: st_crs(x) == st_crs(y) is not TRUE
-```
+
+> Error: st_crs(x) == st_crs(y) is not TRUE
+
 that probably means that you forgot to project one of your datasets. Check the CRS with both and fix it with `st_transform`.
+```
 
 This is a little hairy, so in order to use this reasonably, we combine it with the `filter` command we learned earlier. We are filtering the original data by whether or not it has any water features that intersect with it.
 
@@ -139,7 +148,9 @@ This is a little hairy, so in order to use this reasonably, we combine it with t
 water_wards <- filter(ward98, lengths(intersects) > 0)
 ```
 
+```{block type="rmdwarning"}
 Note: Don't forget the `s` in `lengths` like I did during the workshop!
+```
 
 ```{block, type='learncheck', purl=FALSE}
 Challenge

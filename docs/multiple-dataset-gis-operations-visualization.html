@@ -120,7 +120,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.3.3" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#project-your-data"><i class="fa fa-check"></i><b>1.3.3</b> Project your data</a></li>
 <li class="chapter" data-level="1.3.4" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#your-challenge"><i class="fa fa-check"></i><b>1.3.4</b> Your challenge</a></li>
 <li class="chapter" data-level="1.3.5" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#solution"><i class="fa fa-check"></i><b>1.3.5</b> Solution</a></li>
-<li class="chapter" data-level="1.3.6" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#bad-projections"><i class="fa fa-check"></i><b>1.3.6</b> Bad projections</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#links"><i class="fa fa-check"></i><b>1.4</b> Links</a></li>
 </ul></li>
@@ -172,7 +171,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>st_intersects()</code></li>
 <li><code>filter()</code>: picks cases based on their values, from the <code>dplyr</code> package.</li>
 </ul>
-<p>Hint: For each new function we go over, type <code>?</code> in front of it in the console to pull up the help page.</p>
+<div class="rmdinfo">
+<p>
+Hint: For each new function we go over, type <code>?</code> in front of it in the console to pull up the help page.
+</p>
+</div>
 </div>
 <div id="interactive-tutorial-2" class="section level2">
 <h2><span class="header-section-number">3.3</span> Interactive Tutorial</h2>
@@ -203,7 +206,7 @@ centroids &lt;-<span class="st"> </span><span class="kw">st_centroid</span>(ward
 <pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.4.4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>()</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <div class="learncheck">
 <p>
 Challenge
@@ -212,20 +215,27 @@ Challenge
 <p>Use <code>geom_sf</code> to make a ggplot of the centroids data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> centroids) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>()</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<p>Note: If you keep getting the following error message, try reversing the <code>geom_sf</code>s again and/or highlighting/re-running the lines of code multiple times.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Error <span class="cf">in</span> <span class="kw">grid.Call</span>(C_textBounds, <span class="kw">as.graphicsAnnot</span>(x<span class="op">$</span>label), x<span class="op">$</span>x, x<span class="op">$</span>y,  <span class="op">:</span><span class="st"> </span>
-<span class="st">  </span>polygon edge not found</code></pre></div>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="rmdwarning">
+<p>
+Note: If you keep getting the following error message, try reversing the <code>geom_sf</code>s again and/or highlighting/re-running the lines of code multiple times.
+</p>
+<blockquote>
+<p>
+Error in grid.Call(C_textBounds, as.graphicsAnnot(x<span class="math inline"><span class="math inline">\(label), x\)</span></span>x, x$y, : polygon edge not found
+</p>
+</blockquote>
+</div>
 <p>One nice thing about ggplot is that it’s super easy to layer things. For example, if I want to plot the wards and the centroids, I can do that by moving the <code>data =</code> argument to within the <code>geom_sf()</code> call.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> centroids)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>I can also change colors and other settings.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98, <span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> centroids, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>So far, we’ve plotted data that was from the same original dataset. What if we want to add a layer with Chicago’s waterways?</p>
 <p>First we download, import, and project data from the Chicago Data Portal. As an exercise, I’m going to download a <a href="https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6">Chicago waterways data</a> GeoJSON, which <code>st_read</code> can also interpret and convert into an <code>sf</code> object.</p>
 <div class="figure">
@@ -252,7 +262,7 @@ water &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class=
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>Uh oh, looks like we have Lake Michigan with everything else. We want to filter out that feature. We’ll use the <code>filter()</code> command from <code>dplyr</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
 <pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.4.4</code></pre>
@@ -270,12 +280,16 @@ water &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class=
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<p>Note that order matters here! ggplot plots in the order that you give your functions to it, so if you reorder the <code>geom_sf</code> calls, the wards are mapped after - and on top of! - the rivers.</p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<div class="rmdwarning">
+<p>
+Note that order matters here! ggplot plots in the order that you give your functions to it, so if you reorder the <code>geom_sf</code> calls, the wards are mapped after - and on top of! - the rivers.
+</p>
+</div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>The last thing we’ll do is figure out which wards intersect with waterways, using a powerful <code>sf</code> function called <code>st_intersects</code>. The output of <code>st_intersects</code> is a bit strange: it’s a list of indexes of the intersected features for each ward.</p>
 <p>The main thing you need to know is: if there is nothing in the list for a feature, that means nothing intersects with it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">intersects &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(ward98, water_clean)
@@ -335,12 +349,26 @@ water &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class=
 ##  - attr(*, &quot;region.id&quot;)= chr [1:50] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
 ##  - attr(*, &quot;ncol&quot;)= int 604
 ##  - attr(*, &quot;class&quot;)= chr &quot;sgbp&quot;</code></pre>
-<p>Note: This is where projection is extremely important. If you get an error message that says:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Error<span class="op">:</span><span class="st"> </span><span class="kw">st_crs</span>(x) <span class="op">==</span><span class="st"> </span><span class="kw">st_crs</span>(y) is not <span class="ot">TRUE</span></code></pre></div>
-<p>that probably means that you forgot to project one of your datasets. Check the CRS with both and fix it with <code>st_transform</code>.</p>
+<div class="rmdwarning">
+<p>
+Note: This is where projection is extremely important. If you get an error message that says:
+</p>
+<blockquote>
+<p>
+Error: st_crs(x) == st_crs(y) is not TRUE
+</p>
+</blockquote>
+<p>
+that probably means that you forgot to project one of your datasets. Check the CRS with both and fix it with <code>st_transform</code>.
+</p>
+</div>
 <p>This is a little hairy, so in order to use this reasonably, we combine it with the <code>filter</code> command we learned earlier. We are filtering the original data by whether or not it has any water features that intersect with it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">water_wards &lt;-<span class="st"> </span><span class="kw">filter</span>(ward98, <span class="kw">lengths</span>(intersects) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre></div>
-<p>Note: Don’t forget the <code>s</code> in <code>lengths</code> like I did during the workshop!</p>
+<div class="rmdwarning">
+<p>
+Note: Don’t forget the <code>s</code> in <code>lengths</code> like I did during the workshop!
+</p>
+</div>
 <div class="learncheck">
 <p>
 Challenge
@@ -352,7 +380,7 @@ Challenge
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_wards, <span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>Remember to push your work to Github to back it up!</p>
 </div>
 <div id="links-2" class="section level2">
@@ -414,6 +442,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
