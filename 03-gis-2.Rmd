@@ -19,10 +19,12 @@ Hint: For each new function we go over, type `?` in front of it in the console t
 
 ## Interactive Tutorial
 
+```{block type="rmdinfo"}
 This workshop's script can be found [here](https://github.com/spatialanalysis/workshop-scripts/blob/master/R/03-gis-2.R).
+```
 
 ```{block, type='learncheck', purl=FALSE}
-Challenge
+**Challenge**
 ```
 Do you remember how to read in and project data? Try it out! Also calculate the centroids.
 
@@ -37,17 +39,17 @@ centroids <- st_centroid(ward98)
 We are going to start plotting with a new package: `ggplot2`. This is my favorite package for plotting `sf` objects, as there is a special function in the package called `geom_sf` that expressly handles spatial data.
 
 The syntax of a ggplot call is as follows:
-![]()
+![](figs/ggplot-syntax.png)
 
 To plot an `sf` object, use `geom_sf()`.
-```{r}
+```{r warning=FALSE}
 library(ggplot2)
 ggplot(data = ward98) +
   geom_sf()
 ```
 
 ```{block, type='learncheck', purl=FALSE}
-Challenge
+**Challenge**
 ```
 Use `geom_sf` to make a ggplot of the centroids data.
 
@@ -85,25 +87,23 @@ First we download, import, and project data from the Chicago Data Portal. As an 
 ![](figs/waterways-data.png)
 
 ```{block, type='learncheck', purl=FALSE}
-Challenge
+**Challenge**
 ```
 Read and project the waterways JSON. Hint: save your JSON file in the data/ folder in your workspace.
 
 ```{r}
-library(sf)
 water <- st_read("data/Waterways.geojson")
 water <- st_transform(water, 32616)
 ```
 
 Now, plot it to see if things are looking alright.
 ```{r}
-library(ggplot2)
 ggplot() +
   geom_sf(data = water)
 ```
 
 Uh oh, looks like we have Lake Michigan with everything else. We want to filter out that feature. We'll use the `filter()` command from `dplyr`.
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(dplyr)
 water_clean <- filter(water, name != "LAKE MICHIGAN")
 ```
@@ -120,6 +120,7 @@ Note that order matters here! ggplot plots in the order that you give your funct
 ```
 
 ```{r}
+# Incorrect order of geom_sf() calls
 ggplot() +
   geom_sf(data = water_clean, color = "blue") +
   geom_sf(data = ward98)
@@ -152,10 +153,12 @@ water_wards <- filter(ward98, lengths(intersects) > 0)
 Note: Don't forget the `s` in `lengths` like I did during the workshop!
 ```
 
-```{block, type='learncheck', purl=FALSE}
-Challenge
+```{block type="learncheck"}
+**Challenge**
 ```
 Can you plot the wards, the rivers, and the wards that intersect with a river?
+```{block type="learncheck"}
+```
 
 The grand finale!
 ```{r}
