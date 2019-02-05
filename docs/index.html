@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R Spatial Workshop Notes</title>
   <meta name="description" content="R Spatial Workshop Notes">
-  <meta name="generator" content="bookdown 0.7.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="R Spatial Workshop Notes" />
   <meta property="og:type" content="book" />
@@ -35,6 +35,7 @@
 <link rel="next" href="project-setup.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -118,8 +119,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.3.1" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#functions-learned"><i class="fa fa-check"></i><b>1.3.1</b> Functions learned</a></li>
 <li class="chapter" data-level="1.3.2" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#import-spatial-data"><i class="fa fa-check"></i><b>1.3.2</b> Import spatial data</a></li>
 <li class="chapter" data-level="1.3.3" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#project-your-data"><i class="fa fa-check"></i><b>1.3.3</b> Project your data</a></li>
-<li class="chapter" data-level="1.3.4" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#your-challenge"><i class="fa fa-check"></i><b>1.3.4</b> Your challenge</a></li>
-<li class="chapter" data-level="1.3.5" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#solution"><i class="fa fa-check"></i><b>1.3.5</b> Solution</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#links"><i class="fa fa-check"></i><b>1.4</b> Links</a></li>
 </ul></li>
@@ -135,6 +134,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#functions-learned-2"><i class="fa fa-check"></i><b>3.2</b> Functions Learned</a></li>
 <li class="chapter" data-level="3.3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#interactive-tutorial-2"><i class="fa fa-check"></i><b>3.3</b> Interactive Tutorial</a></li>
 <li class="chapter" data-level="3.4" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#links-2"><i class="fa fa-check"></i><b>3.4</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html"><i class="fa fa-check"></i><b>4</b> Multiple-Dataset GIS Operations / Visualization pt. 2</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#learning-objectives-3"><i class="fa fa-check"></i><b>4.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#functions-learned-3"><i class="fa fa-check"></i><b>4.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="4.3" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#challenges"><i class="fa fa-check"></i><b>4.3</b> Challenges</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#a-simple-example"><i class="fa fa-check"></i><b>4.3.1</b> A simple example</a></li>
+<li class="chapter" data-level="4.3.2" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#saving-your-plots"><i class="fa fa-check"></i><b>4.3.2</b> Saving your plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#links-3"><i class="fa fa-check"></i><b>4.4</b> Links</a></li>
 </ul></li>
 </ul>
 
@@ -155,8 +163,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">R Spatial Workshop Notes</h1>
-<h3 class="subtitle"><em>Winter Quarter 2019</em></h3>
-<h4 class="author"><em>Angela Li</em></h4>
+<h2 class="subtitle"><em>Winter Quarter 2019</em></h2>
+<p class="author"><em>Angela Li</em></p>
 </div>
 <div id="introduction" class="section level1 unnumbered">
 <h1>Introduction</h1>
@@ -164,7 +172,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>You are welcome to join us in <strong>Searle 240B</strong> for workshops if you’re a member of the UChicago campus community! Bring a laptop to follow along. Additionally, please fill out the following <a href="https://docs.google.com/forms/d/e/1FAIpQLSeAbyZQrcQuV9-LRwJeYQuwJgalJdL88Q5xYMuMLRTh1GBH6A/viewform">short survey</a> if you plan to attend the workshop this quarter.</p>
 <div id="workshop-organization" class="section level2 unnumbered">
 <h2>Workshop Organization</h2>
-<p>Each chapter of this <a href="https://bookdown.org/">bookdown</a> book represents a 1-hour workshop taught at the center. Chapters will be uploaded a day before the workshop so you can review the material prior to attending.</p>
+<p>Each chapter of this <a href="https://bookdown.org/">bookdown</a> book represents a 1-hour workshop taught at the center. Chapters will be uploaded after the workshop so you can self study the material.</p>
+<p>A tentative <strong>workshop schedule</strong> can be found at <a href="https://spatialanalysis.github.io/events/workshop-schedule/">this link</a>.</p>
 <p><strong>Scripts</strong> from the workshops will be uploaded to Github following each workshop and can be found in the <code>R</code> folder at <a href="https://github.com/spatialanalysis/workshop-scripts">this link</a>.</p>
 <p><strong>Data</strong> used in the workshops can be found on the GeoDa Center <a href="https://geodacenter.github.io/data-and-lab/">data website</a>, or will be linked to in each workshop chapter. All data will eventually be found in an R package developed by the CSDS.</p>
 </div>
@@ -220,7 +229,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -230,6 +239,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
@@ -247,7 +260,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

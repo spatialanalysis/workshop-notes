@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>R Spatial Workshop Notes</title>
-  <meta name="description" content="R Spatial Workshop Notes">
-  <meta name="generator" content="bookdown 0.7.7 and GitBook 2.6.7">
+  <title>Chapter 3 Multiple-Dataset GIS Operations / Visualization | R Spatial Workshop Notes</title>
+  <meta name="description" content="Chapter 3 Multiple-Dataset GIS Operations / Visualization | R Spatial Workshop Notes">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="R Spatial Workshop Notes" />
+  <meta property="og:title" content="Chapter 3 Multiple-Dataset GIS Operations / Visualization | R Spatial Workshop Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="spatialanalysis/workshop-notes" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Spatial Workshop Notes" />
+  <meta name="twitter:title" content="Chapter 3 Multiple-Dataset GIS Operations / Visualization | R Spatial Workshop Notes" />
   
   
   
@@ -32,9 +32,10 @@
   
   
 <link rel="prev" href="single-dataset-gis-operations.html">
-
+<link rel="next" href="multiple-dataset-gis-operations-visualization-pt-2.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -118,8 +119,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.3.1" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#functions-learned"><i class="fa fa-check"></i><b>1.3.1</b> Functions learned</a></li>
 <li class="chapter" data-level="1.3.2" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#import-spatial-data"><i class="fa fa-check"></i><b>1.3.2</b> Import spatial data</a></li>
 <li class="chapter" data-level="1.3.3" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#project-your-data"><i class="fa fa-check"></i><b>1.3.3</b> Project your data</a></li>
-<li class="chapter" data-level="1.3.4" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#your-challenge"><i class="fa fa-check"></i><b>1.3.4</b> Your challenge</a></li>
-<li class="chapter" data-level="1.3.5" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#solution"><i class="fa fa-check"></i><b>1.3.5</b> Solution</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#links"><i class="fa fa-check"></i><b>1.4</b> Links</a></li>
 </ul></li>
@@ -135,6 +134,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#functions-learned-2"><i class="fa fa-check"></i><b>3.2</b> Functions Learned</a></li>
 <li class="chapter" data-level="3.3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#interactive-tutorial-2"><i class="fa fa-check"></i><b>3.3</b> Interactive Tutorial</a></li>
 <li class="chapter" data-level="3.4" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#links-2"><i class="fa fa-check"></i><b>3.4</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html"><i class="fa fa-check"></i><b>4</b> Multiple-Dataset GIS Operations / Visualization pt. 2</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#learning-objectives-3"><i class="fa fa-check"></i><b>4.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#functions-learned-3"><i class="fa fa-check"></i><b>4.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="4.3" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#challenges"><i class="fa fa-check"></i><b>4.3</b> Challenges</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#a-simple-example"><i class="fa fa-check"></i><b>4.3.1</b> A simple example</a></li>
+<li class="chapter" data-level="4.3.2" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#saving-your-plots"><i class="fa fa-check"></i><b>4.3.2</b> Saving your plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#links-3"><i class="fa fa-check"></i><b>4.4</b> Links</a></li>
 </ul></li>
 </ul>
 
@@ -179,10 +187,14 @@ Hint: For each new function we go over, type <code>?</code> in front of it in th
 </div>
 <div id="interactive-tutorial-2" class="section level2">
 <h2><span class="header-section-number">3.3</span> Interactive Tutorial</h2>
-<p>This workshop’s script can be found <a href="https://github.com/spatialanalysis/workshop-scripts/blob/master/R/03-gis-2.R">here</a>.</p>
+<div class="rmdinfo">
+<p>
+This workshop’s script can be found <a href="https://github.com/spatialanalysis/workshop-scripts/blob/master/R/03-gis-2.R">here</a>.
+</p>
+</div>
 <div class="learncheck">
 <p>
-Challenge
+<strong>Challenge</strong>
 </p>
 </div>
 <p>Do you remember how to read in and project data? Try it out! Also calculate the centroids.</p>
@@ -200,22 +212,21 @@ centroids &lt;-<span class="st"> </span><span class="kw">st_centroid</span>(ward
 <pre><code>## Warning in st_centroid.sf(ward98): st_centroid assumes attributes are
 ## constant over geometries of x</code></pre>
 <p>We are going to start plotting with a new package: <code>ggplot2</code>. This is my favorite package for plotting <code>sf</code> objects, as there is a special function in the package called <code>geom_sf</code> that expressly handles spatial data.</p>
-<p>The syntax of a ggplot call is as follows: <img src="" /></p>
+<p>The syntax of a ggplot call is as follows: <img src="figs/ggplot-syntax.png" /></p>
 <p>To plot an <code>sf</code> object, use <code>geom_sf()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.4.4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>()</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <div class="learncheck">
 <p>
-Challenge
+<strong>Challenge</strong>
 </p>
 </div>
 <p>Use <code>geom_sf</code> to make a ggplot of the centroids data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> centroids) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>()</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <div class="rmdwarning">
 <p>
 Note: If you keep getting the following error message, try reversing the <code>geom_sf</code>s again and/or highlighting/re-running the lines of code multiple times.
@@ -230,12 +241,12 @@ Error in grid.Call(C_textBounds, as.graphicsAnnot(x<span class="math inline"><sp
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> centroids)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>I can also change colors and other settings.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98, <span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> centroids, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>So far, we’ve plotted data that was from the same original dataset. What if we want to add a layer with Chicago’s waterways?</p>
 <p>First we download, import, and project data from the Chicago Data Portal. As an exercise, I’m going to download a <a href="https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6">Chicago waterways data</a> GeoJSON, which <code>st_read</code> can also interpret and convert into an <code>sf</code> object.</p>
 <div class="figure">
@@ -244,12 +255,11 @@ Error in grid.Call(C_textBounds, as.graphicsAnnot(x<span class="math inline"><sp
 </div>
 <div class="learncheck">
 <p>
-Challenge
+<strong>Challenge</strong>
 </p>
 </div>
 <p>Read and project the waterways JSON. Hint: save your JSON file in the data/ folder in your workspace.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
-water &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/Waterways.geojson&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">water &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/Waterways.geojson&quot;</span>)</code></pre></div>
 <pre><code>## Reading layer `OGRGeoJSON&#39; from data source `/Users/angela/Desktop/Spatial Data Science/workshop-notes/data/Waterways.geojson&#39; using driver `GeoJSON&#39;
 ## Simple feature collection with 605 features and 6 fields
 ## geometry type:  MULTIPOLYGON
@@ -259,37 +269,27 @@ water &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class=
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">water &lt;-<span class="st"> </span><span class="kw">st_transform</span>(water, <span class="dv">32616</span>)</code></pre></div>
 <p>Now, plot it to see if things are looking alright.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-<span class="kw">ggplot</span>() <span class="op">+</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <p>Uh oh, looks like we have Lake Michigan with everything else. We want to filter out that feature. We’ll use the <code>filter()</code> command from <code>dplyr</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.4.4</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">water_clean &lt;-<span class="st"> </span><span class="kw">filter</span>(water, name <span class="op">!=</span><span class="st"> &quot;LAKE MICHIGAN&quot;</span>)</code></pre></div>
-<pre><code>## Warning: package &#39;bindrcpp&#39; was built under R version 3.4.4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+water_clean &lt;-<span class="st"> </span><span class="kw">filter</span>(water, name <span class="op">!=</span><span class="st"> &quot;LAKE MICHIGAN&quot;</span>)</code></pre></div>
 <p>Now we can make a map with both the wards and the waterways in Chicago.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <div class="rmdwarning">
 <p>
 Note that order matters here! ggplot plots in the order that you give your functions to it, so if you reorder the <code>geom_sf</code> calls, the wards are mapped after - and on top of! - the rivers.
 </p>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Incorrect order of geom_sf() calls</span>
+<span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 <p>The last thing we’ll do is figure out which wards intersect with waterways, using a powerful <code>sf</code> function called <code>st_intersects</code>. The output of <code>st_intersects</code> is a bit strange: it’s a list of indexes of the intersected features for each ward.</p>
 <p>The main thing you need to know is: if there is nothing in the list for a feature, that means nothing intersects with it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">intersects &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(ward98, water_clean)
@@ -371,16 +371,19 @@ Note: Don’t forget the <code>s</code> in <code>lengths</code> like I did durin
 </div>
 <div class="learncheck">
 <p>
-Challenge
+<strong>Challenge</strong>
 </p>
 </div>
-<p>Can you plot the wards, the rivers, and the wards that intersect with a river?</p>
+Can you plot the wards, the rivers, and the wards that intersect with a river?
+<div class="learncheck">
+
+</div>
 <p>The grand finale!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_wards, <span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>Remember to push your work to Github to back it up!</p>
 </div>
 <div id="links-2" class="section level2">
@@ -400,8 +403,8 @@ Challenge
           </div>
         </div>
       </div>
-<a href="single-dataset-gis-operations.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="single-dataset-gis-operations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-dataset-gis-operations-visualization-pt-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -421,7 +424,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -431,6 +434,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
@@ -448,7 +455,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;
