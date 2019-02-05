@@ -48,7 +48,7 @@ Click on the "API" button to directly access the data, rather than having to dow
 ```{r}
 # Load libraries for use
 
-
+areas <- st_read("https://data.cityofchicago.org/resource/igwz-8jzy.geojson")
 
 # Read in libraries and areas data
 

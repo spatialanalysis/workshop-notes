@@ -219,9 +219,15 @@ Hint: For each new function we go over, type <code>?</code> in front of it in th
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries for use</span>
 
-
-
-<span class="co"># Read in libraries and areas data</span>
+areas &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;https://data.cityofchicago.org/resource/igwz-8jzy.geojson&quot;</span>)</code></pre></div>
+<pre><code>## Reading layer `OGRGeoJSON&#39; from data source `https://data.cityofchicago.org/resource/igwz-8jzy.geojson&#39; using driver `GeoJSON&#39;
+## Simple feature collection with 77 features and 9 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -87.94011 ymin: 41.64454 xmax: -87.52414 ymax: 42.02304
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read in libraries and areas data</span>
 
 
 
