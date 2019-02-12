@@ -96,6 +96,10 @@ Remember: you can click on the "API" button to directly access the data, rather 
 ```{block type="learncheck"}
 ```
 
+```{block type="rmdinfo"}
+Luc Anselin has written a more in-depth tutorial for tmap, which you can find and go through [here](https://spatialanalysis.github.io/tutorials/), under Introduction to Spatial Data Science > Basic Mapping.
+```
+
 ## Links
 All the links in this workshop:
 
