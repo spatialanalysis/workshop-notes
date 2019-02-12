@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 4 Multiple-Dataset GIS Operations / Visualization pt. 2 | R Spatial Workshop Notes</title>
-  <meta name="description" content="Chapter 4 Multiple-Dataset GIS Operations / Visualization pt. 2 | R Spatial Workshop Notes">
+  <title>Chapter 5 R Markdown and Custom Maps | R Spatial Workshop Notes</title>
+  <meta name="description" content="Chapter 5 R Markdown and Custom Maps | R Spatial Workshop Notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 4 Multiple-Dataset GIS Operations / Visualization pt. 2 | R Spatial Workshop Notes" />
+  <meta property="og:title" content="Chapter 5 R Markdown and Custom Maps | R Spatial Workshop Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="spatialanalysis/workshop-notes" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Multiple-Dataset GIS Operations / Visualization pt. 2 | R Spatial Workshop Notes" />
+  <meta name="twitter:title" content="Chapter 5 R Markdown and Custom Maps | R Spatial Workshop Notes" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="multiple-dataset-gis-operations-visualization.html">
-<link rel="next" href="r-markdown-and-custom-maps.html">
+<link rel="prev" href="multiple-dataset-gis-operations-visualization-pt-2.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -168,89 +168,46 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="multiple-dataset-gis-operations-visualization-pt.-2" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Multiple-Dataset GIS Operations / Visualization pt. 2</h1>
-<div id="learning-objectives-3" class="section level2">
-<h2><span class="header-section-number">4.1</span> Learning Objectives</h2>
+<div id="r-markdown-and-custom-maps" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> R Markdown and Custom Maps</h1>
+<div id="learning-objectives-4" class="section level2">
+<h2><span class="header-section-number">5.1</span> Learning Objectives</h2>
 <ul>
-<li>Combine two datasets with spatial join</li>
-<li>Perform spatial aggregation (point in polygon)</li>
-<li>Manipulate data with dplyr</li>
-<li>Save a ggplot image</li>
+<li>Create a R Markdown document</li>
+<li>Embed code and text in an R Markdown document</li>
+<li>Manipulate R Markdown chunk options</li>
+<li>Become familiar with the <code>tmap</code> package</li>
 </ul>
 </div>
-<div id="functions-learned-3" class="section level2">
-<h2><span class="header-section-number">4.2</span> Functions Learned</h2>
+<div id="topics-learned" class="section level2">
+<h2><span class="header-section-number">5.2</span> Topics Learned</h2>
 <ul>
-<li><code>st_join()</code></li>
-<li><code>select()</code></li>
-<li><code>count()</code></li>
-<li><code>arrange()</code></li>
-<li><code>st_geometry()</code></li>
-<li><code>ggsave()</code></li>
+<li>.rmd structure</li>
+<li>Code chunks in R Markdown</li>
 </ul>
 <div class="rmdinfo">
 <p>
-Hint: For each new function we go over, type <code>?</code> in front of it in the console to pull up the help page.
+Hint: Use the R Markdown guides in RStudio under Help &gt; Cheatsheets &gt; R Markdown Cheatsheet (or R Markdown Reference Guide) for help.
 </p>
 </div>
 </div>
-<div id="interactive-tutorial-3" class="section level2">
-<h2><span class="header-section-number">4.3</span> Interactive Tutorial</h2>
-<div class="rmdinfo">
-<p>
-This workshop’s script can be found <a href="https://github.com/spatialanalysis/workshop-scripts/blob/master/R/04-gis-3.R">here</a>.
-</p>
-</div>
-</div>
-<div id="challenges" class="section level2">
-<h2><span class="header-section-number">4.4</span> Challenges</h2>
-<p>We’ve been reading shapefiles that we’ve downloaded, but we call also read data directly from a website using an “API”. These are often great ways to get data without having to manually download it.</p>
-<p>We’re going to read data from the Chicago Data Portal:</p>
-<ul>
-<li><a href="https://data.cityofchicago.org/Education/Libraries-Locations-Hours-and-Contact-Information/x8fc-8rcq">Libraries</a> points</li>
-<li><a href="https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6">Community Area</a> polygons</li>
-</ul>
-<p>Click on the “API” button to directly access the data, rather than having to download a csv via “Export”.</p>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-<ol start="0" style="list-style-type: decimal">
-<li>Which one of these is a geographic data format?</li>
-</ol>
-<img src="figs/libraries.png" />
-<div class="learncheck">
-
-</div>
+<div id="challenges-1" class="section level2">
+<h2><span class="header-section-number">5.3</span> Challenges</h2>
+<p>We’re going to continue using the data we used last week from the Chicago Data Portal, but we’ll be working in a R Markdown document instead of a R script.</p>
 <div class="learncheck">
 <p>
 <strong>Challenge</strong>
 </p>
 </div>
 <ol style="list-style-type: decimal">
-<li>Fill in the following script:</li>
+<li><p>Create a new R Markdown document. Knit the document.</p></li>
+<li><p>Change the YAML header at the top to include your personal information. Try changing some of the options in the header (aka the options between the “—”):</p></li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load libraries for use</span>
-
-areas &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;https://data.cityofchicago.org/resource/igwz-8jzy.geojson&quot;</span>)</code></pre></div>
-<pre><code>## Reading layer `OGRGeoJSON&#39; from data source `https://data.cityofchicago.org/resource/igwz-8jzy.geojson&#39; using driver `GeoJSON&#39;
-## Simple feature collection with 77 features and 9 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: -87.94011 ymin: 41.64454 xmax: -87.52414 ymax: 42.02304
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read in libraries and areas data</span>
-
-
-
-<span class="co"># Project both</span>
-
-
-
-<span class="co"># Make a ggplot with libraries and community areas</span></code></pre></div>
+<ul>
+<li><code>output: pdf_document</code></li>
+<li><code>fontsize: 14pt</code></li>
+</ul>
+<p>You can use this <a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">reference guide</a> to help you out.</p>
 <div class="learncheck">
 
 </div>
@@ -259,68 +216,91 @@ areas &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class=
 <strong>Challenge</strong>
 </p>
 </div>
-<ol start="2" style="list-style-type: decimal">
-<li>Which community areas have no libraries? Use <code>st_intersects</code> and <code>filter</code> to make a map.</li>
+<ol start="3" style="list-style-type: decimal">
+<li>Use Markdown formatting to write some information about the Chicago libraries and community areas datasets. Use:</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load library with filter() in it</span>
-
-
-<span class="co"># Find which areas intersect with libraries and save as a variable called &quot;intersects&quot;</span>
-
-
-<span class="co"># Filter areas by *without* libraries. Save as a variable called &quot;no_lib&quot; Hint: use &quot;==&quot; instead of &quot;&gt;&quot; in the logical comparison</span>
-
-
-<span class="co"># Make a ggplot with libraries, community areas, and community areas without libraries</span></code></pre></div>
+<ul>
+<li>sections</li>
+<li>bold/italic text</li>
+<li>two types of lists</li>
+</ul>
 <div class="learncheck">
 
 </div>
-<div class="rmdwarning">
-<p>
-The order in which you give arguments to <code>st_intersects</code> matters! I always have to look it up, but for point-in-polygon, you want the polygon first, then the points.
-</p>
-</div>
-<p>One question you may be asking yourself is, how many libraries are in each area?</p>
-<p>We can tackle this with an operation known as a <em>spatial join</em>. What we do is join information about the polygons to the points, so we have for each point which community area it’s in. More formally, we are adding the attributes of a layer to the other one.</p>
-<div class="rmdwarning">
-<p>
-A <strong>spatial join</strong> is not the same as an <strong>attribute join</strong>, which is based on common column (attribute) values between two datasets. Spatial joins are based on a <em>spatial relationship</em>: is this point inside this polygon?
-</p>
-</div>
-<p>The syntax is generally as follows, for point-in-polygon:</p>
-<blockquote>
-<p><code>st_join(point_sf, poly_sf)</code></p>
-</blockquote>
-<div id="a-simple-example" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> A simple example</h3>
-<div class="figure">
-<img src="figs/point_in_poly.png" />
-
-</div>
-<p>We can spatial join just one attribute, or a few. We can use <code>select()</code> to choose attributes.</p>
-<p>One we’ve done our spatial join, we can manipulate the data with <code>count()</code> and <code>arrange()</code> to figure out which community areas have the most libraries. This is also known as spatial aggregation.</p>
-<p>If work with the spatial data gets too clumsy or slow, we can drop the geometry column with <code>st_geometry()&lt;-</code>.</p>
-</div>
-<div id="saving-your-plots" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> Saving your plots</h3>
-<p>We ran out of time for this last time, but to save a ggplot image, you can use <code>ggsave()</code> after a ggplot2 command. You can adjust the width and height of the image in arguments to the function.</p>
 <div class="learncheck">
 <p>
 <strong>Challenge</strong>
 </p>
 </div>
-Save one of the plots we’ve made in this workshop to <code>figs/name-of-plot.png</code>.
+<ol start="4" style="list-style-type: decimal">
+<li>Insert an <code>ggplot2</code> image that we created last time in the document.</li>
+</ol>
+<div class="learncheck">
+
+</div>
+<p>Here’s the data from last week:</p>
+<ul>
+<li><a href="https://data.cityofchicago.org/Education/Libraries-Locations-Hours-and-Contact-Information/x8fc-8rcq">Libraries</a> points</li>
+<li><a href="https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6">Community Area</a> polygons</li>
+</ul>
+<p>Remember: you can click on the “API” button to directly access the data, rather than having to download a csv via “Export”.</p>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>Add code chunks that:</li>
+</ol>
+<ul>
+<li>load packages</li>
+<li>read data</li>
+<li>create a ggplot2 plot</li>
+</ul>
+<div class="learncheck">
+
+</div>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+<ol start="6" style="list-style-type: decimal">
+<li>Add chunk options that:</li>
+</ol>
+<ul>
+<li>load packages (hide this code)</li>
+<li>read data (show this code, and run it)</li>
+<li>create a ggplot2 plot (don’t show this code, but run it, and control the size of the figure)</li>
+</ul>
+<ol start="7" style="list-style-type: decimal">
+<li>Try naming your chunks something useful.</li>
+</ol>
+<div class="learncheck">
+
+</div>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+<ol start="8" style="list-style-type: decimal">
+<li>Try making a map with <code>tmap</code> (similar syntax as <code>ggplot2</code>), using the <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html"><code>tmap</code> vignette</a>.</li>
+</ol>
 <div class="learncheck">
 
 </div>
 </div>
-</div>
-<div id="links-3" class="section level2">
-<h2><span class="header-section-number">4.5</span> Links</h2>
+<div id="links-4" class="section level2">
+<h2><span class="header-section-number">5.4</span> Links</h2>
 <p>All the links in this workshop:</p>
 <ul>
 <li>Link to Chicago Libraries data: <a href="https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6" class="uri">https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6</a></li>
 <li>Link to Chicago Community Areas data: <a href="https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6" class="uri">https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6</a></li>
+<li>Link to R Markdown site: <a href="https://rmarkdown.rstudio.com" class="uri">https://rmarkdown.rstudio.com</a></li>
+<li>Link to Software Carpentry R Markdown tutorial: <a href="https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/" class="uri">https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/</a></li>
+<li>Getting started with <code>tmap</code> vignette: <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html" class="uri">https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html</a></li>
+<li>Geocomputation with R - good chapter on making maps with <code>tmap</code>: <a href="https://geocompr.robinlovelace.net/adv-map.html" class="uri">https://geocompr.robinlovelace.net/adv-map.html</a></li>
 </ul>
 
 </div>
@@ -330,8 +310,8 @@ Save one of the plots we’ve made in this workshop to <code>figs/name-of-plot.p
           </div>
         </div>
       </div>
-<a href="multiple-dataset-gis-operations-visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="r-markdown-and-custom-maps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="multiple-dataset-gis-operations-visualization-pt-2.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

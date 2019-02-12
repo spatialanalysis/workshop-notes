@@ -1,0 +1,107 @@
+# R Markdown and Custom Maps
+
+## Learning Objectives
+
+- Create a R Markdown document
+- Embed code and text in an R Markdown document
+- Manipulate R Markdown chunk options
+- Become familiar with the `tmap` package
+
+## Topics Learned
+
+- .rmd structure
+- Code chunks in R Markdown
+
+```{block type="rmdinfo"}
+Hint: Use the R Markdown guides in RStudio under Help > Cheatsheets > R Markdown Cheatsheet (or R Markdown Reference Guide) for help.
+```
+
+## Challenges
+
+We're going to continue using the data we used last week from the Chicago Data Portal, but we'll be working in a R Markdown document instead of a R script.
+
+```{block type="learncheck"}
+**Challenge**
+```
+1. Create a new R Markdown document. Knit the document. 
+
+2. Change the YAML header at the top to include your personal information. Try changing some of the options in the header (aka the options between the "---"):
+
+- `output: pdf_document`
+- `fontsize: 14pt`
+
+You can use this [reference guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) to help you out.
+
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+3. Use Markdown formatting to write some information about the Chicago libraries and community areas datasets. Use:
+
+- sections
+- bold/italic text
+- two types of lists
+
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+4. Insert an `ggplot2` image that we created last time in the document.
+
+```{block type="learncheck"}
+```
+
+Here's the data from last week:
+
+- [Libraries](https://data.cityofchicago.org/Education/Libraries-Locations-Hours-and-Contact-Information/x8fc-8rcq) points
+- [Community Area](https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6) polygons
+
+Remember: you can click on the "API" button to directly access the data, rather than having to download a csv via "Export".
+
+```{block type="learncheck"}
+**Challenge**
+```
+5. Add code chunks that:
+
+- load packages 
+- read data 
+- create a ggplot2 plot 
+
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+6. Add chunk options that:
+
+- load packages (hide this code)
+- read data (show this code, and run it)
+- create a ggplot2 plot (don't show this code, but run it, and control the size of the figure)
+
+7. Try naming your chunks something useful.
+
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+8. Try making a map with `tmap` (similar syntax as `ggplot2`), using the [`tmap` vignette](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html).
+
+```{block type="learncheck"}
+```
+
+## Links
+All the links in this workshop:
+
+- Link to Chicago Libraries data: https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6
+- Link to Chicago Community Areas data: https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6
+- Link to R Markdown site: https://rmarkdown.rstudio.com
+- Link to Software Carpentry R Markdown tutorial: https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/
+- Getting started with `tmap` vignette: https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html
+- Geocomputation with R - good chapter on making maps with `tmap`: https://geocompr.robinlovelace.net/adv-map.html
