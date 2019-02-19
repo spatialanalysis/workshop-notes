@@ -1,0 +1,65 @@
+# R Markdown and Custom Maps
+
+## Learning Objectives
+
+- Use `urban_agglomerations` and `world` data from the `spData` package
+- Make the same map in `ggplot2` and `tmap`
+- Make an animated map and save it 
+
+## Functions Learned
+
+- `tm_shape`
+- `tm_polygons`
+- `tm_dots`
+- `tm_facets`
+- `tmap_animation`
+
+## Challenges
+
+This workshop uses an [example]() from Geocomputation with R, developed by Robin Lovelace. The original script can be found [online](https://raw.githubusercontent.com/Robinlovelace/geocompr/master/code/08-urban-animation.R).
+
+```{block type="rmdwarning"}
+If you get the following error, make sure the `magick` package is installed with `install.packages("magick")`, and that ImageMagick itself is installed:
+
+>Error in tmap::tmap_animation(tm, filename = "doc/city-pop.gif") : 
+>  Could not find ImageMagick. Make sure it is installed and included in the systems PATH
+```
+
+
+```{block type="learncheck"}
+**Challenge**
+```
+1. Look at the `urban_agglomerations` and the `world` data. What type of spatial data is each (point, line, polygon)? How many observations are in each dataset?
+
+2. What projection is each in?
+
+3. Make a ggplot2 map of both datasets
+
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+3. Make a tmap map of `urban_agglomerations`.
+
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+4. Change the color of the points to one of your choosing.
+
+```{block type="learncheck"}
+```
+
+```{block type="rmdinfo"}
+
+```
+
+## Links
+The links in this workshop:
+
+- Geocomputation with R - Chapter 8 talks about making maps with `tmap`: https://geocompr.robinlovelace.net/adv-map.html
+- Getting started with `tmap` vignette: https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html

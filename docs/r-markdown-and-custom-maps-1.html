@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Project Setup | R Spatial Workshop Notes</title>
-  <meta name="description" content="Project Setup | R Spatial Workshop Notes">
+  <title>Chapter 6 R Markdown and Custom Maps | R Spatial Workshop Notes</title>
+  <meta name="description" content="Chapter 6 R Markdown and Custom Maps | R Spatial Workshop Notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Project Setup | R Spatial Workshop Notes" />
+  <meta property="og:title" content="Chapter 6 R Markdown and Custom Maps | R Spatial Workshop Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="spatialanalysis/workshop-notes" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Project Setup | R Spatial Workshop Notes" />
+  <meta name="twitter:title" content="Chapter 6 R Markdown and Custom Maps | R Spatial Workshop Notes" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="introduction-to-spatial-data.html">
+<link rel="prev" href="r-markdown-and-custom-maps.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -174,70 +174,84 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="project-setup" class="section level1 unnumbered">
-<h1>Project Setup</h1>
-<p>The goal of this section is to help you:</p>
+<div id="r-markdown-and-custom-maps-1" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> R Markdown and Custom Maps</h1>
+<div id="learning-objectives-5" class="section level2">
+<h2><span class="header-section-number">6.1</span> Learning Objectives</h2>
 <ul>
-<li>Set up a directory on your computer to store scripts and data for this workshop</li>
-<li>Back up all workshop materials online using Github</li>
-</ul>
-<div id="prerequisites-for-git-workflow" class="section level2 unnumbered">
-<h2>Prerequisites for Git workflow</h2>
-<ul>
-<li>You have a Github account. If not, <a href="https://github.com/">create one here</a>.</li>
-<li><p>You have Git on your computer. Check by typing</p>
-<pre><code>git --version</code></pre>
-in the Terminal pane in RStudio. Macs should already have Git, Windows will need to install <a href="https://git-scm.com/download/win">Git Bash</a> on their computer.</li>
-<li><p>You have configured Git. Check by typing</p>
-<pre><code>git config --list</code></pre>
-<p>in the Terminal pane in RStudio. If you have not configured git, follow <a href="https://happygitwithr.com/hello-git.html">these instructions</a>.</p></li>
+<li>Use <code>urban_agglomerations</code> and <code>world</code> data from the <code>spData</code> package</li>
+<li>Make the same map in <code>ggplot2</code> and <code>tmap</code></li>
+<li>Make an animated map and save it</li>
 </ul>
 </div>
-<div id="workflow-with-git" class="section level2 unnumbered">
-<h2>Workflow with Git</h2>
+<div id="functions-learned-4" class="section level2">
+<h2><span class="header-section-number">6.2</span> Functions Learned</h2>
+<ul>
+<li><code>tm_shape</code></li>
+<li><code>tm_polygons</code></li>
+<li><code>tm_dots</code></li>
+<li><code>tm_facets</code></li>
+<li><code>tmap_animation</code></li>
+</ul>
+</div>
+<div id="challenges-2" class="section level2">
+<h2><span class="header-section-number">6.3</span> Challenges</h2>
+<p>This workshop uses an <a href="">example</a> from Geocomputation with R, developed by Robin Lovelace. The original script can be found <a href="https://raw.githubusercontent.com/Robinlovelace/geocompr/master/code/08-urban-animation.R">online</a>.</p>
 <div class="rmdwarning">
 <p>
-Make sure you have the prerequisites for this workflow (see above section), otherwise you’ll be frustrated.
+If you get the following error, make sure the <code>magick</code> package is installed with <code>install.packages(“magick”)</code>, and that ImageMagick itself is installed:
+</p>
+<blockquote>
+<p>
+Error in tmap::tmap_animation(tm, filename = “doc/city-pop.gif”) : Could not find ImageMagick. Make sure it is installed and included in the systems PATH
+</p>
+</blockquote>
+</div>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
 </p>
 </div>
 <ol style="list-style-type: decimal">
-<li>Go to <a href="https://github.com/">github.com</a> and create a new repository. Choose to make it public or private (your choice). Initialize with a README.</li>
-<li>Open RStudio. Click “New Project”. Click “Version Control”. Paste the URL of the repository you just created.</li>
-<li>Create the following folders in your project by clicking on “New Folder” in the Files pane in RStudio:</li>
+<li><p>Look at the <code>urban_agglomerations</code> and the <code>world</code> data. What type of spatial data is each (point, line, polygon)? How many observations are in each dataset?</p></li>
+<li><p>What projection is each in?</p></li>
+<li><p>Make a ggplot2 map of both datasets</p></li>
 </ol>
-<ul>
-<li><code>data</code></li>
-<li><code>doc</code></li>
-<li><code>R</code></li>
-</ul>
-<p>Put data in <code>data</code>, written output in <code>doc</code>, and R code scripts in <code>R</code>.</p>
+<div class="learncheck">
+
+</div>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Make a tmap map of <code>urban_agglomerations</code>.</li>
+</ol>
+<div class="learncheck">
+
+</div>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
 <ol start="4" style="list-style-type: decimal">
-<li>Once you’ve put data and scripts in, you can back up your documents by going to the tab in RStudio called “Git”.</li>
+<li>Change the color of the points to one of your choosing.</li>
 </ol>
-<ul>
-<li>Check the checkbox next to the items you’d like to back up.</li>
-<li>Click “Commit”. Type an informative message, i.e. “Added materials from first workshop”.</li>
-<li>Click “Push”. You have now uploaded your files to Github. If you go to the web link of the repository you created on Github, your materials should now be there.</li>
-</ul>
+<div class="learncheck">
+
 </div>
-<div id="workflow-without-git" class="section level2 unnumbered">
-<h2>Workflow without Git</h2>
-<ol style="list-style-type: decimal">
-<li>Open RStudio. Click “New Project”. Click “New Directory”.</li>
-<li>Create the following folders in your project by clicking on “New Folder” in the Files pane in RStudio:</li>
-</ol>
-<ul>
-<li><code>data</code></li>
-<li><code>doc</code></li>
-<li><code>R</code></li>
-</ul>
-<p>Put data in <code>data</code>, written output in <code>doc</code>, and R code scripts in <code>R</code>.</p>
+<div class="rmdinfo">
+
 </div>
-<div id="additional-reading" class="section level2 unnumbered">
-<h2>Additional reading</h2>
+</div>
+<div id="links-5" class="section level2">
+<h2><span class="header-section-number">6.4</span> Links</h2>
+<p>The links in this workshop:</p>
 <ul>
-<li><a href="https://happygitwithr.com/">Happy Git with R</a>: the comprehensive guide on how to use Git/Github with R</li>
-<li><a href="https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/">Project Management with RStudio</a>: great resource for organizing your research files and scripts</li>
+<li>Geocomputation with R - Chapter 8 talks about making maps with <code>tmap</code>: <a href="https://geocompr.robinlovelace.net/adv-map.html" class="uri">https://geocompr.robinlovelace.net/adv-map.html</a></li>
+<li>Getting started with <code>tmap</code> vignette: <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html" class="uri">https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html</a></li>
 </ul>
 
 </div>
@@ -247,8 +261,8 @@ Make sure you have the prerequisites for this workflow (see above section), othe
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-spatial-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="r-markdown-and-custom-maps.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
