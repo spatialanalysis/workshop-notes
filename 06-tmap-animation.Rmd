@@ -1,4 +1,4 @@
-# R Markdown and Custom Maps
+# Custom and Animated Maps
 
 ## Learning Objectives
 
@@ -13,6 +13,12 @@
 - `tm_dots`
 - `tm_facets`
 - `tmap_animation`
+
+## Interactive Tutorial
+
+```{block type="rmdinfo"}
+This workshop's R Markdown can be found [here](https://github.com/spatialanalysis/workshop-scripts/blob/master/doc/06-custom-maps.Rmd).
+```
 
 ## Challenges
 
@@ -56,6 +62,10 @@ If you get the following error, make sure the `magick` package is installed with
 
 ```{block type="rmdinfo"}
 
+```
+
+```{block type="rmdinfo"}
+Luc Anselin has written a more in-depth tutorial for tmap, which you can find and go through [here](https://spatialanalysis.github.io/tutorials/), under Introduction to Spatial Data Science > Basic Mapping.
 ```
 
 ## Links
