@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 5 R Markdown and Custom Maps | R Spatial Workshop Notes</title>
-  <meta name="description" content="Chapter 5 R Markdown and Custom Maps | R Spatial Workshop Notes">
+  <title>Chapter 7 Interactive Maps | R Spatial Workshop Notes</title>
+  <meta name="description" content="Chapter 7 Interactive Maps | R Spatial Workshop Notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 5 R Markdown and Custom Maps | R Spatial Workshop Notes" />
+  <meta property="og:title" content="Chapter 7 Interactive Maps | R Spatial Workshop Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="spatialanalysis/workshop-notes" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 R Markdown and Custom Maps | R Spatial Workshop Notes" />
+  <meta name="twitter:title" content="Chapter 7 Interactive Maps | R Spatial Workshop Notes" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="multiple-dataset-gis-operations-visualization-pt-2.html">
-<link rel="next" href="custom-and-animated-maps.html">
+<link rel="prev" href="custom-and-animated-maps.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -183,153 +183,47 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-markdown-and-custom-maps" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> R Markdown and Custom Maps</h1>
-<div id="learning-objectives-4" class="section level2">
-<h2><span class="header-section-number">5.1</span> Learning Objectives</h2>
+<div id="interactive-maps" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Interactive Maps</h1>
+<div id="learning-objectives-6" class="section level2">
+<h2><span class="header-section-number">7.1</span> Learning Objectives</h2>
 <ul>
-<li>Create a R Markdown document</li>
-<li>Embed code and text in an R Markdown document</li>
-<li>Manipulate R Markdown chunk options</li>
-<li>Become familiar with the <code>tmap</code> package</li>
+<li>Explore the various options in R for interactive mapping in 3 packages:</li>
+<li><code>tmap</code>,</li>
+<li><code>mapview</code>, and</li>
+<li><code>leaflet</code></li>
 </ul>
 </div>
-<div id="topics-learned" class="section level2">
-<h2><span class="header-section-number">5.2</span> Topics Learned</h2>
+<div id="functions-learned-5" class="section level2">
+<h2><span class="header-section-number">7.2</span> Functions Learned</h2>
 <ul>
-<li>.rmd structure</li>
-<li>Code chunks in R Markdown</li>
+<li><code>tmap_mode</code></li>
+<li><code>mapview</code></li>
+<li><code>leaflet</code></li>
+<li><code>addProviderTiles</code></li>
+<li><code>addCircles</code></li>
 </ul>
-<div class="rmdinfo">
-<p>
-Hint: Use the R Markdown guides in RStudio under Help &gt; Cheatsheets &gt; R Markdown Cheatsheet (or R Markdown Reference Guide) for help.
-</p>
 </div>
+<div id="overview" class="section level2">
+<h2><span class="header-section-number">7.3</span> Overview</h2>
+<p>This workshop teaches section <a href="https://geocompr.robinlovelace.net/adv-map.html#interactive-maps">Chapter 8.4: Interactive Maps</a> of Geocomputation with R.</p>
 </div>
-<div id="interactive-tutorial-4" class="section level2">
-<h2><span class="header-section-number">5.3</span> Interactive Tutorial</h2>
-<div class="rmdinfo">
-<p>
-This workshop’s R Markdown can be found <a href="https://github.com/spatialanalysis/workshop-scripts/blob/master/doc/05-rmarkdown.Rmd">here</a>.
-</p>
-</div>
-</div>
-<div id="challenges-1" class="section level2">
-<h2><span class="header-section-number">5.4</span> Challenges</h2>
-<p>We’re going to continue using the data we used last week from the Chicago Data Portal, but we’ll be working in a R Markdown document instead of a R script.</p>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-<ol style="list-style-type: decimal">
-<li><p>Create a new R Markdown document. Knit the document.</p></li>
-<li><p>Change the YAML header at the top to include your personal information. Try changing some of the options in the header (aka the options between the “—”):</p></li>
-</ol>
+<div id="r-training-workshop" class="section level2">
+<h2><span class="header-section-number">7.4</span> R Training Workshop</h2>
+<p>I will be teaching a day-long “R for Social Scientists” Data Carpentry workshop on April 12 at the Center for Spatial Data Science.</p>
+<p>Topics to be covered include:</p>
 <ul>
-<li><code>output: pdf_document</code></li>
-<li><code>fontsize: 14pt</code></li>
+<li>Introduction to R</li>
+<li>Working with data types, strings, and dates in R</li>
+<li>Manipulating data frames in R</li>
+<li>Data visualization in R</li>
 </ul>
-<p>You can use this <a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">reference guide</a> to help you out.</p>
-<div class="learncheck">
-
+<p>…and lunch will be provided!</p>
+<p>Please register at <a href="https://www.eventbrite.com/e/r-for-social-scientists-data-carpentry-workshop-tickets-57131487818">this link</a> if you are interested!</p>
 </div>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-<ol start="3" style="list-style-type: decimal">
-<li>Use Markdown formatting to write some information about the Chicago libraries and community areas datasets. Use:</li>
-</ol>
-<ul>
-<li>sections</li>
-<li>bold/italic text</li>
-<li>two types of lists</li>
-</ul>
-<div class="learncheck">
-
-</div>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-<ol start="4" style="list-style-type: decimal">
-<li>Insert an <code>ggplot2</code> image that we created last time in the document.</li>
-</ol>
-<div class="learncheck">
-
-</div>
-<p>Here’s the data from last week:</p>
-<ul>
-<li><a href="https://data.cityofchicago.org/Education/Libraries-Locations-Hours-and-Contact-Information/x8fc-8rcq">Libraries</a> points</li>
-<li><a href="https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6">Community Area</a> polygons</li>
-</ul>
-<p>Remember: you can click on the “API” button to directly access the data, rather than having to download a csv via “Export”.</p>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-<ol start="5" style="list-style-type: decimal">
-<li>Add code chunks that:</li>
-</ol>
-<ul>
-<li>load packages</li>
-<li>read data</li>
-<li>create a ggplot2 plot</li>
-</ul>
-<div class="learncheck">
-
-</div>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-<ol start="6" style="list-style-type: decimal">
-<li>Add chunk options that:</li>
-</ol>
-<ul>
-<li>load packages (hide this code)</li>
-<li>read data (show this code, and run it)</li>
-<li>create a ggplot2 plot (don’t show this code, but run it, and control the size of the figure)</li>
-</ul>
-<ol start="7" style="list-style-type: decimal">
-<li>Try naming your chunks something useful.</li>
-</ol>
-<div class="learncheck">
-
-</div>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-<ol start="8" style="list-style-type: decimal">
-<li>Try making a map with <code>tmap</code> (similar syntax as <code>ggplot2</code>), using the <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html"><code>tmap</code> vignette</a>.</li>
-</ol>
-<div class="learncheck">
-
-</div>
-<div class="rmdinfo">
-<p>
-Luc Anselin has written a more in-depth tutorial for tmap, which you can find and go through <a href="https://spatialanalysis.github.io/tutorials/">here</a>, under Introduction to Spatial Data Science &gt; Basic Mapping.
-</p>
-</div>
-</div>
-<div id="links-4" class="section level2">
-<h2><span class="header-section-number">5.5</span> Links</h2>
-<p>All the links in this workshop:</p>
-<ul>
-<li>Link to Chicago Libraries data: <a href="https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6" class="uri">https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6</a></li>
-<li>Link to Chicago Community Areas data: <a href="https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6" class="uri">https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6</a></li>
-<li>Link to R Markdown site: <a href="https://rmarkdown.rstudio.com" class="uri">https://rmarkdown.rstudio.com</a></li>
-<li>Link to Software Carpentry R Markdown tutorial: <a href="https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/" class="uri">https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/</a></li>
-<li>Getting started with <code>tmap</code> vignette: <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html" class="uri">https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html</a></li>
-<li>Geocomputation with R - good chapter on making maps with <code>tmap</code>: <a href="https://geocompr.robinlovelace.net/adv-map.html" class="uri">https://geocompr.robinlovelace.net/adv-map.html</a></li>
-</ul>
+<div id="next-weeks" class="section level2">
+<h2><span class="header-section-number">7.5</span> Next week(s?)</h2>
+<p>What topics do you want me to cover? Fill out this <a href="https://docs.google.com/forms/d/15yBkiIdPh-SuuTh3a2lTzZxUt4dPQ1_WqVThrD0KG-E">Google Form</a> and I’ll see what I can do!</p>
 
 </div>
 </div>
@@ -338,8 +232,8 @@ Luc Anselin has written a more in-depth tutorial for tmap, which you can find an
           </div>
         </div>
       </div>
-<a href="multiple-dataset-gis-operations-visualization-pt-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="custom-and-animated-maps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="custom-and-animated-maps.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

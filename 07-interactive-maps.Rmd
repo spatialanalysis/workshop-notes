@@ -1,0 +1,40 @@
+# Interactive Maps
+
+## Learning Objectives
+
+- Explore the various options in R for interactive mapping in 3 packages:
+  - `tmap`, 
+  - `mapview`, and 
+  - `leaflet` 
+
+## Functions Learned
+
+- `tmap_mode`
+- `mapview`
+- `leaflet`
+- `addProviderTiles`
+- `addCircles`
+
+## Overview
+
+This workshop teaches section [Chapter 8.4: Interactive Maps](https://geocompr.robinlovelace.net/adv-map.html#interactive-maps) of Geocomputation with R. 
+
+## R Training Workshop
+
+I will be teaching a day-long "R for Social Scientists" Data Carpentry workshop on April 12 at the Center for Spatial Data Science. 
+
+Topics to be covered include:
+
+- Introduction to R
+- Working with data types, strings, and dates in R
+- Manipulating data frames in R
+- Data visualization in R
+
+...and lunch will be provided!
+
+Please register at [this link](https://www.eventbrite.com/e/r-for-social-scientists-data-carpentry-workshop-tickets-57131487818) if you are interested! 
+
+## Next week(s?)
+
+What topics do you want me to cover? Fill out this [Google Form](https://docs.google.com/forms/d/15yBkiIdPh-SuuTh3a2lTzZxUt4dPQ1_WqVThrD0KG-E) and I'll see what I can do!
+
