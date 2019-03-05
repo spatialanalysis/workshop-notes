@@ -1,0 +1,150 @@
+# Interactive Maps with Shiny
+
+## Learning Objectives
+
+- Create a basic Shiny app using `leaflet`
+
+## Topics Learned
+
+- Shiny (UI vs. server)
+- Interactivity
+
+```{block type="rmdinfo"}
+Find the Shiny cheatsheet in RStudio under Help > Cheatsheets > Web Applications with shiny
+```
+
+## Overview
+
+This workshop teaches how to create a basic Shiny web app using leaflet.
+
+```{block type="learncheck"}
+**Challenge**
+```
+1. Create a new Shiny app from a template in R. Run the app. Which parts of the Shiny UI code map to the app? How are `ui` and `server` linked (what are the features that are the same across both?)
+
+2. Change the title of the app.
+
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+3. In the UI object, add a `leafletOutput("map")` call in the `mainPanel()` function. Then, in the server object, add a `output$map <- renderLeaflet({})` call.
+
+That is, fill in the following script:
+```{r eval=FALSE}
+ui <- fluidPage(
+   
+   # Application title
+   titlePanel("World Population Over Time"),
+   
+   # Sidebar with a slider input for number of bins 
+   sidebarLayout(
+      sidebarPanel(
+         # sliderInput("bins",
+         #             "Number of bins:",
+         #             min = 1,
+         #             max = 50,
+         #             value = 30),
+
+      ),
+      
+      # Specifies what to put in the main panel
+      mainPanel(
+         # Put one line of code here
+      )
+   )
+)
+
+
+
+server <- function(input, output) {
+  
+   # output$distPlot <- renderPlot({
+   #    # generate bins based on input$bins from ui.R
+   #    x    <- faithful[, 2] 
+   #    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+   #    
+   #    # draw the histogram with the specified number of bins
+   #    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+   # })
+
+    output$map <- renderLeaflet({
+      # Put three lines of leaflet code here
+      
+      
+      
+    })
+
+}
+
+```
+
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+4. In the UI object, add a `sliderInput` of `"year"`. Change the step size to 5, and remove the comma for thousands (hint: do `?sliderInput` to look at the documentation, and options).
+    
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+5. Create a new variable called `pop_per_year` that is a subset of city by year, depending on which year you enter (`input$year`). Use the `filter()` command in the `dplyr` package.
+    
+```{block type="learncheck"}
+```
+
+
+```{block type="learncheck"}
+**Challenge**
+```
+6. Try resizing the marker size depending on population, adding a popup, or doing more to customize your map!
+
+7. Try adding a feature in your app so that you only show cities over a certain population in millions (specified by the user), using `numericInput()` instead of `sliderInput()`.
+    
+```{block type="learncheck"}
+```
+
+
+```{block type="learncheck"}
+**Challenge**
+```
+8. Add a data table element with `renderDataTable()` and `dataTableOutput()` so you can see the attributes of the points in the map.
+
+```{block type="learncheck"}
+```
+
+```{block type="rmdinfo"}
+You can share your Shiny apps publicly by creating an account at https://shinyapps.io and clicking Publish in the top of your app script.
+```
+
+## R Training Workshop
+
+I will be teaching a day-long "R for Social Scientists" Data Carpentry workshop on April 12 at the Center for Spatial Data Science. 
+
+Topics to be covered include:
+
+- Introduction to R
+- Working with data types, strings, and dates in R
+- Manipulating data frames in R
+- Data visualization in R
+
+...and lunch will be provided!
+
+Please register at [this link](https://www.eventbrite.com/e/r-for-social-scientists-data-carpentry-workshop-tickets-57131487818) if you are interested! 
+
+## Links 
+
+- Leaflet documentation website: https://rstudio.github.io/leaflet/
+- Intro to Shiny webinar (45 minutes): https://www.rstudio.com/resources/webinars/introduction-to-shiny/
+- Free Shiny online course from Datacamp: https://www.datacamp.com/courses/building-web-applications-in-r-with-shiny
+- Shiny examples:
+  + Generate random points on a map: https://bhaskarvk.github.io/user2017.geodataviz/presentations/07-Interactive_Maps.html#36
+  + Zip code explorer: http://shiny.rstudio.com/gallery/superzip-example.html
+  + Twin cities bus dashboard: https://gallery.shinyapps.io/086-bus-dashboard/
