@@ -19,6 +19,12 @@
 
 This workshop teaches section [Chapter 8.4: Interactive Maps](https://geocompr.robinlovelace.net/adv-map.html#interactive-maps) of Geocomputation with R. 
 
+## Interactive Tutorial
+
+```{block type="rmdinfo"}
+This workshop's R Markdown can be found [here](https://github.com/spatialanalysis/workshop-scripts/blob/master/doc/07-interactive-maps.Rmd).
+```
+
 ## R Training Workshop
 
 I will be teaching a day-long "R for Social Scientists" Data Carpentry workshop on April 12 at the Center for Spatial Data Science. 

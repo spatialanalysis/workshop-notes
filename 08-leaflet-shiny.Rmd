@@ -17,6 +17,12 @@ Find the Shiny cheatsheet in RStudio under Help > Cheatsheets > Web Applications
 
 This workshop teaches how to create a basic Shiny web app using leaflet.
 
+## Interactive Tutorial
+
+```{block type="rmdinfo"}
+This workshop's Shiny app code can be found [here](https://github.com/spatialanalysis/workshop-scripts/blob/master/R/leaflet-example/app.R).
+```
+
 ```{block type="learncheck"}
 **Challenge**
 ```
