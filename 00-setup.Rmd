@@ -1,7 +1,7 @@
 # Project Setup {-}
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 The goal of this section is to help you:
