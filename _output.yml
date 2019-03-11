@@ -1,4 +1,4 @@
 bookdown::gitbook:
   config:
     toc:
-      collapse: subsection
+      collapse: section
