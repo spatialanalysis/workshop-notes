@@ -1,3 +1,5 @@
+# (PART\*) GIS and Spatial Data {-}
+
 # Introduction to Spatial Data
 
 ## Learning Objectives

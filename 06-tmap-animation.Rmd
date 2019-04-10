@@ -61,10 +61,6 @@ If you get the following error, make sure the `magick` package is installed with
 ```
 
 ```{block type="rmdinfo"}
-
-```
-
-```{block type="rmdinfo"}
 Luc Anselin has written a more in-depth tutorial for tmap, which you can find and go through [here](https://spatialanalysis.github.io/tutorials/), under Introduction to Spatial Data Science > Basic Mapping.
 ```
 

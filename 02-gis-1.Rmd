@@ -23,8 +23,27 @@ This workshop's script can be found [here](https://github.com/spatialanalysis/wo
 ## Exercises
 
 - Project 1986 ward data into correct UTM projection
-- Cast ward data to "POLYGON" with `st_cast`
+```{r}
+library(sf)
+ward86 <- st_read("data/ward1986.shp")
+ward86 <- st_transform(ward86, 32616)
+plot(ward86)
+```
+
 - Calculate centroids of wards with `st_centroid`
+```{r}
+?st_centroid
+
+centroids <- st_centroid(ward86)
+plot(st_geometry(centroids), cex = 0.1)
+plot(st_geometry(ward86), add = T)
+```
+
+```{r}
+plot(st_geometry(ward86))
+plot(st_geometry(centroids), cex = 0.1, add = T)
+```
+
 - Calculate bounding box with `st_bbox`
 - Plot centroids, buffered centroids, and wards for each year
 
