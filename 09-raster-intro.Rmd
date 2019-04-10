@@ -1,0 +1,16 @@
+# (PART\*) Raster Data {-}
+
+# Introduction to Raster Data
+
+## Overview
+
+This workshop introduces raster data and how to work with it in R. We will be working through the first part of the [Geospatial Data workshop](https://datacarpentry.org/r-raster-vector-geospatial/) put together by Data Carpentry. 
+
+Please download data for this workshop at [this link](http://datacarpentry.org/geospatial-workshop/data/).
+
+## Links
+
+- Introduction to Raster Data, Data Carpentry (what is it?): https://datacarpentry.org/organization-geospatial/01-intro-raster-data/index.html
+- Working with Raster Data in R, Data Carpentry: https://datacarpentry.org/r-raster-vector-geospatial/01-raster-structure/index.html
+- Data for this workshop: http://datacarpentry.org/geospatial-workshop/data/
+- Great resource for more tutorials regarding spatial data: https://www.earthdatascience.org
