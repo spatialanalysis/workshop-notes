@@ -20,7 +20,7 @@ You are welcome to join us in **Searle 240B** for workshops if you're a member o
 
 Each chapter of this [bookdown](https://bookdown.org/) book represents a 1-hour workshop taught at the center. Chapters will be uploaded after the workshop so you can self study the material.
 
-A tentative **workshop schedule** can be found at [this link](https://spatialanalysis.github.io/events/workshop-schedule/).
+A tentative **workshop schedule** can be found at [this link](https://spatialanalysis.github.io/events/workshop-schedules/).
 
 **Scripts** from the workshops will be uploaded to Github following each workshop and can be found in the `R` folder at [this link](https://github.com/spatialanalysis/workshop-scripts).
 
