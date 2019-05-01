@@ -106,6 +106,8 @@ We can tackle this with an operation known as a *spatial join*. What we do is jo
 
 ```{block type="rmdwarning"}
 A **spatial join** is not the same as an **attribute join**, which is based on common column (attribute) values between two datasets. Spatial joins are based on a *spatial relationship*: is this point inside this polygon?
+
+You can try doing an **attribute join** on community area number/name with this [Public Health dataset](https://data.cityofchicago.org/resource/iqnk-2tcu.csv), and the command `left_join()` from `dplyr`.
 ```
 
 The syntax is generally as follows, for point-in-polygon:

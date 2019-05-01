@@ -317,6 +317,9 @@ The order in which you give arguments to <code>st_intersects</code> matters! I a
 <p>
 A <strong>spatial join</strong> is not the same as an <strong>attribute join</strong>, which is based on common column (attribute) values between two datasets. Spatial joins are based on a <em>spatial relationship</em>: is this point inside this polygon?
 </p>
+<p>
+You can try doing an <strong>attribute join</strong> on community area number/name with this <a href="https://data.cityofchicago.org/resource/iqnk-2tcu.csv">Public Health dataset</a>, and the command <code>left_join()</code> from <code>dplyr</code>.
+</p>
 </div>
 <p>The syntax is generally as follows, for point-in-polygon:</p>
 <blockquote>
