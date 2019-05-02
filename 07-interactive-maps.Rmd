@@ -22,7 +22,7 @@ This workshop teaches section [Chapter 8.4: Interactive Maps](https://geocompr.r
 ## Interactive Tutorial
 
 ```{block type="rmdinfo"}
-This workshop's R Markdown can be found [here](https://github.com/spatialanalysis/workshop-scripts/blob/master/doc/07-interactive-maps.Rmd).
+This workshop's R Markdown can be found [here](https://github.com/spatialanalysis/workshop-scripts/blob/master/gis-visualization/winter-2019/doc/07-interactive-maps.Rmd).
 ```
 
 ## R Training Workshop

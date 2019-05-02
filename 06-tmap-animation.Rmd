@@ -17,7 +17,7 @@
 ## Interactive Tutorial
 
 ```{block type="rmdinfo"}
-This workshop's R Markdown can be found [here](https://github.com/spatialanalysis/workshop-scripts/blob/master/doc/06-custom-maps.Rmd).
+This workshop's R Markdown can be found [here](https://github.com/spatialanalysis/workshop-scripts/blob/master/gis-visualization/winter-2019/doc/06-custom-maps.Rmd).
 ```
 
 ## Challenges
