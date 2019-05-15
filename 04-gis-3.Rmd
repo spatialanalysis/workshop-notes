@@ -138,5 +138,5 @@ Save one of the plots we've made in this workshop to `figs/name-of-plot.png`.
 ## Links
 All the links in this workshop:
 
-- Link to Chicago Libraries data: https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6
+- Link to Chicago Libraries data: https://data.cityofchicago.org/Education/Libraries-Locations-Hours-and-Contact-Information/x8fc-8rcq
 - Link to Chicago Community Areas data: https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6

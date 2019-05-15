@@ -14,6 +14,14 @@
 - .rmd structure
 - Code chunks in R Markdown
 
+```{block type="rmdwarning"}
+Note: If you do not have LaTeX installed on your computer, please install `tinytex` using the following commands so that you will be able to Knit to a PDF and Beamer during this workshop.
+
+> `install.packages('tinytex')`
+> `tinytex::install_tinytex()`
+
+```
+
 ```{block type="rmdinfo"}
 Hint: Use the R Markdown guides in RStudio under Help > Cheatsheets > R Markdown Cheatsheet (or R Markdown Reference Guide) for help.
 ```
