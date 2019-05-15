@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Introduction to Raster Data | R Spatial Workshop Notes</title>
-  <meta name="description" content="Chapter 9 Introduction to Raster Data | R Spatial Workshop Notes" />
+  <title>Chapter 11 Introduction to Interpolation | R Spatial Workshop Notes</title>
+  <meta name="description" content="Chapter 11 Introduction to Interpolation | R Spatial Workshop Notes" />
   <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Introduction to Raster Data | R Spatial Workshop Notes" />
+  <meta property="og:title" content="Chapter 11 Introduction to Interpolation | R Spatial Workshop Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="spatialanalysis/workshop-notes" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Introduction to Raster Data | R Spatial Workshop Notes" />
+  <meta name="twitter:title" content="Chapter 11 Introduction to Interpolation | R Spatial Workshop Notes" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="interactive-maps-with-shiny.html">
-<link rel="next" href="introduction-to-interpolation.html">
+<link rel="prev" href="introduction-to-interpolation.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -213,9 +213,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2" data-path="introduction-to-interpolation.html"><a href="introduction-to-interpolation.html#make-sure-relevant-packages-are-installed"><i class="fa fa-check"></i><b>10.2</b> Make sure relevant packages are installed</a></li>
 <li class="chapter" data-level="10.3" data-path="introduction-to-interpolation.html"><a href="introduction-to-interpolation.html#links-8"><i class="fa fa-check"></i><b>10.3</b> Links</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html"><i class="fa fa-check"></i><b>11</b> Interpolation with Array of Things Data</a><ul>
-<li class="chapter" data-level="11.1" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#overview-4"><i class="fa fa-check"></i><b>11.1</b> Overview</a></li>
-<li class="chapter" data-level="11.2" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#download-data"><i class="fa fa-check"></i><b>11.2</b> Download data</a></li>
+<li class="part"><span><b>Interpolation and Kriging</b></span></li>
+<li class="chapter" data-level="11" data-path="introduction-to-interpolation-1.html"><a href="introduction-to-interpolation-1.html"><i class="fa fa-check"></i><b>11</b> Introduction to Interpolation</a><ul>
+<li class="chapter" data-level="11.1" data-path="introduction-to-interpolation-1.html"><a href="introduction-to-interpolation-1.html#overview-4"><i class="fa fa-check"></i><b>11.1</b> Overview</a></li>
+<li class="chapter" data-level="11.2" data-path="introduction-to-interpolation-1.html"><a href="introduction-to-interpolation-1.html#download-data"><i class="fa fa-check"></i><b>11.2</b> Download data</a></li>
 </ul></li>
 </ul>
 
@@ -234,34 +235,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction-to-raster-data" class="section level1">
-<h1><span class="header-section-number">Chapter 9</span> Introduction to Raster Data</h1>
-<div id="overview-2" class="section level2">
-<h2><span class="header-section-number">9.1</span> Overview</h2>
-<p>This workshop introduces raster data and how to work with it in R. We will be working through the first part of the <a href="https://datacarpentry.org/r-raster-vector-geospatial/">Geospatial Data workshop</a> put together by Data Carpentry.</p>
-<p>Please download data for this workshop at <a href="http://datacarpentry.org/geospatial-workshop/data/">this link</a>.</p>
+<div id="introduction-to-interpolation-1" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Introduction to Interpolation</h1>
+<div id="overview-4" class="section level2">
+<h2><span class="header-section-number">11.1</span> Overview</h2>
+<p>This workshop continues teaching interpolation in R using Array of Things data. This is based on Part 2 of the <a href="https://geodacenter.github.io/aot-workshop/">Array of Things workshop</a> put together by Marynia Kolak at the CSDS.</p>
 </div>
-<div id="links-7" class="section level2">
-<h2><span class="header-section-number">9.2</span> Links</h2>
-<ul>
-<li>Introduction to Raster Data, Data Carpentry (what is it?): <a href="https://datacarpentry.org/organization-geospatial/01-intro-raster-data/index.html" class="uri">https://datacarpentry.org/organization-geospatial/01-intro-raster-data/index.html</a></li>
-<li>Working with Raster Data in R, Data Carpentry: <a href="https://datacarpentry.org/r-raster-vector-geospatial/01-raster-structure/index.html" class="uri">https://datacarpentry.org/r-raster-vector-geospatial/01-raster-structure/index.html</a></li>
-<li>Data for this workshop: <a href="http://datacarpentry.org/geospatial-workshop/data/" class="uri">http://datacarpentry.org/geospatial-workshop/data/</a></li>
-<li>Great resource for more tutorials regarding spatial data: <a href="https://www.earthdatascience.org" class="uri">https://www.earthdatascience.org</a></li>
-</ul>
+<div id="download-data" class="section level2">
+<h2><span class="header-section-number">11.2</span> Download data</h2>
+<p>Please download data for this workshop by going to the <a href="https://github.com/spatialanalysis/workshop-notes/blob/master/data/node_temps.csv">following link</a> and right-clicking on “Raw”, then saving the link as a CSV on your computer.</p>
+<p>Or, you can run the following code in your console:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;https://github.com/spatialanalysis/workshop-notes/raw/master/data/node_temps.csv&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;node-temps.csv&quot;</span>)</code></pre>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+Read in the csv as an sf object, then explore it using exploratory data functions like <code>head()</code>, <code>str()</code>, <code>summary()</code>, and <code>plot()</code>
+<div class="learncheck">
+
+</div>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+Convert the sf object into an sp object. Hint: `as(sf, “Spatial”) should do the trick.
+<div class="learncheck">
+
+</div>
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="interactive-maps-with-shiny.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-interpolation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-to-interpolation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -291,7 +303,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/spatialanalysis/workshop-notes/edit/master/09-raster-intro.Rmd",
+"link": "https://github.com/spatialanalysis/workshop-notes/edit/master/11-interpolation-aot.Rmd",
 "text": "Edit"
 },
 "history": {

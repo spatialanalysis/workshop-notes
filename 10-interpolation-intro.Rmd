@@ -1,0 +1,27 @@
+# (PART\*) Interpolation and Kriging {-}
+
+# Introduction to Interpolation
+
+## Overview
+
+This workshop introduces interpolation in R using an example built into the `sp` package, measuring lead levels at various points. The built-in dataset is called `meuse`.
+
+## Make sure relevant packages are installed
+
+In order to complete this workshop, you will need the following packages:
+
+- `sp`
+- `gstat`
+
+We also recommend the following:
+
+- `ggplot2`
+- `tmap`
+- `sf`
+
+## Links
+
+- gstat meuse vignette: https://cran.r-project.org/web/packages/gstat/vignettes/gstat.pdf
+- Explanation of working with the meuse dataset: https://rpubs.com/nabilabd/118172
+
+

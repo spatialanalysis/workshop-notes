@@ -1,0 +1,29 @@
+# Interpolation with Array of Things Data
+
+## Overview
+
+This workshop continues teaching interpolation in R using Array of Things data. This is based on Part 2 of the [Array of Things workshop](https://geodacenter.github.io/aot-workshop/) put together by Marynia Kolak at the CSDS. 
+
+## Download data
+
+Please download data for this workshop by going to the [following link](https://github.com/spatialanalysis/workshop-notes/blob/master/data/node_temps.csv) and right-clicking on "Raw", then saving the link as a CSV on your computer. 
+
+Or, you can run the following code in your console:
+
+```{r eval=FALSE}
+download.file("https://github.com/spatialanalysis/workshop-notes/raw/master/data/node_temps.csv", destfile = "node-temps.csv")
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+Read in the csv as an sf object, then explore it using exploratory data functions like `head()`, `str()`, `summary()`, and `plot()`
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+Convert the sf object into an sp object. Hint: `as(sf, "Spatial") should do the trick.
+```{block type="learncheck"}
+```

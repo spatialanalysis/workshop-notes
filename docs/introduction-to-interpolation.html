@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Introduction to Raster Data | R Spatial Workshop Notes</title>
-  <meta name="description" content="Chapter 9 Introduction to Raster Data | R Spatial Workshop Notes" />
+  <title>Chapter 10 Introduction to Interpolation | R Spatial Workshop Notes</title>
+  <meta name="description" content="Chapter 10 Introduction to Interpolation | R Spatial Workshop Notes" />
   <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Introduction to Raster Data | R Spatial Workshop Notes" />
+  <meta property="og:title" content="Chapter 10 Introduction to Interpolation | R Spatial Workshop Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="spatialanalysis/workshop-notes" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Introduction to Raster Data | R Spatial Workshop Notes" />
+  <meta name="twitter:title" content="Chapter 10 Introduction to Interpolation | R Spatial Workshop Notes" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="interactive-maps-with-shiny.html">
-<link rel="next" href="introduction-to-interpolation.html">
+<link rel="prev" href="introduction-to-raster-data.html">
+<link rel="next" href="interpolation-with-array-of-things-data.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -234,34 +234,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction-to-raster-data" class="section level1">
-<h1><span class="header-section-number">Chapter 9</span> Introduction to Raster Data</h1>
-<div id="overview-2" class="section level2">
-<h2><span class="header-section-number">9.1</span> Overview</h2>
-<p>This workshop introduces raster data and how to work with it in R. We will be working through the first part of the <a href="https://datacarpentry.org/r-raster-vector-geospatial/">Geospatial Data workshop</a> put together by Data Carpentry.</p>
-<p>Please download data for this workshop at <a href="http://datacarpentry.org/geospatial-workshop/data/">this link</a>.</p>
+<div id="introduction-to-interpolation" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Introduction to Interpolation</h1>
+<div id="overview-3" class="section level2">
+<h2><span class="header-section-number">10.1</span> Overview</h2>
+<p>This workshop introduces interpolation in R using an example built into the <code>sp</code> package, measuring lead levels at various points. The built-in dataset is called <code>meuse</code>.</p>
 </div>
-<div id="links-7" class="section level2">
-<h2><span class="header-section-number">9.2</span> Links</h2>
+<div id="make-sure-relevant-packages-are-installed" class="section level2">
+<h2><span class="header-section-number">10.2</span> Make sure relevant packages are installed</h2>
+<p>In order to complete this workshop, you will need the following packages:</p>
 <ul>
-<li>Introduction to Raster Data, Data Carpentry (what is it?): <a href="https://datacarpentry.org/organization-geospatial/01-intro-raster-data/index.html" class="uri">https://datacarpentry.org/organization-geospatial/01-intro-raster-data/index.html</a></li>
-<li>Working with Raster Data in R, Data Carpentry: <a href="https://datacarpentry.org/r-raster-vector-geospatial/01-raster-structure/index.html" class="uri">https://datacarpentry.org/r-raster-vector-geospatial/01-raster-structure/index.html</a></li>
-<li>Data for this workshop: <a href="http://datacarpentry.org/geospatial-workshop/data/" class="uri">http://datacarpentry.org/geospatial-workshop/data/</a></li>
-<li>Great resource for more tutorials regarding spatial data: <a href="https://www.earthdatascience.org" class="uri">https://www.earthdatascience.org</a></li>
+<li><code>sp</code></li>
+<li><code>gstat</code></li>
+</ul>
+<p>We also recommend the following:</p>
+<ul>
+<li><code>ggplot2</code></li>
+<li><code>tmap</code></li>
+<li><code>sf</code></li>
+</ul>
+</div>
+<div id="links-8" class="section level2">
+<h2><span class="header-section-number">10.3</span> Links</h2>
+<ul>
+<li>gstat meuse vignette: <a href="https://cran.r-project.org/web/packages/gstat/vignettes/gstat.pdf" class="uri">https://cran.r-project.org/web/packages/gstat/vignettes/gstat.pdf</a></li>
+<li>Explanation of working with the meuse dataset: <a href="https://rpubs.com/nabilabd/118172" class="uri">https://rpubs.com/nabilabd/118172</a></li>
 </ul>
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="interactive-maps-with-shiny.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-interpolation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-to-raster-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interpolation-with-array-of-things-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -291,7 +299,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/spatialanalysis/workshop-notes/edit/master/09-raster-intro.Rmd",
+"link": "https://github.com/spatialanalysis/workshop-notes/edit/master/10-interpolation-intro.Rmd",
 "text": "Edit"
 },
 "history": {
