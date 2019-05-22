@@ -216,6 +216,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html"><i class="fa fa-check"></i><b>11</b> Interpolation with Array of Things Data</a><ul>
 <li class="chapter" data-level="11.1" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#overview-4"><i class="fa fa-check"></i><b>11.1</b> Overview</a></li>
 <li class="chapter" data-level="11.2" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#download-data"><i class="fa fa-check"></i><b>11.2</b> Download data</a></li>
+<li class="chapter" data-level="11.3" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#links-9"><i class="fa fa-check"></i><b>11.3</b> Links</a></li>
 </ul></li>
 </ul>
 
@@ -245,6 +246,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Please download data for this workshop by going to the <a href="https://github.com/spatialanalysis/workshop-notes/blob/master/data/node_temps.csv">following link</a> and right-clicking on “Raw”, then saving the link as a CSV on your computer.</p>
 <p>Or, you can run the following code in your console:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;https://github.com/spatialanalysis/workshop-notes/raw/master/data/node_temps.csv&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;node-temps.csv&quot;</span>)</code></pre>
+<p>Also download a copy of the Chicago Community Area data <a href="https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6">here</a>, or use the API Endpoint (copy and paste into your console).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+areas &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;https://data.cityofchicago.org/resource/igwz-8jzy.geojson&quot;</span>)</code></pre>
+<pre><code>## Reading layer `OGRGeoJSON&#39; from data source `https://data.cityofchicago.org/resource/igwz-8jzy.geojson&#39; using driver `GeoJSON&#39;
+## Simple feature collection with 77 features and 9 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -87.94011 ymin: 41.64454 xmax: -87.52414 ymax: 42.02304
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs</code></pre>
 <div class="learncheck">
 <p>
 <strong>Challenge</strong>
@@ -259,10 +270,36 @@ Read in the csv as an sf object, then explore it using exploratory data function
 <strong>Challenge</strong>
 </p>
 </div>
-Convert the sf object into an sp object. Hint: `as(sf, “Spatial”) should do the trick.
+Try making a map of the nodes, with the community areas, using <code>ggplot2</code>.
 <div class="learncheck">
 
 </div>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+Convert the sf object into an sp object. Hint: <code>as_Spatial(sf)</code> should do the trick.
+<div class="learncheck">
+
+</div>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+Krige! Try out a few types of models: spherical, exponential, and linear.
+<div class="learncheck">
+
+</div>
+</div>
+<div id="links-9" class="section level2">
+<h2><span class="header-section-number">11.3</span> Links</h2>
+<ul>
+<li>When you can’t find great R documentation of concepts, ArcGIS documentation will do: <a href="https://pro.arcgis.com/en/pro-app/help/analysis/geostatistical-analyst/semivariogram-and-covariance-functions.htm">Semivariogram and covariance functions</a></li>
+<li>Alternate explanation of how to interpolate with kriging (also uses proprietary GIS software): <a href="https://gisgeography.com/kriging-interpolation-prediction/">Kriging interpolation</a></li>
+<li><a href="http://www.goldensoftware.com/variogramTutorial.pdf">Variogram tutorial</a> that provides some good, clear explanation of complicated concepts</li>
+</ul>
 
 </div>
 </div>

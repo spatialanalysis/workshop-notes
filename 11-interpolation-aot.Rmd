@@ -14,6 +14,14 @@ Or, you can run the following code in your console:
 download.file("https://github.com/spatialanalysis/workshop-notes/raw/master/data/node_temps.csv", destfile = "node-temps.csv")
 ```
 
+Also download a copy of the Chicago Community Area data [here](https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6), or use the API Endpoint (copy and paste into your console).
+```{r}
+library(sf)
+areas <- st_read("https://data.cityofchicago.org/resource/igwz-8jzy.geojson")
+```
+
+
+
 ```{block type="learncheck"}
 **Challenge**
 ```
@@ -24,6 +32,25 @@ Read in the csv as an sf object, then explore it using exploratory data function
 ```{block type="learncheck"}
 **Challenge**
 ```
-Convert the sf object into an sp object. Hint: `as(sf, "Spatial") should do the trick.
+Try making a map of the nodes, with the community areas, using `ggplot2`.
 ```{block type="learncheck"}
 ```
+
+```{block type="learncheck"}
+**Challenge**
+```
+Convert the sf object into an sp object. Hint: `as_Spatial(sf)` should do the trick.
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+Krige! Try out a few types of models: spherical, exponential, and linear.
+```{block type="learncheck"}
+```
+
+## Links
+- When you can't find great R documentation of concepts, ArcGIS documentation will do: [Semivariogram and covariance functions](https://pro.arcgis.com/en/pro-app/help/analysis/geostatistical-analyst/semivariogram-and-covariance-functions.htm)
+- Alternate explanation of how to interpolate with kriging (also uses proprietary GIS software): [Kriging interpolation](https://gisgeography.com/kriging-interpolation-prediction/)
+- [Variogram tutorial](http://www.goldensoftware.com/variogramTutorial.pdf) that provides some good, clear explanation of complicated concepts
