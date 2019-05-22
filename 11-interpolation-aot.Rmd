@@ -46,6 +46,13 @@ Convert the sf object into an sp object. Hint: `as_Spatial(sf)` should do the tr
 ```{block type="learncheck"}
 **Challenge**
 ```
+Make an empirical variogram of the data.
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
 Krige! Try out a few types of models: spherical, exponential, and linear.
 ```{block type="learncheck"}
 ```
