@@ -19,6 +19,8 @@
 
 This workshop teaches section [Chapter 8.4: Interactive Maps](https://geocompr.robinlovelace.net/adv-map.html#interactive-maps) of Geocomputation with R. 
 
+It also digs into the vignettes for `mapview`, which can be found at the [`mapview` documentation website](https://r-spatial.github.io/mapview/index.html).
+
 ## Interactive Tutorial
 
 ```{block type="rmdinfo"}
