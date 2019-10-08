@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Spatial Data Handling | R Spatial Workshop Notes</title>
+  <meta name="description" content="Chapter 12 Spatial Data Handling | R Spatial Workshop Notes" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Spatial Data Handling | R Spatial Workshop Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="spatialanalysis/workshop-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Spatial Data Handling | R Spatial Workshop Notes" />
+  
+  
+  
+
+<meta name="author" content="Angela Li" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="interpolation-with-array-of-things-data.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#workshop-organization"><i class="fa fa-check"></i>Workshop Organization</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prior-knowledge"><i class="fa fa-check"></i>Prior Knowledge</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#topics"><i class="fa fa-check"></i>Topics</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#additional-information"><i class="fa fa-check"></i>Additional information</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html"><i class="fa fa-check"></i>Project Setup</a><ul>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#prerequisites-for-git-workflow"><i class="fa fa-check"></i>Prerequisites for Git workflow</a></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#workflow-with-git"><i class="fa fa-check"></i>Workflow with Git</a></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#workflow-without-git"><i class="fa fa-check"></i>Workflow without Git</a></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#additional-reading"><i class="fa fa-check"></i>Additional reading</a></li>
+</ul></li>
+<li class="part"><span><b>GIS and Spatial Data</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html"><i class="fa fa-check"></i><b>1</b> Introduction to Spatial Data</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#learning-objectives"><i class="fa fa-check"></i><b>1.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#spatial-data-basics"><i class="fa fa-check"></i><b>1.2</b> Spatial Data Basics</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#interactive-tutorial"><i class="fa fa-check"></i><b>1.3</b> Interactive Tutorial</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#functions-learned"><i class="fa fa-check"></i><b>1.3.1</b> Functions learned</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#import-spatial-data"><i class="fa fa-check"></i><b>1.3.2</b> Import spatial data</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#project-your-data"><i class="fa fa-check"></i><b>1.3.3</b> Project your data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#links"><i class="fa fa-check"></i><b>1.4</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html"><i class="fa fa-check"></i><b>2</b> Single-Dataset GIS Operations</a><ul>
+<li class="chapter" data-level="2.1" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#functions-learned-1"><i class="fa fa-check"></i><b>2.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="2.3" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#interactive-tutorial-1"><i class="fa fa-check"></i><b>2.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="2.4" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+<li class="chapter" data-level="2.5" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#links-1"><i class="fa fa-check"></i><b>2.5</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html"><i class="fa fa-check"></i><b>3</b> Multiple-Dataset GIS Operations / Visualization</a><ul>
+<li class="chapter" data-level="3.1" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#learning-objectives-2"><i class="fa fa-check"></i><b>3.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#functions-learned-2"><i class="fa fa-check"></i><b>3.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="3.3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#interactive-tutorial-2"><i class="fa fa-check"></i><b>3.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="3.4" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#links-2"><i class="fa fa-check"></i><b>3.4</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html"><i class="fa fa-check"></i><b>4</b> Multiple-Dataset GIS Operations / Visualization pt. 2</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#learning-objectives-3"><i class="fa fa-check"></i><b>4.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#functions-learned-3"><i class="fa fa-check"></i><b>4.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="4.3" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#interactive-tutorial-3"><i class="fa fa-check"></i><b>4.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="4.4" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#challenges"><i class="fa fa-check"></i><b>4.4</b> Challenges</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#a-simple-example"><i class="fa fa-check"></i><b>4.4.1</b> A simple example</a></li>
+<li class="chapter" data-level="4.4.2" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#saving-your-plots"><i class="fa fa-check"></i><b>4.4.2</b> Saving your plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#links-3"><i class="fa fa-check"></i><b>4.5</b> Links</a></li>
+</ul></li>
+<li class="part"><span><b>Visualization</b></span></li>
+<li class="chapter" data-level="5" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html"><i class="fa fa-check"></i><b>5</b> R Markdown and Custom Maps</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html#learning-objectives-4"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html#topics-learned"><i class="fa fa-check"></i><b>5.2</b> Topics Learned</a></li>
+<li class="chapter" data-level="5.3" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html#interactive-tutorial-4"><i class="fa fa-check"></i><b>5.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="5.4" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html#challenges-1"><i class="fa fa-check"></i><b>5.4</b> Challenges</a></li>
+<li class="chapter" data-level="5.5" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html#links-4"><i class="fa fa-check"></i><b>5.5</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html"><i class="fa fa-check"></i><b>6</b> Custom and Animated Maps</a><ul>
+<li class="chapter" data-level="6.1" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html#learning-objectives-5"><i class="fa fa-check"></i><b>6.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.2" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html#functions-learned-4"><i class="fa fa-check"></i><b>6.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="6.3" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html#interactive-tutorial-5"><i class="fa fa-check"></i><b>6.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="6.4" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html#challenges-2"><i class="fa fa-check"></i><b>6.4</b> Challenges</a></li>
+<li class="chapter" data-level="6.5" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html#links-5"><i class="fa fa-check"></i><b>6.5</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="interactive-maps.html"><a href="interactive-maps.html"><i class="fa fa-check"></i><b>7</b> Interactive Maps</a><ul>
+<li class="chapter" data-level="7.1" data-path="interactive-maps.html"><a href="interactive-maps.html#learning-objectives-6"><i class="fa fa-check"></i><b>7.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="7.2" data-path="interactive-maps.html"><a href="interactive-maps.html#functions-learned-5"><i class="fa fa-check"></i><b>7.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="7.3" data-path="interactive-maps.html"><a href="interactive-maps.html#overview"><i class="fa fa-check"></i><b>7.3</b> Overview</a></li>
+<li class="chapter" data-level="7.4" data-path="interactive-maps.html"><a href="interactive-maps.html#interactive-tutorial-6"><i class="fa fa-check"></i><b>7.4</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="7.5" data-path="interactive-maps.html"><a href="interactive-maps.html#r-training-workshop"><i class="fa fa-check"></i><b>7.5</b> R Training Workshop</a></li>
+<li class="chapter" data-level="7.6" data-path="interactive-maps.html"><a href="interactive-maps.html#next-weeks"><i class="fa fa-check"></i><b>7.6</b> Next week(s?)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html"><i class="fa fa-check"></i><b>8</b> Interactive Maps with Shiny</a><ul>
+<li class="chapter" data-level="8.1" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#learning-objectives-7"><i class="fa fa-check"></i><b>8.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#topics-learned-1"><i class="fa fa-check"></i><b>8.2</b> Topics Learned</a></li>
+<li class="chapter" data-level="8.3" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#overview-1"><i class="fa fa-check"></i><b>8.3</b> Overview</a></li>
+<li class="chapter" data-level="8.4" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#interactive-tutorial-7"><i class="fa fa-check"></i><b>8.4</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="8.5" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#r-training-workshop-1"><i class="fa fa-check"></i><b>8.5</b> R Training Workshop</a></li>
+<li class="chapter" data-level="8.6" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#links-6"><i class="fa fa-check"></i><b>8.6</b> Links</a></li>
+</ul></li>
+<li class="part"><span><b>Raster Data</b></span></li>
+<li class="chapter" data-level="9" data-path="introduction-to-raster-data.html"><a href="introduction-to-raster-data.html"><i class="fa fa-check"></i><b>9</b> Introduction to Raster Data</a><ul>
+<li class="chapter" data-level="9.1" data-path="introduction-to-raster-data.html"><a href="introduction-to-raster-data.html#overview-2"><i class="fa fa-check"></i><b>9.1</b> Overview</a></li>
+<li class="chapter" data-level="9.2" data-path="introduction-to-raster-data.html"><a href="introduction-to-raster-data.html#links-7"><i class="fa fa-check"></i><b>9.2</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="introduction-to-interpolation.html"><a href="introduction-to-interpolation.html"><i class="fa fa-check"></i><b>10</b> Introduction to Interpolation</a><ul>
+<li class="chapter" data-level="10.1" data-path="introduction-to-interpolation.html"><a href="introduction-to-interpolation.html#overview-3"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
+<li class="chapter" data-level="10.2" data-path="introduction-to-interpolation.html"><a href="introduction-to-interpolation.html#make-sure-relevant-packages-are-installed"><i class="fa fa-check"></i><b>10.2</b> Make sure relevant packages are installed</a></li>
+<li class="chapter" data-level="10.3" data-path="introduction-to-interpolation.html"><a href="introduction-to-interpolation.html#links-8"><i class="fa fa-check"></i><b>10.3</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html"><i class="fa fa-check"></i><b>11</b> Interpolation with Array of Things Data</a><ul>
+<li class="chapter" data-level="11.1" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#overview-4"><i class="fa fa-check"></i><b>11.1</b> Overview</a></li>
+<li class="chapter" data-level="11.2" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#download-data"><i class="fa fa-check"></i><b>11.2</b> Download data</a></li>
+<li class="chapter" data-level="11.3" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#links-9"><i class="fa fa-check"></i><b>11.3</b> Links</a></li>
+</ul></li>
+<li class="part"><span><b>Introduction to Spatial Data Science</b></span></li>
+<li class="chapter" data-level="12" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html"><i class="fa fa-check"></i><b>12</b> Spatial Data Handling</a><ul>
+<li class="chapter" data-level="12.1" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#learning-objectives-8"><i class="fa fa-check"></i><b>12.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="12.2" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#functions-learned-6"><i class="fa fa-check"></i><b>12.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="12.3" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#interactive-tutorial-8"><i class="fa fa-check"></i><b>12.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="12.4" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#reading-data-from-an-open-data-portal"><i class="fa fa-check"></i><b>12.4</b> Reading data from an open data portal</a></li>
+<li class="chapter" data-level="12.5" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#selecting-data-to-work-with"><i class="fa fa-check"></i><b>12.5</b> Selecting data to work with</a></li>
+<li class="chapter" data-level="12.6" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#spatial-data-time---my-favorite-part"><i class="fa fa-check"></i><b>12.6</b> Spatial data time - my favorite part!</a></li>
+<li class="chapter" data-level="12.7" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#on-your-own"><i class="fa fa-check"></i><b>12.7</b> On your own</a></li>
+<li class="chapter" data-level="12.8" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#very-important-concepts-projection-and-spatial-join"><i class="fa fa-check"></i><b>12.8</b> Very important concepts: projection, and spatial join</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Spatial Workshop Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="spatial-data-handling" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Spatial Data Handling</h1>
+<div id="learning-objectives-8" class="section level2">
+<h2><span class="header-section-number">12.1</span> Learning Objectives</h2>
+<ul>
+<li>Read data from an open data portal</li>
+<li>Manipulate non-spatial data in R</li>
+<li>Convert data from lat/lon into a simple features object</li>
+<li>Project spatial data</li>
+<li>Join data based on spatial attributes</li>
+<li>Create a basic choropleth map</li>
+</ul>
+</div>
+<div id="functions-learned-6" class="section level2">
+<h2><span class="header-section-number">12.2</span> Functions Learned</h2>
+<ul>
+<li>loading packages: <code>library()</code></li>
+<li>reading from an API: <code>read.socrata()</code></li>
+<li>data exploration: <code>head()</code>, <code>dim()</code>, <code>class()</code>, <code>names()</code>, <code>is.na()</code>, <code>plot()</code></li>
+<li>selecting data: <code>filter()</code>, <code>select()</code></li>
+<li>creating a spatial object: <code>st_as_sf()</code>, <code>st_crs()</code>, <code>read_sf()</code>, <code>st_geometry()</code></li>
+<li>projecting data: <code>st_transform()</code></li>
+</ul>
+<div class="rmdinfo">
+<p>
+Hint: For each new function we go over, type <code>?</code> in front of it in the console to pull up the help page.
+</p>
+</div>
+</div>
+<div id="interactive-tutorial-8" class="section level2">
+<h2><span class="header-section-number">12.3</span> Interactive Tutorial</h2>
+<div class="rmdinfo">
+<p>
+The notebook with a more detailed version of this workshop can be found <a href="https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html">here</a>.
+</p>
+</div>
+<p>We will not cover everything in Luc’s <a href="https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html">detailed tutorial</a>, but we will go over basic commands and common gotchas, in order to help you feel comfortable working through the tutorial.</p>
+<p>Please make sure you have the following packages installed:</p>
+<ul>
+<li><code>tidyverse</code></li>
+<li><code>RSocrata</code></li>
+<li><code>sf</code></li>
+<li><code>tmap</code></li>
+<li><code>lubridate</code></li>
+</ul>
+<p>You can install all of these at once with the following command:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;RSocrata&quot;</span>, <span class="st">&quot;sf&quot;</span>, <span class="st">&quot;tmap&quot;</span>, <span class="st">&quot;lubridate&quot;</span>))</code></pre>
+<p>We start by loading the packages we need for this workshop. Here, I’ve loaded the “tidyverse” package with the <code>library()</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+Can you load the <code>RSocrata</code>, <code>sf</code>, <code>tmap</code>, and <code>lubridate</code> packages with the same function?
+<div class="learncheck">
+
+</div>
+</div>
+<div id="reading-data-from-an-open-data-portal" class="section level2">
+<h2><span class="header-section-number">12.4</span> Reading data from an open data portal</h2>
+<p>We then read data about 311 calls from a URL, otherwise known as an API. This is a straightforward way to quickly get data from an open data portal, without having to download and manage the data file locally. Here’s the <a href="https://data.cityofchicago.org/Service-Requests/311-Service-Requests-Abandoned-Vehicles/3c9v-pnva">data documentation site</a>, from the City of Chicago. This will take a while to run, as we’re pulling over 250,000 observations</p>
+<pre class="sourceCode r"><code class="sourceCode r">vehicle_data &lt;-<span class="st"> </span><span class="kw">read.socrata</span>(<span class="st">&quot;https://data.cityofchicago.org/resource/suj7-cg3j.csv&quot;</span>)</code></pre>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+Try calling the <code>head()</code>, <code>dim()</code>, and <code>class()</code> functions on the new <code>vehicle_data</code> R object. What does the data look like? How many observations and variables are there?
+<div class="learncheck">
+
+</div>
+</div>
+<div id="selecting-data-to-work-with" class="section level2">
+<h2><span class="header-section-number">12.5</span> Selecting data to work with</h2>
+<p>In general, I may only be interested in a subset of the data. I’ll use the filter command to pull out only 311 calls from 2005. That <code>year()</code> function is pulling out the year from the date column (spreadsheet software often has this functionality as well). The <code>%&gt;%</code> is known as the “pipe”, and means “take <code>vehicle_data</code>, and pass it as the first argument to the next function. It comes in handy when I want to perform multiple operations in the”tidyverse&quot;.</p>
+<pre class="sourceCode r"><code class="sourceCode r">vehicle_data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">year</span>(creation_date) <span class="op">==</span><span class="st"> </span><span class="dv">2005</span>)</code></pre>
+<pre><code>##   creation_date          status completion_date service_request_number
+## 1    2005-02-10       Completed      2017-01-11            05-00213608
+## 2    2005-03-30 Completed - Dup      2017-01-11            05-00464206
+## 3    2005-06-16 Completed - Dup      2017-01-11            05-00932280
+## 4    2005-06-16       Completed      2017-01-11            05-00932409
+## 5    2005-06-16       Completed      2017-01-11            05-00933568
+## 6    2005-06-17 Completed - Dup      2017-01-11            05-00941492
+## 7    2005-08-01 Completed - Dup      2017-01-11            05-01221973
+## 8    2005-08-26 Completed - Dup      2017-01-11            05-01396640
+##       type_of_service_request license_plate       vehicle_make_model
+## 1 Abandoned Vehicle Complaint       32L5657                 Chrysler
+## 2 Abandoned Vehicle Complaint                                       
+## 3 Abandoned Vehicle Complaint       T159050                    Honda
+## 4 Abandoned Vehicle Complaint                                       
+## 5 Abandoned Vehicle Complaint                                       
+## 6 Abandoned Vehicle Complaint                                 Toyota
+## 7 Abandoned Vehicle Complaint       5823771 Oldsmobile/Cutlass/Ciera
+## 8 Abandoned Vehicle Complaint                                       
+##   vehicle_color current_activity most_recent_action
+## 1         Black    FVI - Outcome  Create Work Order
+## 2                                                  
+## 3         Black    FVI - Outcome  Create Work Order
+## 4                  FVI - Outcome  Create Work Order
+## 5                  FVI - Outcome  Create Work Order
+## 6          Blue    FVI - Outcome  Create Work Order
+## 7          Blue                                    
+## 8                                                  
+##   how_many_days_has_the_vehicle_been_reported_as_parked_
+## 1                                                     NA
+## 2                                                     NA
+## 3                                                     NA
+## 4                                                     NA
+## 5                                                     NA
+## 6                                                     NA
+## 7                                                     NA
+## 8                                                     NA
+##         street_address zip_code x_coordinate y_coordinate ward
+## 1    1030 S MENARD AVE    60644           NA           NA   29
+## 2   917 W EASTWOOD AVE    60640      1169205      1931086   46
+## 3   8905 S BRANDON AVE    60617      1198886      1846522   10
+## 4     9127 S ELLIS AVE    60619           NA           NA    8
+## 5    1855 S CLINTON ST    60616           NA           NA   25
+## 6    4829 W WOLFRAM ST    60641      1143697      1918515   31
+## 7     2507 W CERMAK RD       NA      1160049      1889322   28
+## 8 7321 S PRINCETON AVE    60621      1175560      1856415    6
+##   police_district community_area ssa latitude longitude
+## 1              15             25  NA 41.86824 -87.76946
+## 2              23              3  34 41.96628 -87.65349
+## 3               4             46  NA 41.73358 -87.54686
+## 4               4             47  NA 41.72860 -87.59964
+## 5              12             31  NA 41.85588 -87.64027
+## 6              25             19  NA 41.93232 -87.74782
+## 7              10             30  NA 41.85190 -87.68826
+## 8               7             69  NA 41.76110 -87.63196
+##                                       location location_address
+## 1 POINT (41.86823989759004 -87.76946043478485)             &lt;NA&gt;
+## 2 POINT (41.96628368822802 -87.65349140566876)             &lt;NA&gt;
+## 3  POINT (41.73357538693858 -87.5468638464287)             &lt;NA&gt;
+## 4 POINT (41.72859955416313 -87.59963819790387)             &lt;NA&gt;
+## 5 POINT (41.85588399821447 -87.64026997646823)             &lt;NA&gt;
+## 6 POINT (41.93231981463456 -87.74781719104732)             &lt;NA&gt;
+## 7  POINT (41.85189851760397 -87.6882562971527)             &lt;NA&gt;
+## 8 POINT (41.76110443455052 -87.63196391292958)             &lt;NA&gt;
+##   location_city location_state location_zip
+## 1          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
+## 2          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
+## 3          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
+## 4          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
+## 5          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
+## 6          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
+## 7          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
+## 8          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># equivalent to:</span>
+<span class="co"># filter(vehicle_data, year(creation_data = 2005))</span></code></pre>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+Filter the data so that you only have observations from September 2016 (how do you filter on multiple criteria at once? Look at the documentation!). Save it to a new dataframe called <code>vehicle_sept16</code>. Check that you’ve done it correctly with <code>head()</code> and <code>dim()</code>.
+<div class="learncheck">
+
+</div>
+<p>Sometimes, I have more columns in my data than I need. I can choose a few columns, and assign it to a new dataset. First, I get the variable names:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(vehicle_sept16)</code></pre>
+<pre><code>##  [1] &quot;creation_date&quot;                                         
+##  [2] &quot;status&quot;                                                
+##  [3] &quot;completion_date&quot;                                       
+##  [4] &quot;service_request_number&quot;                                
+##  [5] &quot;type_of_service_request&quot;                               
+##  [6] &quot;license_plate&quot;                                         
+##  [7] &quot;vehicle_make_model&quot;                                    
+##  [8] &quot;vehicle_color&quot;                                         
+##  [9] &quot;current_activity&quot;                                      
+## [10] &quot;most_recent_action&quot;                                    
+## [11] &quot;how_many_days_has_the_vehicle_been_reported_as_parked_&quot;
+## [12] &quot;street_address&quot;                                        
+## [13] &quot;zip_code&quot;                                              
+## [14] &quot;x_coordinate&quot;                                          
+## [15] &quot;y_coordinate&quot;                                          
+## [16] &quot;ward&quot;                                                  
+## [17] &quot;police_district&quot;                                       
+## [18] &quot;community_area&quot;                                        
+## [19] &quot;ssa&quot;                                                   
+## [20] &quot;latitude&quot;                                              
+## [21] &quot;longitude&quot;                                             
+## [22] &quot;location&quot;                                              
+## [23] &quot;location_address&quot;                                      
+## [24] &quot;location_city&quot;                                         
+## [25] &quot;location_state&quot;                                        
+## [26] &quot;location_zip&quot;</code></pre>
+<p>Then, I extend the code I wrote above:</p>
+<pre class="sourceCode r"><code class="sourceCode r">vehicle_final &lt;-<span class="st"> </span>vehicle_sept16 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(location_address, zip_code)</code></pre>
+<p>Or, I can even get rid of the intermediate <code>vehicle_sept16</code> object!</p>
+<pre class="sourceCode r"><code class="sourceCode r">vehicle_final &lt;-<span class="st"> </span>vehicle_data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">year</span>(creation_date) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>,
+         <span class="kw">month</span>(creation_date) <span class="op">==</span><span class="st"> </span><span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(location_address, zip_code)</code></pre>
+<div class="rmdwarning">
+<p>
+The columns I selected aren’t going to be that useful in terms of performing spatial analysis. Why? Because they’re human understandings of where something is. In order for a computer to understand how to map something. I need something a bit more specific. If that’s all I had, I’d need to <strong>geocode</strong> my addresses, but thankfully I already have two columns in there with the information I need.
+</p>
+</div>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+What columns am I interested in? Replace the column names with the proper ones.
+<div class="learncheck">
+
+</div>
+<p>I can also rename my columns as I select them, for easier typing in the future.</p>
+<pre class="sourceCode r"><code class="sourceCode r">vehicle_final &lt;-<span class="st"> </span>vehicle_data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">year</span>(creation_date) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>,
+         <span class="kw">month</span>(creation_date) <span class="op">==</span><span class="st"> </span><span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="dt">comm =</span> community_area,
+         <span class="dt">lon =</span> longitude,
+         <span class="dt">lat =</span> latitude)</code></pre>
+<p>Great, now that I’ve narrowed down my dataset, I can convert it into a spatial format accepted by R! (Note: it’s quite normal to need to clean and prepare your data before using it for spatial analysis. That’s a big part of the data analysis workflow.)</p>
+</div>
+<div id="spatial-data-time---my-favorite-part" class="section level2">
+<h2><span class="header-section-number">12.6</span> Spatial data time - my favorite part!</h2>
+<p>The workhouse of the modern R spatial toolkit is the <code>sf</code> package. I love it a lot.</p>
+<p>To convert a table/CSV with latitude and longitude into an <code>sf</code> format, we use the <code>st_as_sf()</code> function, which has a few arguments.</p>
+<pre class="sourceCode r"><code class="sourceCode r">vehicle_points &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(vehicle_final, 
+                          <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), 
+                          <span class="dt">crs =</span> <span class="dv">4326</span>, 
+                          <span class="dt">agr =</span> <span class="st">&quot;constant&quot;</span>)</code></pre>
+<p>Uh oh, what happened? I got the following error:
+<code>Error in st_as_sf.data.frame(vehicle_final, coords = c(&quot;lon&quot;, &quot;lat&quot;), : missing values in coordinates not allowed</code>.</p>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+I can’t have missing values in my longitude or latitude values! Can you write a <code>filter()</code> statement with the <code>is.na()</code> function to remove the missing <code>lon</code> and <code>lat</code> points from <code>vehicle_final</code>? Save it to <code>vehicle_coord</code>, and check your work with <code>dim()</code>
+<div class="learncheck">
+
+</div>
+<p>Let’s try again…</p>
+<pre class="sourceCode r"><code class="sourceCode r">vehicle_points &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(vehicle_coord, 
+                          <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), 
+                          <span class="dt">crs =</span> <span class="dv">4326</span>, 
+                          <span class="dt">agr =</span> <span class="st">&quot;constant&quot;</span>)</code></pre>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+Check the <code>class()</code> of your new <code>vehicle_points</code> object. Call the <code>plot()</code> function on it! Also call the <code>st_crs()</code> function on it.
+<div class="learncheck">
+
+</div>
+</div>
+<div id="on-your-own" class="section level2">
+<h2><span class="header-section-number">12.7</span> On your own</h2>
+<div class="learncheck">
+<p>
+<strong>Challenge</strong>
+</p>
+</div>
+Can you work through the <a href="https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html#abandoned-vehicles-by-community-area">tutorial here</a> to import spatial data that’s not in data frame format? Stop once you’ve plotted the areas.
+<div class="learncheck">
+
+</div>
+</div>
+<div id="very-important-concepts-projection-and-spatial-join" class="section level2">
+<h2><span class="header-section-number">12.8</span> Very important concepts: projection, and spatial join</h2>
+<p>Two of the <strong>most</strong> important spatial concepts are projections, and spatial joins (not to be confused with attribute joins). You can read Luc’s notes to understand what’s going on, but here are <a href="https://docs.google.com/presentation/d/1JYOk6UfJCCfwJkvrGouG0SrsC54UaEG9uIkvUfQgZLc/edit#slide=id.p">two graphics</a> to explain what’s going on.</p>
+<p>The two key functions you need to know are:</p>
+<ul>
+<li><code>st_transform()</code></li>
+<li><code>st_join()</code></li>
+</ul>
+<p>Good luck with the rest of the tutorial!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="interpolation-with-array-of-things-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/spatialanalysis/workshop-notes/edit/master/12-spatial-data-handling.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

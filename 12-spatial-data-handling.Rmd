@@ -1,0 +1,213 @@
+# (PART\*) Introduction to Spatial Data Science {-}
+
+# Spatial Data Handling
+
+## Learning Objectives
+
+- Read data from an open data portal
+- Manipulate non-spatial data in R
+- Convert data from lat/lon into a simple features object 
+- Project spatial data
+- Join data based on spatial attributes
+- Create a basic choropleth map
+
+## Functions Learned
+
+- loading packages: `library()`
+- reading from an API: `read.socrata()`
+- data exploration: `head()`, `dim()`, `class()`, `names()`, `is.na()`, `plot()`
+- selecting data: `filter()`, `select()`
+- creating a spatial object: `st_as_sf()`, `st_crs()`, `read_sf()`, `st_geometry()`
+- projecting data: `st_transform()`
+
+```{block type="rmdinfo"}
+Hint: For each new function we go over, type `?` in front of it in the console to pull up the help page.
+```
+
+## Interactive Tutorial
+
+```{block type="rmdinfo"}
+The notebook with a more detailed version of this workshop can be found [here](https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html).
+```
+
+We will not cover everything in Luc's [detailed tutorial](https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html), but we will go over basic commands and common gotchas, in order to help you feel comfortable working through the tutorial.
+
+Please make sure you have the following packages installed:
+
+- `tidyverse`
+- `RSocrata`
+- `sf`
+- `tmap`
+- `lubridate`
+
+You can install all of these at once with the following command:
+
+```{r eval=FALSE}
+install.packages(c("tidyverse", "RSocrata", "sf", "tmap", "lubridate"))
+```
+
+
+We start by loading the packages we need for this workshop. Here, I've loaded the "tidyverse" package with the `library()` function.
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(lubridate)
+library(sf)
+library(tmap)
+library(pdftools)
+library(RSocrata)
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+Can you load the `RSocrata`, `sf`, `tmap`, and `lubridate` packages with the same function?
+```{block type="learncheck"}
+```
+
+## Reading data from an open data portal
+
+We then read data about 311 calls from a URL, otherwise known as an API. This is a straightforward way to quickly get data from an open data portal, without having to download and manage the data file locally. Here's the [data documentation site](https://data.cityofchicago.org/Service-Requests/311-Service-Requests-Abandoned-Vehicles/3c9v-pnva), from the City of Chicago. This will take a while to run, as we're pulling over 250,000 observations
+
+```{r warning=FALSE}
+vehicle_data <- read.socrata("https://data.cityofchicago.org/resource/suj7-cg3j.csv")
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+Try calling the `head()`, `dim()`, and `class()` functions on the new `vehicle_data` R object. What does the data look like? How many observations and variables are there? 
+```{block type="learncheck"}
+```
+
+## Selecting data to work with
+
+In general, I may only be interested in a subset of the data. I'll use the filter command to pull out only 311 calls from 2005. That `year()` function is pulling out the year from the date column (spreadsheet software often has this functionality as well). The `%>%` is known as the "pipe", and means "take `vehicle_data`, and pass it as the first argument to the next function. It comes in handy when I want to perform multiple operations in the "tidyverse".
+
+```{r}
+vehicle_data %>% 
+  filter(year(creation_date) == 2005)
+
+# equivalent to:
+# filter(vehicle_data, year(creation_data = 2005))
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+Filter the data so that you only have observations from September 2016 (how do you filter on multiple criteria at once? Look at the documentation!). Save it to a new dataframe called `vehicle_sept16`. Check that you've done it correctly with `head()` and `dim()`.
+```{block type="learncheck"}
+```
+
+```{r echo=FALSE}
+vehicle_sept16 <- vehicle_data %>%
+  filter(year(creation_date) == 2016,
+         month(creation_date) == 9)
+```
+
+Sometimes, I have more columns in my data than I need. I can choose a few columns, and assign it to a new dataset. First, I get the variable names:
+```{r}
+names(vehicle_sept16)
+```
+
+Then, I extend the code I wrote above:
+```{r}
+vehicle_final <- vehicle_sept16 %>% 
+  select(location_address, zip_code)
+```
+
+Or, I can even get rid of the intermediate `vehicle_sept16` object!
+```{r}
+vehicle_final <- vehicle_data %>% 
+  filter(year(creation_date) == 2016,
+         month(creation_date) == 9) %>% 
+  select(location_address, zip_code)
+```
+
+```{block type="rmdwarning"}
+The columns I selected aren't going to be that useful in terms of performing spatial analysis. Why? Because they're human understandings of where something is. In order for a computer to understand how to map something. I need something a bit more specific. If that's all I had, I'd need to **geocode** my addresses, but thankfully I already have two columns in there with the information I need.
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+What columns am I interested in? Replace the column names with the proper ones.
+```{block type="learncheck"}
+```
+
+I can also rename my columns as I select them, for easier typing in the future.
+```{r}
+vehicle_final <- vehicle_data %>% 
+  filter(year(creation_date) == 2016,
+         month(creation_date) == 9) %>% 
+  select(comm = community_area,
+         lon = longitude,
+         lat = latitude)
+```
+
+
+Great, now that I've narrowed down my dataset, I can convert it into a spatial format accepted by R! (Note: it's quite normal to need to clean and prepare your data before using it for spatial analysis. That's a big part of the data analysis workflow.)
+
+## Spatial data time - my favorite part!
+
+The workhouse of the modern R spatial toolkit is the `sf` package. I love it a lot. 
+
+To convert a table/CSV with latitude and longitude into an `sf` format, we use the `st_as_sf()` function, which has a few arguments.
+
+```{r eval=FALSE}
+vehicle_points <- st_as_sf(vehicle_final, 
+                          coords = c("lon", "lat"), 
+                          crs = 4326, 
+                          agr = "constant")
+```
+
+Uh oh, what happened? I got the following error:
+`Error in st_as_sf.data.frame(vehicle_final, coords = c("lon", "lat"), : missing values in coordinates not allowed`.
+
+```{block type="learncheck"}
+**Challenge**
+```
+I can't have missing values in my longitude or latitude values! Can you write a `filter()` statement with the `is.na()` function to remove the missing `lon` and `lat` points from `vehicle_final`? Save it to `vehicle_coord`, and check your work with `dim()`
+```{block type="learncheck"}
+```
+
+```{r echo=FALSE}
+vehicle_coord <- vehicle_final %>% filter(!(is.na(lat)), !(is.na(lon)))
+```
+
+Let's try again...
+```{r eval=FALSE}
+vehicle_points <- st_as_sf(vehicle_coord, 
+                          coords = c("lon", "lat"), 
+                          crs = 4326, 
+                          agr = "constant")
+```
+
+```{block type="learncheck"}
+**Challenge**
+```
+Check the `class()` of your new `vehicle_points` object. Call the `plot()` function on it! Also call the `st_crs()` function on it.
+```{block type="learncheck"}
+```
+
+## On your own
+
+```{block type="learncheck"}
+**Challenge**
+```
+Can you work through the [tutorial here](https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html#abandoned-vehicles-by-community-area) to import spatial data that's not in data frame format? Stop once you've plotted the areas.
+```{block type="learncheck"}
+```
+
+## Very important concepts: projection, and spatial join
+
+Two of the **most** important spatial concepts are projections, and spatial joins (not to be confused with attribute joins). You can read Luc's notes to understand what's going on, but here are [two graphics](https://docs.google.com/presentation/d/1JYOk6UfJCCfwJkvrGouG0SrsC54UaEG9uIkvUfQgZLc/edit#slide=id.p) to explain what's going on.
+
+The two key functions you need to know are:
+
+- `st_transform()`
+- `st_join()`
+
+Good luck with the rest of the tutorial!
