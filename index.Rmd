@@ -1,6 +1,6 @@
 ---
 title: "R Spatial Workshop Notes"
-subtitle: "Spring Quarter 2019"
+subtitle: "Fall Quarter 2019"
 author: "Angela Li"
 github-repo: spatialanalysis/workshop-notes
 site: bookdown::bookdown_site
@@ -12,9 +12,9 @@ output:
 
 # Introduction {-}
 
-This site contains workshop notes from the R Spatial Workshop at the [Center for Spatial Data Science](https://spatial.uchicago.edu/). Workshops are held on **Wednesdays at 10am and 2pm** during Spring Quarter 2019. Our goal for running these workshops are to teach researchers how to work effectively with spatial data in R. 
+This site contains workshop notes from the R Spatial Workshop at the [Center for Spatial Data Science](https://spatial.uchicago.edu/). Workshops are held on **Tuesdays from noon-1pm** during Fall Quarter 2019. Our goal for running these workshops are to teach researchers how to work effectively with spatial data in R. This workshop mirrors the Introduction to Spatial Data Science course taught by Luc Anselin and Marynia Kolak.
 
-You are welcome to join us in **Searle 240B** for workshops if you're a member of the UChicago campus community! Bring a laptop to follow along.
+You are welcome to join us in **Searle 240A** for workshops if you're a member of the UChicago campus community! Bring a laptop to follow along.
 
 ## Workshop Organization {-}
 

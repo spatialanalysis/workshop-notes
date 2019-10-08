@@ -1,5 +1,3 @@
-# (PART\*) Interpolation and Kriging {-}
-
 # Introduction to Interpolation
 
 ## Overview
