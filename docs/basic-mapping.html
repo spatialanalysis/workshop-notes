@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 12 Spatial Data Handling | R Spatial Workshop Notes</title>
-  <meta name="description" content="Chapter 12 Spatial Data Handling | R Spatial Workshop Notes" />
+  <title>Chapter 13 Basic Mapping | R Spatial Workshop Notes</title>
+  <meta name="description" content="Chapter 13 Basic Mapping | R Spatial Workshop Notes" />
   <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 12 Spatial Data Handling | R Spatial Workshop Notes" />
+  <meta property="og:title" content="Chapter 13 Basic Mapping | R Spatial Workshop Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="spatialanalysis/workshop-notes" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 12 Spatial Data Handling | R Spatial Workshop Notes" />
+  <meta name="twitter:title" content="Chapter 13 Basic Mapping | R Spatial Workshop Notes" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="interpolation-with-array-of-things-data.html">
-<link rel="next" href="basic-mapping.html">
+<link rel="prev" href="spatial-data-handling.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -251,281 +251,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="spatial-data-handling" class="section level1">
-<h1><span class="header-section-number">Chapter 12</span> Spatial Data Handling</h1>
-<div id="learning-objectives-8" class="section level2">
-<h2><span class="header-section-number">12.1</span> Learning Objectives</h2>
+<div id="basic-mapping" class="section level1">
+<h1><span class="header-section-number">Chapter 13</span> Basic Mapping</h1>
+<div id="outline-of-todays-workshop" class="section level2">
+<h2><span class="header-section-number">13.1</span> Outline of Today’s Workshop</h2>
+<p>We’ll be doing the following few things:</p>
+<ol style="list-style-type: decimal">
+<li><p>finishing up <a href="https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html">Spatial Data Handling</a></p></li>
+<li><p>discussing finding open-source geospatial data,</p></li>
+<li><p>then working from this <a href="https://spatialanalysis.github.io/lab_tutorials/4_R_Mapping.html">Basic Mapping lab tutorial</a>.</p></li>
+</ol>
+</div>
+<div id="spatial-data-handling-fin" class="section level2">
+<h2><span class="header-section-number">13.2</span> Spatial Data Handling, fin</h2>
+<p>There’s a long section in the tutorial about PDF scraping. If you’ve already done it, sorry! I just put together a <a href="https://spatialanalysis.github.io/geodaData/">data package</a> that you can install to use with these tutorials.</p>
+<p>Install the package with:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;remotes&quot;)</span>
+remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;spatialanalysis/geodaData&quot;</span>)</code></pre>
+<p>Then, you can pull up the community area data <em>with population attached</em> with:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(geodaData)
+<span class="kw">library</span>(sf)
+<span class="kw">data</span>(<span class="st">&quot;chicago_comm&quot;</span>)</code></pre>
+</div>
+<div id="finding-spatial-data" class="section level2">
+<h2><span class="header-section-number">13.3</span> Finding Spatial Data</h2>
+<p>Based on a question from last week, I put together a <a href="https://github.com/spatialanalysis/geodaData">list</a> with some sources of spatial data.</p>
+<div class="learncheck">
+<p>
+<strong>Question</strong>
+</p>
+</div>
+What type of spatial data are you interested in using for your research? Please write down the research question and the type of data you are thinking about using <a href="https://docs.google.com/document/d/1v9GkkCspc2tT5-bVi7KrUJgUP8zHuCFfenXHCxyggPk/edit?usp=sharing">here</a>!
+<div class="learncheck">
+
+</div>
+<div class="learncheck">
+<p>
+<strong>Question</strong>
+</p>
+</div>
+Where do you think you might be able to find that geospatial data? Take 5 minutes to do a search, discuss with a partner, and jot down your ideas <a href="https://docs.google.com/document/d/1v9GkkCspc2tT5-bVi7KrUJgUP8zHuCFfenXHCxyggPk/edit?usp=sharing">here</a>!
+<div class="learncheck">
+
+</div>
+</div>
+<div id="basic-mapping-1" class="section level2">
+<h2><span class="header-section-number">13.4</span> Basic Mapping</h2>
+<p>I’m moving to mapping to make sure we cover the necessary spatial concepts, as some of the exploratory data analysis you may have already encountered. We may go back to the multivariate analysis next week, if time.</p>
+<div class="learncheck">
+<p>
+<strong>Question</strong>
+</p>
+</div>
+How many people feel comfortable with ggplot already? How many people can run a regression in R?
+<div class="learncheck">
+
+</div>
+<p>To use the NYC boundary data included in the tutorial, run the following code:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(geodaData)
+<span class="kw">library</span>(sf)
+nyc_bound &lt;-<span class="st"> </span><span class="kw">data</span>(<span class="st">&quot;nyc_sf&quot;</span>)</code></pre>
+<p>Some resources I find useful for tmap include:</p>
 <ul>
-<li>Read data from an open data portal</li>
-<li>Manipulate non-spatial data in R</li>
-<li>Convert data from lat/lon into a simple features object</li>
-<li>Project spatial data</li>
-<li>Join data based on spatial attributes</li>
-<li>Create a basic choropleth map</li>
+<li>the tmap <a href="https://github.com/mtennekes/tmap/#reference">examples</a></li>
+<li>the <a href="https://geocompr.robinlovelace.net/adv-map.html">Geocomputation with R</a> site</li>
 </ul>
-</div>
-<div id="functions-learned-6" class="section level2">
-<h2><span class="header-section-number">12.2</span> Functions Learned</h2>
-<ul>
-<li>loading packages: <code>library()</code></li>
-<li>reading from an API: <code>read.socrata()</code></li>
-<li>data exploration: <code>head()</code>, <code>dim()</code>, <code>class()</code>, <code>names()</code>, <code>is.na()</code>, <code>plot()</code></li>
-<li>selecting data: <code>filter()</code>, <code>select()</code></li>
-<li>creating a spatial object: <code>st_as_sf()</code>, <code>st_crs()</code>, <code>read_sf()</code>, <code>st_geometry()</code></li>
-<li>projecting data: <code>st_transform()</code></li>
-</ul>
-<div class="rmdinfo">
-<p>
-Hint: For each new function we go over, type <code>?</code> in front of it in the console to pull up the help page.
-</p>
-</div>
-</div>
-<div id="interactive-tutorial-8" class="section level2">
-<h2><span class="header-section-number">12.3</span> Interactive Tutorial</h2>
-<div class="rmdinfo">
-<p>
-The notebook with a more detailed version of this workshop can be found <a href="https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html">here</a>.
-</p>
-</div>
-<p>We will not cover everything in Luc’s <a href="https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html">detailed tutorial</a>, but we will go over basic commands and common gotchas, in order to help you feel comfortable working through the tutorial.</p>
-<p>Please make sure you have the following packages installed:</p>
-<ul>
-<li><code>tidyverse</code></li>
-<li><code>RSocrata</code></li>
-<li><code>sf</code></li>
-<li><code>tmap</code></li>
-<li><code>lubridate</code></li>
-</ul>
-<p>You can install all of these at once with the following command:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;RSocrata&quot;</span>, <span class="st">&quot;sf&quot;</span>, <span class="st">&quot;tmap&quot;</span>, <span class="st">&quot;lubridate&quot;</span>))</code></pre>
-<p>We start by loading the packages we need for this workshop. Here, I’ve loaded the “tidyverse” package with the <code>library()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre>
 <div class="learncheck">
 <p>
-<strong>Challenge</strong>
+<strong>Question</strong>
 </p>
 </div>
-Can you load the <code>RSocrata</code>, <code>sf</code>, <code>tmap</code>, and <code>lubridate</code> packages with the same function?
+Take a few minutes and try to understand what the NYC data is about. How many observations and variables are there? What data is stored? What geometries are included?
 <div class="learncheck">
 
 </div>
-</div>
-<div id="reading-data-from-an-open-data-portal" class="section level2">
-<h2><span class="header-section-number">12.4</span> Reading data from an open data portal</h2>
-<p>We then read data about 311 calls from a URL, otherwise known as an API. This is a straightforward way to quickly get data from an open data portal, without having to download and manage the data file locally. Here’s the <a href="https://data.cityofchicago.org/Service-Requests/311-Service-Requests-Abandoned-Vehicles/3c9v-pnva">data documentation site</a>, from the City of Chicago. This will take a while to run, as we’re pulling over 250,000 observations</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicle_data &lt;-<span class="st"> </span><span class="kw">read.socrata</span>(<span class="st">&quot;https://data.cityofchicago.org/resource/suj7-cg3j.csv&quot;</span>)</code></pre>
 <div class="learncheck">
 <p>
-<strong>Challenge</strong>
+<strong>Question</strong>
 </p>
 </div>
-Try calling the <code>head()</code>, <code>dim()</code>, and <code>class()</code> functions on the new <code>vehicle_data</code> R object. What does the data look like? How many observations and variables are there?
+Can you try to replicate one of the map styles in the tmap examples (here’s the <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-JSS-code.html">code used to create them</a>), using the NYC data we just worked with? Take a few minutes and try it out!
 <div class="learncheck">
 
 </div>
-</div>
-<div id="selecting-data-to-work-with" class="section level2">
-<h2><span class="header-section-number">12.5</span> Selecting data to work with</h2>
-<p>In general, I may only be interested in a subset of the data. I’ll use the filter command to pull out only 311 calls from 2005. That <code>year()</code> function is pulling out the year from the date column (spreadsheet software often has this functionality as well). The <code>%&gt;%</code> is known as the “pipe”, and means “take <code>vehicle_data</code>, and pass it as the first argument to the next function. It comes in handy when I want to perform multiple operations in the”tidyverse&quot;.</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicle_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">year</span>(creation_date) <span class="op">==</span><span class="st"> </span><span class="dv">2005</span>)</code></pre>
-<pre><code>##   creation_date          status completion_date service_request_number
-## 1    2005-02-10       Completed      2017-01-11            05-00213608
-## 2    2005-03-30 Completed - Dup      2017-01-11            05-00464206
-## 3    2005-06-16 Completed - Dup      2017-01-11            05-00932280
-## 4    2005-06-16       Completed      2017-01-11            05-00932409
-## 5    2005-06-16       Completed      2017-01-11            05-00933568
-## 6    2005-06-17 Completed - Dup      2017-01-11            05-00941492
-## 7    2005-08-01 Completed - Dup      2017-01-11            05-01221973
-## 8    2005-08-26 Completed - Dup      2017-01-11            05-01396640
-##       type_of_service_request license_plate       vehicle_make_model
-## 1 Abandoned Vehicle Complaint       32L5657                 Chrysler
-## 2 Abandoned Vehicle Complaint                                       
-## 3 Abandoned Vehicle Complaint       T159050                    Honda
-## 4 Abandoned Vehicle Complaint                                       
-## 5 Abandoned Vehicle Complaint                                       
-## 6 Abandoned Vehicle Complaint                                 Toyota
-## 7 Abandoned Vehicle Complaint       5823771 Oldsmobile/Cutlass/Ciera
-## 8 Abandoned Vehicle Complaint                                       
-##   vehicle_color current_activity most_recent_action
-## 1         Black    FVI - Outcome  Create Work Order
-## 2                                                  
-## 3         Black    FVI - Outcome  Create Work Order
-## 4                  FVI - Outcome  Create Work Order
-## 5                  FVI - Outcome  Create Work Order
-## 6          Blue    FVI - Outcome  Create Work Order
-## 7          Blue                                    
-## 8                                                  
-##   how_many_days_has_the_vehicle_been_reported_as_parked_
-## 1                                                     NA
-## 2                                                     NA
-## 3                                                     NA
-## 4                                                     NA
-## 5                                                     NA
-## 6                                                     NA
-## 7                                                     NA
-## 8                                                     NA
-##         street_address zip_code x_coordinate y_coordinate ward
-## 1    1030 S MENARD AVE    60644           NA           NA   29
-## 2   917 W EASTWOOD AVE    60640      1169205      1931086   46
-## 3   8905 S BRANDON AVE    60617      1198886      1846522   10
-## 4     9127 S ELLIS AVE    60619           NA           NA    8
-## 5    1855 S CLINTON ST    60616           NA           NA   25
-## 6    4829 W WOLFRAM ST    60641      1143697      1918515   31
-## 7     2507 W CERMAK RD       NA      1160049      1889322   28
-## 8 7321 S PRINCETON AVE    60621      1175560      1856415    6
-##   police_district community_area ssa latitude longitude
-## 1              15             25  NA 41.86824 -87.76946
-## 2              23              3  34 41.96628 -87.65349
-## 3               4             46  NA 41.73358 -87.54686
-## 4               4             47  NA 41.72860 -87.59964
-## 5              12             31  NA 41.85588 -87.64027
-## 6              25             19  NA 41.93232 -87.74782
-## 7              10             30  NA 41.85190 -87.68826
-## 8               7             69  NA 41.76110 -87.63196
-##                                       location location_address
-## 1 POINT (41.86823989759004 -87.76946043478485)             &lt;NA&gt;
-## 2 POINT (41.96628368822802 -87.65349140566876)             &lt;NA&gt;
-## 3  POINT (41.73357538693858 -87.5468638464287)             &lt;NA&gt;
-## 4 POINT (41.72859955416313 -87.59963819790387)             &lt;NA&gt;
-## 5 POINT (41.85588399821447 -87.64026997646823)             &lt;NA&gt;
-## 6 POINT (41.93231981463456 -87.74781719104732)             &lt;NA&gt;
-## 7  POINT (41.85189851760397 -87.6882562971527)             &lt;NA&gt;
-## 8 POINT (41.76110443455052 -87.63196391292958)             &lt;NA&gt;
-##   location_city location_state location_zip
-## 1          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
-## 2          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
-## 3          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
-## 4          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
-## 5          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
-## 6          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
-## 7          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;
-## 8          &lt;NA&gt;           &lt;NA&gt;         &lt;NA&gt;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># equivalent to:</span>
-<span class="co"># filter(vehicle_data, year(creation_data = 2005))</span></code></pre>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-Filter the data so that you only have observations from September 2016 (how do you filter on multiple criteria at once? Look at the documentation!). Save it to a new dataframe called <code>vehicle_sept16</code>. Check that you’ve done it correctly with <code>head()</code> and <code>dim()</code>.
-<div class="learncheck">
-
-</div>
-<p>Sometimes, I have more columns in my data than I need. I can choose a few columns, and assign it to a new dataset. First, I get the variable names:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(vehicle_sept16)</code></pre>
-<pre><code>##  [1] &quot;creation_date&quot;                                         
-##  [2] &quot;status&quot;                                                
-##  [3] &quot;completion_date&quot;                                       
-##  [4] &quot;service_request_number&quot;                                
-##  [5] &quot;type_of_service_request&quot;                               
-##  [6] &quot;license_plate&quot;                                         
-##  [7] &quot;vehicle_make_model&quot;                                    
-##  [8] &quot;vehicle_color&quot;                                         
-##  [9] &quot;current_activity&quot;                                      
-## [10] &quot;most_recent_action&quot;                                    
-## [11] &quot;how_many_days_has_the_vehicle_been_reported_as_parked_&quot;
-## [12] &quot;street_address&quot;                                        
-## [13] &quot;zip_code&quot;                                              
-## [14] &quot;x_coordinate&quot;                                          
-## [15] &quot;y_coordinate&quot;                                          
-## [16] &quot;ward&quot;                                                  
-## [17] &quot;police_district&quot;                                       
-## [18] &quot;community_area&quot;                                        
-## [19] &quot;ssa&quot;                                                   
-## [20] &quot;latitude&quot;                                              
-## [21] &quot;longitude&quot;                                             
-## [22] &quot;location&quot;                                              
-## [23] &quot;location_address&quot;                                      
-## [24] &quot;location_city&quot;                                         
-## [25] &quot;location_state&quot;                                        
-## [26] &quot;location_zip&quot;</code></pre>
-<p>Then, I extend the code I wrote above:</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicle_final &lt;-<span class="st"> </span>vehicle_sept16 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(location_address, zip_code)</code></pre>
-<p>Or, I can even get rid of the intermediate <code>vehicle_sept16</code> object!</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicle_final &lt;-<span class="st"> </span>vehicle_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">year</span>(creation_date) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>,
-         <span class="kw">month</span>(creation_date) <span class="op">==</span><span class="st"> </span><span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(location_address, zip_code)</code></pre>
-<div class="rmdwarning">
-<p>
-The columns I selected aren’t going to be that useful in terms of performing spatial analysis. Why? Because they’re human understandings of where something is. In order for a computer to understand how to map something. I need something a bit more specific. If that’s all I had, I’d need to <strong>geocode</strong> my addresses, but thankfully I already have two columns in there with the information I need.
-</p>
-</div>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-What columns am I interested in? Replace the column names with the proper ones.
-<div class="learncheck">
-
-</div>
-<p>I can also rename my columns as I select them, for easier typing in the future.</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicle_final &lt;-<span class="st"> </span>vehicle_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">year</span>(creation_date) <span class="op">==</span><span class="st"> </span><span class="dv">2016</span>,
-         <span class="kw">month</span>(creation_date) <span class="op">==</span><span class="st"> </span><span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(<span class="dt">comm =</span> community_area,
-         <span class="dt">lon =</span> longitude,
-         <span class="dt">lat =</span> latitude)</code></pre>
-<p>Great, now that I’ve narrowed down my dataset, I can convert it into a spatial format accepted by R! (Note: it’s quite normal to need to clean and prepare your data before using it for spatial analysis. That’s a big part of the data analysis workflow.)</p>
-</div>
-<div id="spatial-data-time---my-favorite-part" class="section level2">
-<h2><span class="header-section-number">12.6</span> Spatial data time - my favorite part!</h2>
-<p>The workhouse of the modern R spatial toolkit is the <code>sf</code> package. I love it a lot.</p>
-<p>To convert a table/CSV with latitude and longitude into an <code>sf</code> format, we use the <code>st_as_sf()</code> function, which has a few arguments.</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicle_points &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(vehicle_final, 
-                          <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), 
-                          <span class="dt">crs =</span> <span class="dv">4326</span>, 
-                          <span class="dt">agr =</span> <span class="st">&quot;constant&quot;</span>)</code></pre>
-<p>Uh oh, what happened? I got the following error:
-<code>Error in st_as_sf.data.frame(vehicle_final, coords = c(&quot;lon&quot;, &quot;lat&quot;), : missing values in coordinates not allowed</code>.</p>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-I can’t have missing values in my longitude or latitude values! Can you write a <code>filter()</code> statement with the <code>is.na()</code> function to remove the missing <code>lon</code> and <code>lat</code> points from <code>vehicle_final</code>? Save it to <code>vehicle_coord</code>, and check your work with <code>dim()</code>
-<div class="learncheck">
-
-</div>
-<p>Let’s try again…</p>
-<pre class="sourceCode r"><code class="sourceCode r">vehicle_points &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(vehicle_coord, 
-                          <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), 
-                          <span class="dt">crs =</span> <span class="dv">4326</span>, 
-                          <span class="dt">agr =</span> <span class="st">&quot;constant&quot;</span>)</code></pre>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-Check the <code>class()</code> of your new <code>vehicle_points</code> object. Call the <code>plot()</code> function on it! Also call the <code>st_crs()</code> function on it.
-<div class="learncheck">
-
-</div>
-</div>
-<div id="on-your-own" class="section level2">
-<h2><span class="header-section-number">12.7</span> On your own</h2>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
-Can you work through the <a href="https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html#abandoned-vehicles-by-community-area">tutorial here</a> to import spatial data that’s not in data frame format? Stop once you’ve plotted the areas.
-<div class="learncheck">
-
-</div>
-</div>
-<div id="very-important-concepts-projection-and-spatial-join" class="section level2">
-<h2><span class="header-section-number">12.8</span> Very important concepts: projection, and spatial join</h2>
-<p>Two of the <strong>most</strong> important spatial concepts are projections, and spatial joins (not to be confused with attribute joins). You can read Luc’s notes to understand what’s going on, but here are <a href="https://docs.google.com/presentation/d/1JYOk6UfJCCfwJkvrGouG0SrsC54UaEG9uIkvUfQgZLc/edit#slide=id.p">two graphics</a> to explain what’s going on.</p>
-<p>The two key functions you need to know are:</p>
-<ul>
-<li><code>st_transform()</code></li>
-<li><code>st_join()</code></li>
-</ul>
-<p>Good luck with the rest of the tutorial!</p>
 
 </div>
 </div>
@@ -534,8 +342,8 @@ Can you work through the <a href="https://spatialanalysis.github.io/lab_tutorial
           </div>
         </div>
       </div>
-<a href="interpolation-with-array-of-things-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic-mapping.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="spatial-data-handling.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -565,7 +373,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/spatialanalysis/workshop-notes/edit/master/12-spatial-data-handling.Rmd",
+"link": "https://github.com/spatialanalysis/workshop-notes/edit/master/13-basic-mapping.Rmd",
 "text": "Edit"
 },
 "history": {

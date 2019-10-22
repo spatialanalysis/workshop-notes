@@ -1,0 +1,86 @@
+# Basic Mapping
+
+## Outline of Today's Workshop
+
+We'll be doing the following few things:
+
+1. finishing up [Spatial Data Handling](https://spatialanalysis.github.io/lab_tutorials/1_R_Spatial_Data_Handling.html)
+
+2. discussing finding open-source geospatial data,
+
+3. then working from this [Basic Mapping lab tutorial](https://spatialanalysis.github.io/lab_tutorials/4_R_Mapping.html).
+
+## Spatial Data Handling, fin
+
+There's a long section in the tutorial about PDF scraping. If you've already done it, sorry! I just put together a [data package](https://spatialanalysis.github.io/geodaData/) that you can install to use with these tutorials.
+
+Install the package with:
+
+```{r eval=FALSE}
+# install.packages("remotes")
+remotes::install_github("spatialanalysis/geodaData")
+```
+
+Then, you can pull up the community area data *with population attached* with:
+```{r eval=FALSE}
+library(geodaData)
+library(sf)
+data("chicago_comm")
+```
+
+## Finding Spatial Data
+
+Based on a question from last week, I put together a [list](https://github.com/spatialanalysis/geodaData) with some sources of spatial data.
+
+```{block type="learncheck"}
+**Question**
+```
+What type of spatial data are you interested in using for your research? Please write down the research question and the type of data you are thinking about using [here](https://docs.google.com/document/d/1v9GkkCspc2tT5-bVi7KrUJgUP8zHuCFfenXHCxyggPk/edit?usp=sharing)!
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Question**
+```
+Where do you think you might be able to find that geospatial data? Take 5 minutes to do a search, discuss with a partner, and jot down your ideas [here](https://docs.google.com/document/d/1v9GkkCspc2tT5-bVi7KrUJgUP8zHuCFfenXHCxyggPk/edit?usp=sharing)!
+```{block type="learncheck"}
+```
+
+## Basic Mapping
+
+I'm moving to mapping to make sure we cover the necessary spatial concepts, as some of the exploratory data analysis you may have already encountered. We may go back to the multivariate analysis next week, if time.
+
+```{block type="learncheck"}
+**Question**
+```
+How many people feel comfortable with ggplot already? How many people can run a regression in R?
+```{block type="learncheck"}
+```
+
+To use the NYC boundary data included in the tutorial, run the following code:
+
+```{r eval=FALSE}
+library(geodaData)
+library(sf)
+nyc_bound <- data("nyc_sf")
+```
+
+Some resources I find useful for tmap include:
+
+- the tmap [examples](https://github.com/mtennekes/tmap/#reference)
+- the [Geocomputation with R](https://geocompr.robinlovelace.net/adv-map.html) site
+
+```{block type="learncheck"}
+**Question**
+```
+Take a few minutes and try to understand what the NYC data is about. How many observations and variables are there? What data is stored? What geometries are included?
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Question**
+```
+Can you try to replicate one of the map styles in the tmap examples (here's the [code used to create them](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-JSS-code.html)), using the NYC data we just worked with? Take a few minutes and try it out!
+```{block type="learncheck"}
+```
+
