@@ -30,7 +30,7 @@ data("chicago_comm")
 
 ## Finding Spatial Data
 
-Based on a question from last week, I put together a [list](https://github.com/spatialanalysis/geodaData) with some sources of spatial data.
+Based on a question from last week, I put together a [list](https://docs.google.com/document/d/12I9nLcBtG8fjxOxCbAt-4ifvMYuIUA0HHDIP7YFBULI/edit) with some sources of spatial data.
 
 ```{block type="learncheck"}
 **Question**
