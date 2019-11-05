@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Introduction to Spatial Data | R Spatial Workshop Notes</title>
-  <meta name="description" content="Chapter 1 Introduction to Spatial Data | R Spatial Workshop Notes" />
+  <title>Chapter 14 Spatial Autocorrelation | R Spatial Workshop Notes</title>
+  <meta name="description" content="Chapter 14 Spatial Autocorrelation | R Spatial Workshop Notes" />
   <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Introduction to Spatial Data | R Spatial Workshop Notes" />
+  <meta property="og:title" content="Chapter 14 Spatial Autocorrelation | R Spatial Workshop Notes" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="spatialanalysis/workshop-notes" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Introduction to Spatial Data | R Spatial Workshop Notes" />
+  <meta name="twitter:title" content="Chapter 14 Spatial Autocorrelation | R Spatial Workshop Notes" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="project-setup.html">
-<link rel="next" href="single-dataset-gis-operations.html">
+<link rel="prev" href="basic-mapping.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -273,148 +273,142 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction-to-spatial-data" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction to Spatial Data</h1>
-<div id="learning-objectives" class="section level2">
-<h2><span class="header-section-number">1.1</span> Learning Objectives</h2>
-<ul>
-<li>Understand the difference between vector and raster data</li>
-<li>Describe the components of a PROJ4 string</li>
-<li>Name the two main packages for spatial vector data in R</li>
-<li>Import, project, and plot spatial data in R</li>
-</ul>
+<div id="spatial-autocorrelation" class="section level1">
+<h1><span class="header-section-number">Chapter 14</span> Spatial Autocorrelation</h1>
+<div id="install-packages" class="section level2">
+<h2><span class="header-section-number">14.1</span> Install packages</h2>
+<p>Make sure you have the <strong>spdep</strong> package installed:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;spdep&quot;</span>)</code></pre>
+<p>I also developed a helper package for some of this spatial autocorrelation stuff, called <a href="https://github.com/spatialanalysis/sfExtras"><strong>sfExtras</strong></a>. Install with:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;remotes&quot;)</span>
+remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;spatialanalysis/sfExtras&quot;</span>)</code></pre>
 </div>
-<div id="spatial-data-basics" class="section level2">
-<h2><span class="header-section-number">1.2</span> Spatial Data Basics</h2>
-<p>We first reviewed some important information about spatial data. The two main types are
-<strong>vector</strong> (points, lines, polygons) and <strong>raster</strong> (pixels, surfaces). Since this workshop is given in the context of social science research, the rest of our workshop focuses on <a href="https://datacarpentry.org/organization-geospatial/02-intro-vector-data/index.html">vector data</a> such as administrative boundaries, locations of business, or road networks.</p>
-<p>Next, we went over what a <strong>coordinate reference system</strong> was, as well as the components of a <strong>PROJ4 string</strong>, or how coordinate reference systems are stored electronically. Rather than writing out the whole PROJ4 string, we can use an <strong>EPSG code</strong> as shorthand for it. This <a href="https://datacarpentry.org/organization-geospatial/03-crs/index.html">Software Carpentry workshop</a> provides excellent explanations and exercises for understanding coordinate reference systems.</p>
-<p>Finally, we learned that <a href="https://r-spatial.github.io/sf/index.html"><code>sf</code></a> is the modern package for handling spatial data in R. Some old packages still use <code>sp</code>. However, it has a much more complicated representation of spatial data, so we will focus on <code>sf</code>. See <a href="https://github.com/r-spatial/sf/wiki/Migrating">this guide</a> for a translation of <code>sp</code> to <code>sf</code> commands, if you’re used to using <code>sp</code>.</p>
-</div>
-<div id="interactive-tutorial" class="section level2">
-<h2><span class="header-section-number">1.3</span> Interactive Tutorial</h2>
-<p>The rest of the workshop was dedicated to a hands-on exercise where we live coded together. The data we used was 1986 Chicago aldermanic ward boundary data, which can be found on the UChicago Map Collection page <a href="https://www.lib.uchicago.edu/e/collections/maps/chigis.html">here</a>.</p>
-<div class="rmdinfo">
-<p>
-This workshop’s script can be found <a href="https://github.com/spatialanalysis/workshop-scripts/blob/master/gis-visualization/spring-2019/R/import-data.R">here</a>.
-</p>
-</div>
-<div id="functions-learned" class="section level3">
-<h3><span class="header-section-number">1.3.1</span> Functions learned</h3>
-<ul>
-<li><code>st_read()</code></li>
-<li><code>st_crs()</code></li>
-<li><code>st_transform()</code></li>
-</ul>
-</div>
-<div id="import-spatial-data" class="section level3">
-<h3><span class="header-section-number">1.3.2</span> Import spatial data</h3>
-<p>The first thing we’ll do is import the spatial data. Our spatial data happens to be stored as a shapefile (.shp, but actually 4 files). These are getting less fashionable (see <a href="http://geojson.org/">GeoJSON</a>, etc.), but a lot of spatial data is still stored this way.</p>
-<p>First load the <code>sf</code> library. If you don’t have it, install it in your console or in the Packages RStudio pane.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;sf&quot;)</span>
-<span class="kw">library</span>(sf)</code></pre>
-<pre><code>## Warning: package &#39;sf&#39; was built under R version 3.4.4</code></pre>
-<pre><code>## Linking to GEOS 3.6.1, GDAL 2.1.3, PROJ 4.9.3</code></pre>
-<p>We’ll use the <code>st_read</code> function. This also reads GeoJSON, PostGIS databases, and more.</p>
-<pre class="sourceCode r"><code class="sourceCode r">ward86 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/ward1986.shp&quot;</span>)</code></pre>
-<pre><code>## Reading layer `ward1986&#39; from data source `/Users/angela/Desktop/Spatial Data Science/workshop-notes/data/ward1986.shp&#39; using driver `ESRI Shapefile&#39;
-## Simple feature collection with 51 features and 1 field (with 1 geometry empty)
+<div id="review-from-previous-workshops" class="section level2">
+<h2><span class="header-section-number">14.2</span> Review from previous workshops</h2>
+<p>We’ll be working with a new dataset, called “ncovr”. Go ahead and load it with geodaData:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(geodaData)
+<span class="kw">library</span>(sf)
+<span class="kw">head</span>(ncovr)</code></pre>
+<pre><code>## Simple feature collection with 6 features and 69 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
-## bbox:           xmin: -87.9402 ymin: 41.6443 xmax: -87.524 ymax: 42.0231
-## epsg (SRID):    4269
-## proj4string:    +proj=longlat +datum=NAD83 +no_defs</code></pre>
-<div class="rmdinfo">
-<p>
-You can use the keyboard shortcut <code>Ctrl-Enter</code> to run a line of code in R.
-</p>
-</div>
-<div class="rmdinfo">
-<p>
-Press tab after typing in <code>st_read(&quot;&quot;)</code> with your cursor in between the quotation marks and you’ll get a nice autocomplete feature.
-</p>
-</div>
-<p>Check what projection the data is in:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(ward86)</code></pre>
-<pre><code>## Coordinate Reference System:
-##   EPSG: 4269 
-##   proj4string: &quot;+proj=longlat +datum=NAD83 +no_defs&quot;</code></pre>
-<p>Sike, this isn’t projected! You can tell because the proj4string starts with <code>+proj=longlat</code>. You can still plot this, but things will start to get iffy if you try to do distance or area calculations, or plot these ward boundaries with other layers.</p>
-<p>I can still plot the map, but as a good geographic data analyst, I’ll need to project it.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(ward86)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-</div>
-<div id="project-your-data" class="section level3">
-<h3><span class="header-section-number">1.3.3</span> Project your data</h3>
-<p>We need to project the data: but how do we choose what projection we need? This is a deep philosophical question, but thankfully the UChicago library has <a href="https://www.lib.uchicago.edu/e/collections/maps/chigis.html">already told us</a> the best projections to use for our data: <em>Illinois East State Plane</em> or <em>UTM Zone 16</em>.</p>
-<p><img src="figs/what-projection.png" /></p>
-<div class="rmdinfo">
-<p>
-I generally do a online search to look up the EPSG codes for the projection I want to use, or use <a href="http://spatialreference.org/">spatialreference.org</a>, which has a database for all EPSG codes for projections.
-</p>
-</div>
-<p>After I do some sleuthing, I find that the EPSG code I want for UTM Zone 16 is <code>32616</code>. I then use <code>st_transform()</code> to project the data, and save it as a new <code>sf</code> dataframe.</p>
-<pre class="sourceCode r"><code class="sourceCode r">ward86_utm &lt;-<span class="st"> </span><span class="kw">st_transform</span>(ward86, <span class="dv">32616</span>)</code></pre>
-<p>I check the CRS - yep, looks right!</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(ward86_utm)</code></pre>
-<pre><code>## Coordinate Reference System:
-##   EPSG: 32616 
-##   proj4string: &quot;+proj=utm +zone=16 +datum=WGS84 +units=m +no_defs&quot;</code></pre>
+## bbox:           xmin: -120.8746 ymin: 47.79012 xmax: -94.43044 ymax: 49.37173
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##                NAME STATE_NAME STATE_FIPS CNTY_FIPS  FIPS STFIPS COFIPS
+## 1 Lake of the Woods  Minnesota         27       077 27077     27     77
+## 2             Ferry Washington         53       019 53019     53     19
+## 3           Stevens Washington         53       065 53065     53     65
+## 4          Okanogan Washington         53       047 53047     53     47
+## 5      Pend Oreille Washington         53       051 53051     53     51
+## 6          Boundary      Idaho         16       021 16021     16     21
+##   FIPSNO SOUTH     HR60     HR70      HR80      HR90      HC60      HC70
+## 1  27077     0 0.000000 0.000000  8.855827  0.000000 0.0000000 0.0000000
+## 2  53019     0 0.000000 0.000000 17.208742 15.885624 0.0000000 0.0000000
+## 3  53065     0 1.863863 1.915158  3.450775  6.462453 0.3333333 0.3333333
+## 4  53047     0 2.612330 1.288643  3.263814  6.996502 0.6666667 0.3333333
+## 5  53051     0 0.000000 0.000000  7.770008  7.478033 0.0000000 0.0000000
+## 6  16021     0 0.000000 0.000000  4.573101  4.000640 0.0000000 0.0000000
+##        HC80      HC90  PO60  PO70  PO80  PO90       RD60       RD70
+## 1 0.3333333 0.0000000  4304  3987  3764  4076 -0.1751055 -0.1965356
+## 2 1.0000000 1.0000000  3889  3655  5811  6295 -0.8368683 -0.8478556
+## 3 1.0000000 2.0000000 17884 17405 28979 30948 -0.5373716 -0.2252831
+## 4 1.0000000 2.3333333 25520 25867 30639 33350 -0.8201698 -0.3911261
+## 5 0.6666667 0.6666667  6914  6025  8580  8915 -0.9361701 -0.4514569
+## 6 0.3333333 0.3333333  5809  5484  7289  8332 -0.8503190 -0.6301795
+##          RD80       RD90       PS60       PS70       PS80       PS90 UE60
+## 1 -0.36285011 -0.8027737 -1.4499461 -1.4625594 -1.5851232 -1.4955070  7.9
+## 2  0.11932743 -0.1354830 -1.7072056 -1.6977199 -1.4440801 -1.3610839  8.2
+## 3 -0.51119686 -0.2765439 -0.5681465 -0.5918834 -0.3154613 -0.2831232 10.1
+## 4 -0.08242177  0.3707621 -0.5549386 -0.5520160 -0.5253836 -0.4724997  7.5
+## 5 -0.28951626  0.1079923 -1.1064386 -1.1817536 -1.0122015 -0.9719778 10.6
+## 6 -0.12031784 -0.5515577 -1.2083943 -1.2194174 -1.0980090 -0.9876962 10.8
+##   UE70      UE80     UE90     DV60     DV70     DV80      DV90 MA60 MA70
+## 1  9.0  5.902579  3.89479 1.858974 2.619808 3.746594  7.388535 28.8 30.5
+## 2 15.4 15.422886 16.81159 2.863278 3.686007 6.625442 11.543135 25.9 27.1
+## 3  9.0 13.574064 10.70079 2.711447 2.976378 5.448223  9.123212 29.6 31.8
+## 4 10.5 12.700195 10.20354 3.372041 4.090386 7.122333  9.245627 29.4 31.1
+## 5 13.4 18.148999 14.99102 3.008988 4.010695 5.287860 10.158351 31.2 33.8
+## 6 12.1 16.395711 11.37951 2.590420 3.489399 6.071152  8.477287 27.6 30.3
+##   MA80 MA90     POL60     POL70     POL80     POL90    DNL60     DNL70
+## 1 34.5 35.5  8.367300  8.290794  8.233238  8.312871 1.188755 1.1122489
+## 2 27.2 32.8  8.265907  8.203851  8.667508  8.747511 0.568786 0.5067301
+## 3 28.7 34.5  9.791662  9.764513 10.274327 10.340064 1.975245 1.9480958
+## 4 31.2 35.0 10.147218 10.160723 10.330029 10.414813 1.571567 1.5850725
+## 5 31.3 36.1  8.841304  8.703673  9.057189  9.095491 1.595649 1.4580177
+## 6 29.2 32.8  8.667164  8.609590  8.894122  9.027859 1.516462 1.4588886
+##       DNL80    DNL90   MFIL59   MFIL69   MFIL79   MFIL89 FP59 FP69
+## 1 1.0660453 1.145294 8.220134 8.708309 9.551729 10.27921 36.3 16.1
+## 2 0.9712953 1.049482 8.519790 9.006754 9.679719 10.25397 22.5 11.6
+## 3 2.4623128 2.524736 8.403352 8.868835 9.739379 10.26270 30.9 15.9
+## 4 1.7581014 1.845350 8.479907 8.969923 9.715228 10.04962 25.0 12.9
+## 5 1.8129617 1.850906 8.508354 8.895219 9.648466 10.11144 26.7 18.3
+## 6 1.7488466 1.882032 8.423102 8.946505 9.604745 10.13809 27.2 11.1
+##       FP79     FP89      BLK60      BLK70      BLK80      BLK90      GI59
+## 1 13.37047  8.51419 0.44144981 0.47654878 0.05313496 0.02453386 0.2852352
+## 2 18.63395 17.52451 0.07714065 2.29822161 0.55067975 0.31771247 0.2561578
+## 3 11.22669 13.58268 0.07828226 0.09192761 0.09317092 0.21002973 0.2839986
+## 4 12.19627 16.94620 0.09796238 0.28221286 0.10117824 0.15592204 0.2585395
+## 5 12.59607 15.93098 0.02892682 0.01659751 0.06993007 0.13460460 0.2432630
+## 6 14.78873 10.63830 0.00000000 0.05470460 0.04115791 0.03600576 0.2619386
+##        GI69      GI79      GI89      FH60 FH70      FH80      FH90
+## 1 0.3723362 0.3421036 0.3364546 11.279621  5.4  5.663881  9.515860
+## 2 0.3606654 0.3619284 0.3606395 10.053476  2.6 10.079576 11.397059
+## 3 0.3940829 0.3575660 0.3699418  9.258437  5.6  6.812127 10.352015
+## 4 0.3712182 0.3812402 0.3945189  9.039900  8.1 10.084926 12.840340
+## 5 0.3656141 0.3587056 0.3878477  8.243930  4.1  7.557643 10.313002
+## 6 0.3503514 0.3559135 0.3405252  7.112971  6.8  8.249497  9.343201
+##                         geometry
+## 1 MULTIPOLYGON (((-95.34258 4...
+## 2 MULTIPOLYGON (((-118.8505 4...
+## 3 MULTIPOLYGON (((-117.4378 4...
+## 4 MULTIPOLYGON (((-118.971 47...
+## 5 MULTIPOLYGON (((-117.4375 4...
+## 6 MULTIPOLYGON (((-117.028 48...</code></pre>
 <div class="learncheck">
 <p>
-<strong>Challenge</strong>
+<strong>Question</strong>
 </p>
 </div>
-<p>Question: what datum is this in? What are the units for this projection?</p>
-<div class="learncheck">
-
-</div>
-<p>Plot it:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(ward86_utm)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<div class="learncheck">
-<p>
-<strong>Challenge</strong>
-</p>
-</div>
+<p>Take a few minutes and try to understand what this is about.</p>
 <ul>
-<li>Project the 1986 ward data into the Illinois East State plane projection. Follow the above steps to do so. Hint: look up the EPSG code online!</li>
+<li>How many observations and variables are there? What data is stored? (<code>dim()</code>, <code>str()</code>, <code>head()</code>, <code>summary()</code>)</li>
+<li>What does the metadata tell you about this data? (<code>?ncovr</code>)</li>
+<li>What geometries are in this data? Can you make a quick map with <code>plot()</code>?</li>
+<li>What coordinate reference system is there? Is this data projected? (<code>st_crs()</code>)</li>
 </ul>
 <div class="learncheck">
 
 </div>
-<pre class="sourceCode r"><code class="sourceCode r">ward86_stateplane &lt;-<span class="st"> </span><span class="kw">st_transform</span>(ward86, <span class="dv">3435</span>)
-<span class="kw">st_crs</span>(ward86_stateplane)</code></pre>
-<pre><code>## Coordinate Reference System:
-##   EPSG: 3435 
-##   proj4string: &quot;+proj=tmerc +lat_0=36.66666666666666 +lon_0=-88.33333333333333 +k=0.9999749999999999 +x_0=300000.0000000001 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=us-ft +no_defs&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(ward86_stateplane)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-<p>Note that the <code>+units=us-ft</code> part of the proj4string means that any distance calculations you do on the <code>ward86_stateplane</code> data will be done in feet.</p>
-<div class="rmdwarning">
+<div class="learncheck">
 <p>
-Keep in mind that there are “bad” projections for your data. For example, if I accidentally chose the Alaska Albers projection for my data…
+<strong>Question</strong>
 </p>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r">ward86_alaska &lt;-<span class="st"> </span><span class="kw">st_transform</span>(ward86, <span class="dv">3338</span>)
-<span class="kw">plot</span>(ward86_alaska)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<p>Clearly this projection isn’t great for Chicago! But something to keep in mind, if, say, you’re making maps of places closer to the poles.
-```</p>
+<p>Try to make a simple map of one of the attributes of interest (homicides, etc) with tmap. Can you make it interactive?</p>
+<div class="learncheck">
+
 </div>
 </div>
-<div id="links" class="section level2">
-<h2><span class="header-section-number">1.4</span> Links</h2>
-<p>All the links in this workshop:</p>
-<ul>
-<li>Software Carpentry Vector Data tutorial: <a href="https://datacarpentry.org/organization-geospatial/02-intro-vector-data/index.html" class="uri">https://datacarpentry.org/organization-geospatial/02-intro-vector-data/index.html</a></li>
-<li>Software Carpentry CRS tutorial: <a href="https://datacarpentry.org/organization-geospatial/03-crs/index.html" class="uri">https://datacarpentry.org/organization-geospatial/03-crs/index.html</a></li>
-<li><code>sf</code> reference site: <a href="https://r-spatial.github.io/sf/index.html" class="uri">https://r-spatial.github.io/sf/index.html</a></li>
-<li>Migrating from sp to sf guide: <a href="https://github.com/r-spatial/sf/wiki/Migrating" class="uri">https://github.com/r-spatial/sf/wiki/Migrating</a></li>
-<li>GeoJSON explanation: <a href="http://geojson.org/" class="uri">http://geojson.org/</a></li>
-<li>Chicago ward data: <a href="https://www.lib.uchicago.edu/e/collections/maps/chigis.html" class="uri">https://www.lib.uchicago.edu/e/collections/maps/chigis.html</a></li>
-<li>Link to good EPSG lookup website: <a href="http://spatialreference.org/" class="uri">http://spatialreference.org/</a></li>
-</ul>
+<div id="spatial-autocorrelation-1" class="section level2">
+<h2><span class="header-section-number">14.3</span> Spatial autocorrelation</h2>
+<p>We’ll start by talking about spatial weights. There are two main types of spatial weights, contiguity and distance based weights.</p>
+<p>We’ll focus on contiguity today: aka, that a spatial unit shares a border with another spatial unit. We look at <strong>rook</strong> vs. <strong>queen</strong> contiguity.</p>
+<p><img src="figs/rookvqueen.jpg" /></p>
+<p>There’s also second order contiguity:</p>
+<p><img src="figs/secondorderrookqueen.jpg" /></p>
+<p>How we define “neighbors” matters when we are trying to determine spatial autocorrelation.</p>
+</div>
+<div id="code-time" class="section level2">
+<h2><span class="header-section-number">14.4</span> Code time</h2>
+<p>Load two more libraries:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sfExtras)
+<span class="kw">library</span>(spdep)</code></pre>
+<p>We’ll be using the following functions (potentially buggy):</p>
+<pre class="sourceCode r"><code class="sourceCode r">?st_rook
+?st_queen
+?st_as_nb
+?st_centroid_coords <span class="co"># for mapping the weights</span></code></pre>
 
 </div>
 </div>
@@ -423,8 +417,8 @@ Keep in mind that there are “bad” projections for your data. For example, if
           </div>
         </div>
       </div>
-<a href="project-setup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="single-dataset-gis-operations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="basic-mapping.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -454,7 +448,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/spatialanalysis/workshop-notes/edit/master/01-intro.Rmd",
+"link": "https://github.com/spatialanalysis/workshop-notes/edit/master/14-spatial-autocorrelation.Rmd",
 "text": "Edit"
 },
 "history": {

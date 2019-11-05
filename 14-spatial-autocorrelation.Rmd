@@ -1,0 +1,80 @@
+# Spatial Autocorrelation
+
+## Install packages
+
+Make sure you have the **spdep** package installed:
+
+```{r eval=FALSE}
+install.packages("spdep")
+```
+
+I also developed a helper package for some of this spatial autocorrelation stuff, called [**sfExtras**](https://github.com/spatialanalysis/sfExtras). Install with:
+
+```{r eval=FALSE}
+# install.packages("remotes")
+remotes::install_github("spatialanalysis/sfExtras")
+```
+
+## Review from previous workshops
+
+We'll be working with a new dataset, called "ncovr". Go ahead and load it with geodaData:
+
+```{r}
+library(geodaData)
+library(sf)
+head(ncovr)
+```
+
+```{block type="learncheck"}
+**Question**
+```
+Take a few minutes and try to understand what this is about. 
+
+- How many observations and variables are there? What data is stored? (`dim()`, `str()`, `head()`, `summary()`) 
+- What does the metadata tell you about this data? (`?ncovr`)
+- What geometries are in this data? Can you make a quick map with `plot()`?
+- What coordinate reference system is there? Is this data projected? (`st_crs()`) 
+
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Question**
+```
+Try to make a simple map of one of the attributes of interest (homicides, etc) with tmap. Can you make it interactive?
+
+```{block type="learncheck"}
+```
+
+## Spatial autocorrelation
+
+We'll start by talking about spatial weights. There are two main types of spatial weights, contiguity and distance based weights.
+
+We'll focus on contiguity today: aka, that a spatial unit shares a border with another spatial unit. We look at **rook** vs. **queen** contiguity.
+
+![](figs/rookvqueen.jpg)
+
+There's also second order contiguity:
+
+![](figs/secondorderrookqueen.jpg)
+
+How we define "neighbors" matters when we are trying to determine spatial autocorrelation.
+
+## Code time
+
+Load two more libraries:
+
+```{r message=FALSE, warning=FALSE}
+library(sfExtras)
+library(spdep)
+```
+
+We'll be using the following functions (potentially buggy):
+
+```{r eval=FALSE}
+?st_rook
+?st_queen
+?st_as_nb
+?st_centroid_coords # for mapping the weights
+```
+
