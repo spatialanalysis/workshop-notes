@@ -60,7 +60,7 @@ There's also second order contiguity:
 
 How we define "neighbors" matters when we are trying to determine spatial autocorrelation.
 
-## Code time
+## Do it in R
 
 Load two more libraries:
 
