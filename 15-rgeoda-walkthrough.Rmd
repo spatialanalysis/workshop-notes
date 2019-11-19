@@ -1,0 +1,194 @@
+# Spatial Autocorrelation with rgeoda
+
+This section of workshop notes is based off of the [rgeoda documentation](https://rgeoda.github.io/rgeoda-book/index.html). This package is still in alpha, so the functionality may change. However, you are free to use it for a project for Luc's class.
+
+## Install packages
+
+Install the alpha version of `rgeoda`:
+
+```{r eval=FALSE}
+# install.packages("remotes")
+remotes::install_github("lixun910/rgeoda")
+```
+
+This will install a package that has the same internals as GeoDa, but can be accessed from R. It exposes a lot of functionality that can be hard to manage in R.
+
+You should now be able to load the package with:
+
+```{r}
+library(rgeoda)
+```
+
+## R Markdown
+
+We'll be working in a R Markdown document today instead of a script. This allows for "literate code" (aka, you can write text along with code - it's how these workshop notes are written). Learn more about R Markdown with [this tutorial](https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/).
+
+To create a new R Markdown file, click **File > New File > R Markdown**. 
+
+The R Markdown cheatsheet and guide can be found under **Help > Cheatsheets > R Markdown Cheat Sheet / Reference Guide**.
+
+## Load data
+
+We'll first load in sample data from the rgeoda package.
+
+```{r}
+library(geodaData)
+library(rgeoda) # if this doesn't work, have you installed rgeoda from Github?
+
+guerry_sf <- geodaData::guerry
+```
+
+```{block type="learncheck"}
+**Question**
+```
+Take a few minutes and try to understand what this data is. 
+
+- How many observations and variables are there? What data is stored? (`dim()`, `str()`, `head()`, `summary()`) 
+- What does the metadata tell you about this data? (`?guerry`)
+- What geometries are in this data? Can you make a quick map with `plot()`?
+- What coordinate reference system is there? Is this data projected? (`st_crs()`) 
+
+```{block type="learncheck"}
+```
+
+```{block type="learncheck"}
+**Question**
+```
+Try to make a simple map of one of the attributes of interest with tmap. Can you make it interactive?
+
+```{block type="learncheck"}
+```
+
+## Working with rgeoda
+
+```{block type="rmdinfo"}
+This workshop is based off of the [rgeoda documentation book](https://rgeoda.github.io/rgeoda-book/). rgeoda is still in alpha, so please let me know if you run into anything funky! You can also record any issues you have on the [Github repository](https://github.com/lixun910/rgeoda/issues).
+```
+
+### Convert to rgeoda object
+
+We can convert an sf object into a rgeoda object:
+
+```{r}
+guerry <- sf_to_geoda(guerry_sf)
+guerry
+```
+
+Where did our data go? By default, the sf-to-rgeoda conversion removes the attributes (for faster processing with queen weights, local Moran, etc.). Set `with_table()` to `TRUE` to get the dataframe.
+
+```{r}
+guerry <- sf_to_geoda(guerry_sf, with_table = TRUE)
+guerry
+```
+
+```{block type="rmdinfo"}
+Alternatively, you can read a shapefile, geojson (and other spatial file formats) directly into R, with `geoda_open()`:
+
+```{r eval=FALSE}
+chicago_libraries <- geoda_open("https://data.cityofchicago.org/resource/x8fc-8rcq.geojson")
+chicago_libraries
+```
+```
+
+### Looking at the rgeoda object
+
+Currently, rgeoda is structured more like Python; we may change this in a future implementation but it's what we have so far. 
+
+Try out the following:
+
+```{r}
+guerry$field_names
+guerry$field_types
+guerry$n_cols
+guerry$n_obs
+guerry$table
+```
+
+Note that this is not really a data frame - rgeoda right now is optimized to help you do spatial weights, autocorrelation and clustering. 
+
+So let's do those things!
+
+## Spatial Analysis with rgeoda
+
+Let's create weights from an rgeoda object:
+
+```{r}
+queen_weights(guerry)
+```
+
+Much easier than spdep, eh?
+
+You can change the order from first to second:
+
+```{r}
+queen_weights(guerry, order = 2)
+```
+
+We can save the original weights:
+
+```{r}
+queen_w <- queen_weights(guerry)
+```
+
+Then take a look at the class:
+```{r}
+class(queen_w)
+```
+
+```{block type="learncheck"}
+**Question**
+```
+Try out the following functions:
+
+- `queen_w$is_symmetric`
+- `min_nbrs`
+- `max_nbrs`
+- `GetNeighbors(0)`
+
+Find more listed here: [Attributes of `Weight` object](https://rgeoda.github.io/rgeoda-book/spatial-weights.html#attributes-of-weight-object)
+```{block type="learncheck"}
+```
+
+Many more types of weights can be found [here](https://rgeoda.github.io/rgeoda-book/spatial-weights.html#attributes-of-weight-object).
+
+### Detour: saving your weights
+
+To save contiguity-based weights, use the `SaveToFile()` function in rgeoda.
+
+The four arguments you need for `SaveToFile()` are the:
+
+- path/name of the file you're going to create (ends in .gal for contiguity-based weights, .gwt for distance-based weights)
+- layer name (aka file name without suffix, ie XXX.shp )
+- id column name, a unique value for each observation
+- id column itself
+
+```{r eval=FALSE}
+id_names <- guerry$GetIntegerCol("CODE_DE")
+queen_w$SaveToFile("guerry_queen.gal", "Guerry", "CODE_DE", id_names)
+```
+
+## Calculating the Local Moran statistic
+
+You can then calculate the Local Moran statistic once you have your weights:
+
+```{r}
+crm_prp <- guerry_sf$Crm_prp
+
+lisa <- local_moran(queen_w, crm_prp)
+```
+
+And make a map!
+
+```{r}
+lisa_colors <- lisa$GetColors() 
+lisa_labels <- lisa$GetLabels()
+lisa_clusters <- lisa$GetClusterIndicators()
+
+plot(st_geometry(guerry_sf), 
+     col=sapply(lisa_clusters, function(x){return(lisa_colors[[x+1]])}), 
+     border = "#333333", lwd=0.2)
+title(main = "Local Moran Map of Crm_prp")
+legend('bottomleft', legend = lisa_labels, fill = lisa_colors, border = "#eeeeee")
+```
+
+

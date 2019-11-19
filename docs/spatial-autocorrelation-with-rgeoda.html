@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 15 Spatial Autocorrelation with rgeoda | R Spatial Workshop Notes</title>
+  <meta name="description" content="Chapter 15 Spatial Autocorrelation with rgeoda | R Spatial Workshop Notes" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 15 Spatial Autocorrelation with rgeoda | R Spatial Workshop Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="spatialanalysis/workshop-notes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 15 Spatial Autocorrelation with rgeoda | R Spatial Workshop Notes" />
+  
+  
+  
+
+<meta name="author" content="Angela Li" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="spatial-autocorrelation.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.1.17/leaflet-providers.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#workshop-organization"><i class="fa fa-check"></i>Workshop Organization</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prior-knowledge"><i class="fa fa-check"></i>Prior Knowledge</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#topics"><i class="fa fa-check"></i>Topics</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#additional-information"><i class="fa fa-check"></i>Additional information</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html"><i class="fa fa-check"></i>Project Setup</a><ul>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#prerequisites-for-git-workflow"><i class="fa fa-check"></i>Prerequisites for Git workflow</a></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#workflow-with-git"><i class="fa fa-check"></i>Workflow with Git</a></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#workflow-without-git"><i class="fa fa-check"></i>Workflow without Git</a></li>
+<li class="chapter" data-level="" data-path="project-setup.html"><a href="project-setup.html#additional-reading"><i class="fa fa-check"></i>Additional reading</a></li>
+</ul></li>
+<li class="part"><span><b>GIS and Spatial Data</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html"><i class="fa fa-check"></i><b>1</b> Introduction to Spatial Data</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#learning-objectives"><i class="fa fa-check"></i><b>1.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#spatial-data-basics"><i class="fa fa-check"></i><b>1.2</b> Spatial Data Basics</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#interactive-tutorial"><i class="fa fa-check"></i><b>1.3</b> Interactive Tutorial</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#functions-learned"><i class="fa fa-check"></i><b>1.3.1</b> Functions learned</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#import-spatial-data"><i class="fa fa-check"></i><b>1.3.2</b> Import spatial data</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#project-your-data"><i class="fa fa-check"></i><b>1.3.3</b> Project your data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="introduction-to-spatial-data.html"><a href="introduction-to-spatial-data.html#links"><i class="fa fa-check"></i><b>1.4</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html"><i class="fa fa-check"></i><b>2</b> Single-Dataset GIS Operations</a><ul>
+<li class="chapter" data-level="2.1" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#functions-learned-1"><i class="fa fa-check"></i><b>2.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="2.3" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#interactive-tutorial-1"><i class="fa fa-check"></i><b>2.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="2.4" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+<li class="chapter" data-level="2.5" data-path="single-dataset-gis-operations.html"><a href="single-dataset-gis-operations.html#links-1"><i class="fa fa-check"></i><b>2.5</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html"><i class="fa fa-check"></i><b>3</b> Multiple-Dataset GIS Operations / Visualization</a><ul>
+<li class="chapter" data-level="3.1" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#learning-objectives-2"><i class="fa fa-check"></i><b>3.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#functions-learned-2"><i class="fa fa-check"></i><b>3.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="3.3" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#interactive-tutorial-2"><i class="fa fa-check"></i><b>3.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="3.4" data-path="multiple-dataset-gis-operations-visualization.html"><a href="multiple-dataset-gis-operations-visualization.html#links-2"><i class="fa fa-check"></i><b>3.4</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html"><i class="fa fa-check"></i><b>4</b> Multiple-Dataset GIS Operations / Visualization pt. 2</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#learning-objectives-3"><i class="fa fa-check"></i><b>4.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#functions-learned-3"><i class="fa fa-check"></i><b>4.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="4.3" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#interactive-tutorial-3"><i class="fa fa-check"></i><b>4.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="4.4" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#challenges"><i class="fa fa-check"></i><b>4.4</b> Challenges</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#a-simple-example"><i class="fa fa-check"></i><b>4.4.1</b> A simple example</a></li>
+<li class="chapter" data-level="4.4.2" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#saving-your-plots"><i class="fa fa-check"></i><b>4.4.2</b> Saving your plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="multiple-dataset-gis-operations-visualization-pt-2.html"><a href="multiple-dataset-gis-operations-visualization-pt-2.html#links-3"><i class="fa fa-check"></i><b>4.5</b> Links</a></li>
+</ul></li>
+<li class="part"><span><b>Visualization</b></span></li>
+<li class="chapter" data-level="5" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html"><i class="fa fa-check"></i><b>5</b> R Markdown and Custom Maps</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html#learning-objectives-4"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html#topics-learned"><i class="fa fa-check"></i><b>5.2</b> Topics Learned</a></li>
+<li class="chapter" data-level="5.3" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html#interactive-tutorial-4"><i class="fa fa-check"></i><b>5.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="5.4" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html#challenges-1"><i class="fa fa-check"></i><b>5.4</b> Challenges</a></li>
+<li class="chapter" data-level="5.5" data-path="r-markdown-and-custom-maps.html"><a href="r-markdown-and-custom-maps.html#links-4"><i class="fa fa-check"></i><b>5.5</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html"><i class="fa fa-check"></i><b>6</b> Custom and Animated Maps</a><ul>
+<li class="chapter" data-level="6.1" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html#learning-objectives-5"><i class="fa fa-check"></i><b>6.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="6.2" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html#functions-learned-4"><i class="fa fa-check"></i><b>6.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="6.3" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html#interactive-tutorial-5"><i class="fa fa-check"></i><b>6.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="6.4" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html#challenges-2"><i class="fa fa-check"></i><b>6.4</b> Challenges</a></li>
+<li class="chapter" data-level="6.5" data-path="custom-and-animated-maps.html"><a href="custom-and-animated-maps.html#links-5"><i class="fa fa-check"></i><b>6.5</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="interactive-maps.html"><a href="interactive-maps.html"><i class="fa fa-check"></i><b>7</b> Interactive Maps</a><ul>
+<li class="chapter" data-level="7.1" data-path="interactive-maps.html"><a href="interactive-maps.html#learning-objectives-6"><i class="fa fa-check"></i><b>7.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="7.2" data-path="interactive-maps.html"><a href="interactive-maps.html#functions-learned-5"><i class="fa fa-check"></i><b>7.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="7.3" data-path="interactive-maps.html"><a href="interactive-maps.html#overview"><i class="fa fa-check"></i><b>7.3</b> Overview</a></li>
+<li class="chapter" data-level="7.4" data-path="interactive-maps.html"><a href="interactive-maps.html#interactive-tutorial-6"><i class="fa fa-check"></i><b>7.4</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="7.5" data-path="interactive-maps.html"><a href="interactive-maps.html#r-training-workshop"><i class="fa fa-check"></i><b>7.5</b> R Training Workshop</a></li>
+<li class="chapter" data-level="7.6" data-path="interactive-maps.html"><a href="interactive-maps.html#next-weeks"><i class="fa fa-check"></i><b>7.6</b> Next week(s?)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html"><i class="fa fa-check"></i><b>8</b> Interactive Maps with Shiny</a><ul>
+<li class="chapter" data-level="8.1" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#learning-objectives-7"><i class="fa fa-check"></i><b>8.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#topics-learned-1"><i class="fa fa-check"></i><b>8.2</b> Topics Learned</a></li>
+<li class="chapter" data-level="8.3" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#overview-1"><i class="fa fa-check"></i><b>8.3</b> Overview</a></li>
+<li class="chapter" data-level="8.4" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#interactive-tutorial-7"><i class="fa fa-check"></i><b>8.4</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="8.5" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#r-training-workshop-1"><i class="fa fa-check"></i><b>8.5</b> R Training Workshop</a></li>
+<li class="chapter" data-level="8.6" data-path="interactive-maps-with-shiny.html"><a href="interactive-maps-with-shiny.html#links-6"><i class="fa fa-check"></i><b>8.6</b> Links</a></li>
+</ul></li>
+<li class="part"><span><b>Raster Data</b></span></li>
+<li class="chapter" data-level="9" data-path="introduction-to-raster-data.html"><a href="introduction-to-raster-data.html"><i class="fa fa-check"></i><b>9</b> Introduction to Raster Data</a><ul>
+<li class="chapter" data-level="9.1" data-path="introduction-to-raster-data.html"><a href="introduction-to-raster-data.html#overview-2"><i class="fa fa-check"></i><b>9.1</b> Overview</a></li>
+<li class="chapter" data-level="9.2" data-path="introduction-to-raster-data.html"><a href="introduction-to-raster-data.html#links-7"><i class="fa fa-check"></i><b>9.2</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="introduction-to-interpolation.html"><a href="introduction-to-interpolation.html"><i class="fa fa-check"></i><b>10</b> Introduction to Interpolation</a><ul>
+<li class="chapter" data-level="10.1" data-path="introduction-to-interpolation.html"><a href="introduction-to-interpolation.html#overview-3"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
+<li class="chapter" data-level="10.2" data-path="introduction-to-interpolation.html"><a href="introduction-to-interpolation.html#make-sure-relevant-packages-are-installed"><i class="fa fa-check"></i><b>10.2</b> Make sure relevant packages are installed</a></li>
+<li class="chapter" data-level="10.3" data-path="introduction-to-interpolation.html"><a href="introduction-to-interpolation.html#links-8"><i class="fa fa-check"></i><b>10.3</b> Links</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html"><i class="fa fa-check"></i><b>11</b> Interpolation with Array of Things Data</a><ul>
+<li class="chapter" data-level="11.1" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#overview-4"><i class="fa fa-check"></i><b>11.1</b> Overview</a></li>
+<li class="chapter" data-level="11.2" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#download-data"><i class="fa fa-check"></i><b>11.2</b> Download data</a></li>
+<li class="chapter" data-level="11.3" data-path="interpolation-with-array-of-things-data.html"><a href="interpolation-with-array-of-things-data.html#links-9"><i class="fa fa-check"></i><b>11.3</b> Links</a></li>
+</ul></li>
+<li class="part"><span><b>Introduction to Spatial Data Science</b></span></li>
+<li class="chapter" data-level="12" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html"><i class="fa fa-check"></i><b>12</b> Spatial Data Handling</a><ul>
+<li class="chapter" data-level="12.1" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#learning-objectives-8"><i class="fa fa-check"></i><b>12.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="12.2" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#functions-learned-6"><i class="fa fa-check"></i><b>12.2</b> Functions Learned</a></li>
+<li class="chapter" data-level="12.3" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#interactive-tutorial-8"><i class="fa fa-check"></i><b>12.3</b> Interactive Tutorial</a></li>
+<li class="chapter" data-level="12.4" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#reading-data-from-an-open-data-portal"><i class="fa fa-check"></i><b>12.4</b> Reading data from an open data portal</a></li>
+<li class="chapter" data-level="12.5" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#selecting-data-to-work-with"><i class="fa fa-check"></i><b>12.5</b> Selecting data to work with</a></li>
+<li class="chapter" data-level="12.6" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#spatial-data-time---my-favorite-part"><i class="fa fa-check"></i><b>12.6</b> Spatial data time - my favorite part!</a></li>
+<li class="chapter" data-level="12.7" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#on-your-own"><i class="fa fa-check"></i><b>12.7</b> On your own</a></li>
+<li class="chapter" data-level="12.8" data-path="spatial-data-handling.html"><a href="spatial-data-handling.html#very-important-concepts-projection-and-spatial-join"><i class="fa fa-check"></i><b>12.8</b> Very important concepts: projection, and spatial join</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="basic-mapping.html"><a href="basic-mapping.html"><i class="fa fa-check"></i><b>13</b> Basic Mapping</a><ul>
+<li class="chapter" data-level="13.1" data-path="basic-mapping.html"><a href="basic-mapping.html#outline-of-todays-workshop"><i class="fa fa-check"></i><b>13.1</b> Outline of Today’s Workshop</a></li>
+<li class="chapter" data-level="13.2" data-path="basic-mapping.html"><a href="basic-mapping.html#spatial-data-handling-fin"><i class="fa fa-check"></i><b>13.2</b> Spatial Data Handling, fin</a></li>
+<li class="chapter" data-level="13.3" data-path="basic-mapping.html"><a href="basic-mapping.html#finding-spatial-data"><i class="fa fa-check"></i><b>13.3</b> Finding Spatial Data</a></li>
+<li class="chapter" data-level="13.4" data-path="basic-mapping.html"><a href="basic-mapping.html#basic-mapping-1"><i class="fa fa-check"></i><b>13.4</b> Basic Mapping</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="basic-mapping.html"><a href="basic-mapping.html#adding-a-basemap"><i class="fa fa-check"></i><b>13.4.1</b> Adding a basemap</a></li>
+<li class="chapter" data-level="13.4.2" data-path="basic-mapping.html"><a href="basic-mapping.html#customizing-tmap-function-parameters"><i class="fa fa-check"></i><b>13.4.2</b> Customizing tmap function parameters</a></li>
+<li class="chapter" data-level="13.4.3" data-path="basic-mapping.html"><a href="basic-mapping.html#adding-a-histogram"><i class="fa fa-check"></i><b>13.4.3</b> Adding a histogram</a></li>
+<li class="chapter" data-level="13.4.4" data-path="basic-mapping.html"><a href="basic-mapping.html#getting-our-map-ready-for-production"><i class="fa fa-check"></i><b>13.4.4</b> Getting our map ready for production</a></li>
+<li class="chapter" data-level="13.4.5" data-path="basic-mapping.html"><a href="basic-mapping.html#using-examples"><i class="fa fa-check"></i><b>13.4.5</b> Using Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html"><i class="fa fa-check"></i><b>14</b> Spatial Autocorrelation</a><ul>
+<li class="chapter" data-level="14.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#install-packages"><i class="fa fa-check"></i><b>14.1</b> Install packages</a></li>
+<li class="chapter" data-level="14.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#review-from-previous-workshops"><i class="fa fa-check"></i><b>14.2</b> Review from previous workshops</a></li>
+<li class="chapter" data-level="14.3" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#spatial-autocorrelation-1"><i class="fa fa-check"></i><b>14.3</b> Spatial autocorrelation</a></li>
+<li class="chapter" data-level="14.4" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#do-it-in-r"><i class="fa fa-check"></i><b>14.4</b> Do it in R</a></li>
+<li class="chapter" data-level="14.5" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#second-order-contiguity-weights"><i class="fa fa-check"></i><b>14.5</b> Second order contiguity weights</a></li>
+<li class="chapter" data-level="14.6" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#distance-band-spatial-weights"><i class="fa fa-check"></i><b>14.6</b> Distance-Band Spatial Weights</a></li>
+<li class="chapter" data-level="14.7" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#connectivity-histograms"><i class="fa fa-check"></i><b>14.7</b> Connectivity histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="spatial-autocorrelation-with-rgeoda.html"><a href="spatial-autocorrelation-with-rgeoda.html"><i class="fa fa-check"></i><b>15</b> Spatial Autocorrelation with rgeoda</a><ul>
+<li class="chapter" data-level="15.1" data-path="spatial-autocorrelation-with-rgeoda.html"><a href="spatial-autocorrelation-with-rgeoda.html#install-packages-1"><i class="fa fa-check"></i><b>15.1</b> Install packages</a></li>
+<li class="chapter" data-level="15.2" data-path="spatial-autocorrelation-with-rgeoda.html"><a href="spatial-autocorrelation-with-rgeoda.html#r-markdown"><i class="fa fa-check"></i><b>15.2</b> R Markdown</a></li>
+<li class="chapter" data-level="15.3" data-path="spatial-autocorrelation-with-rgeoda.html"><a href="spatial-autocorrelation-with-rgeoda.html#load-data"><i class="fa fa-check"></i><b>15.3</b> Load data</a></li>
+<li class="chapter" data-level="15.4" data-path="spatial-autocorrelation-with-rgeoda.html"><a href="spatial-autocorrelation-with-rgeoda.html#working-with-rgeoda"><i class="fa fa-check"></i><b>15.4</b> Working with rgeoda</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="spatial-autocorrelation-with-rgeoda.html"><a href="spatial-autocorrelation-with-rgeoda.html#convert-to-rgeoda-object"><i class="fa fa-check"></i><b>15.4.1</b> Convert to rgeoda object</a></li>
+<li class="chapter" data-level="15.4.2" data-path="spatial-autocorrelation-with-rgeoda.html"><a href="spatial-autocorrelation-with-rgeoda.html#looking-at-the-rgeoda-object"><i class="fa fa-check"></i><b>15.4.2</b> Looking at the rgeoda object</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="spatial-autocorrelation-with-rgeoda.html"><a href="spatial-autocorrelation-with-rgeoda.html#spatial-analysis-with-rgeoda"><i class="fa fa-check"></i><b>15.5</b> Spatial Analysis with rgeoda</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="spatial-autocorrelation-with-rgeoda.html"><a href="spatial-autocorrelation-with-rgeoda.html#detour-saving-your-weights"><i class="fa fa-check"></i><b>15.5.1</b> Detour: saving your weights</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="spatial-autocorrelation-with-rgeoda.html"><a href="spatial-autocorrelation-with-rgeoda.html#calculating-the-local-moran-statistic"><i class="fa fa-check"></i><b>15.6</b> Calculating the Local Moran statistic</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Spatial Workshop Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="spatial-autocorrelation-with-rgeoda" class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> Spatial Autocorrelation with rgeoda</h1>
+<p>This section of workshop notes is based off of the <a href="https://rgeoda.github.io/rgeoda-book/index.html">rgeoda documentation</a>. This package is still in alpha, so the functionality may change. However, you are free to use it for a project for Luc’s class.</p>
+<div id="install-packages-1" class="section level2">
+<h2><span class="header-section-number">15.1</span> Install packages</h2>
+<p>Install the alpha version of <code>rgeoda</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;remotes&quot;)</span>
+remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;lixun910/rgeoda&quot;</span>)</code></pre>
+<p>This will install a package that has the same internals as GeoDa, but can be accessed from R. It exposes a lot of functionality that can be hard to manage in R.</p>
+<p>You should now be able to load the package with:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgeoda)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;rgeoda&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:spdep&#39;:
+## 
+##     skater</code></pre>
+</div>
+<div id="r-markdown" class="section level2">
+<h2><span class="header-section-number">15.2</span> R Markdown</h2>
+<p>We’ll be working in a R Markdown document today instead of a script. This allows for “literate code” (aka, you can write text along with code - it’s how these workshop notes are written). Learn more about R Markdown with <a href="https://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/">this tutorial</a>.</p>
+<p>To create a new R Markdown file, click <strong>File &gt; New File &gt; R Markdown</strong>.</p>
+<p>The R Markdown cheatsheet and guide can be found under <strong>Help &gt; Cheatsheets &gt; R Markdown Cheat Sheet / Reference Guide</strong>.</p>
+</div>
+<div id="load-data" class="section level2">
+<h2><span class="header-section-number">15.3</span> Load data</h2>
+<p>We’ll first load in sample data from the rgeoda package.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(geodaData)
+<span class="kw">library</span>(rgeoda) <span class="co"># if this doesn&#39;t work, have you installed rgeoda from Github?</span>
+
+guerry_sf &lt;-<span class="st"> </span>geodaData<span class="op">::</span>guerry</code></pre>
+<div class="learncheck">
+<p>
+<strong>Question</strong>
+</p>
+</div>
+<p>Take a few minutes and try to understand what this data is.</p>
+<ul>
+<li>How many observations and variables are there? What data is stored? (<code>dim()</code>, <code>str()</code>, <code>head()</code>, <code>summary()</code>)</li>
+<li>What does the metadata tell you about this data? (<code>?guerry</code>)</li>
+<li>What geometries are in this data? Can you make a quick map with <code>plot()</code>?</li>
+<li>What coordinate reference system is there? Is this data projected? (<code>st_crs()</code>)</li>
+</ul>
+<div class="learncheck">
+
+</div>
+<div class="learncheck">
+<p>
+<strong>Question</strong>
+</p>
+</div>
+<p>Try to make a simple map of one of the attributes of interest with tmap. Can you make it interactive?</p>
+<div class="learncheck">
+
+</div>
+</div>
+<div id="working-with-rgeoda" class="section level2">
+<h2><span class="header-section-number">15.4</span> Working with rgeoda</h2>
+<div class="rmdinfo">
+<p>
+This workshop is based off of the <a href="https://rgeoda.github.io/rgeoda-book/">rgeoda documentation book</a>. rgeoda is still in alpha, so please let me know if you run into anything funky! You can also record any issues you have on the <a href="https://github.com/lixun910/rgeoda/issues">Github repository</a>.
+</p>
+</div>
+<div id="convert-to-rgeoda-object" class="section level3">
+<h3><span class="header-section-number">15.4.1</span> Convert to rgeoda object</h3>
+<p>We can convert an sf object into a rgeoda object:</p>
+<pre class="sourceCode r"><code class="sourceCode r">guerry &lt;-<span class="st"> </span><span class="kw">sf_to_geoda</span>(guerry_sf)</code></pre>
+<pre><code>## Loading required package: wkb</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">guerry</code></pre>
+<pre><code>## Reference class object of class &quot;geoda&quot;
+## Field &quot;gda&quot;:
+## An object of class &quot;_p_GeoDa&quot;
+## Slot &quot;ref&quot;:
+## &lt;pointer: 0x7feffe016560&gt;
+## 
+## Field &quot;map_type&quot;:
+## [1] &quot;polygon_type&quot;
+## Field &quot;n_cols&quot;:
+## [1] 0
+## Field &quot;n_obs&quot;:
+## [1] 85
+## Field &quot;field_names&quot;:
+## character(0)
+## Field &quot;field_types&quot;:
+## character(0)
+## Field &quot;table&quot;:
+## data frame with 0 columns and 85 rows</code></pre>
+<p>Where did our data go? By default, the sf-to-rgeoda conversion removes the attributes (for faster processing with queen weights, local Moran, etc.). Set <code>with_table()</code> to <code>TRUE</code> to get the dataframe.</p>
+<pre class="sourceCode r"><code class="sourceCode r">guerry &lt;-<span class="st"> </span><span class="kw">sf_to_geoda</span>(guerry_sf, <span class="dt">with_table =</span> <span class="ot">TRUE</span>)
+guerry</code></pre>
+<pre><code>## Reference class object of class &quot;geoda&quot;
+## Field &quot;gda&quot;:
+## An object of class &quot;_p_GeoDa&quot;
+## Slot &quot;ref&quot;:
+## &lt;pointer: 0x7feff214fd10&gt;
+## 
+## Field &quot;map_type&quot;:
+## [1] &quot;polygon_type&quot;
+## Field &quot;n_cols&quot;:
+## [1] 26
+## Field &quot;n_obs&quot;:
+## [1] 85
+## Field &quot;field_names&quot;:
+##  [1] &quot;CODE_DE&quot; &quot;COUNT&quot;   &quot;AVE_ID_&quot; &quot;dept&quot;    &quot;Region&quot;  &quot;Dprtmnt&quot; &quot;Crm_prs&quot;
+##  [8] &quot;Crm_prp&quot; &quot;Litercy&quot; &quot;Donatns&quot; &quot;Infants&quot; &quot;Suicids&quot; &quot;MainCty&quot; &quot;Wealth&quot; 
+## [15] &quot;Commerc&quot; &quot;Clergy&quot;  &quot;Crm_prn&quot; &quot;Infntcd&quot; &quot;Dntn_cl&quot; &quot;Lottery&quot; &quot;Desertn&quot;
+## [22] &quot;Instrct&quot; &quot;Prsttts&quot; &quot;Distanc&quot; &quot;Area&quot;    &quot;Pop1831&quot;
+## Field &quot;field_types&quot;:
+##  [1] &quot;string&quot;  &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;string&quot;  &quot;string&quot;  &quot;numeric&quot;
+##  [8] &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot;
+## [15] &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot;
+## [22] &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot;
+## Field &quot;table&quot;:
+##       CODE_DE COUNT AVE_ID_ dept Region             Dprtmnt Crm_prs
+## NA         01     1      49    1      E                 Ain   28870
+## NA.1       02     1     812    2      N               Aisne   26226
+## NA.2       03     1    1418    3      C              Allier   26747
+## NA.3       04     1    1603    4      E        Basses-Alpes   12935
+## NA.4       05     1    1802    5      E        Hautes-Alpes   17488
+## NA.5       07     1    2249    7      S             Ardeche    9474
+## NA.6       08     1   35395    8      N            Ardennes   35203
+## NA.7       09     1    2526    9      S              Ariege    6173
+## NA.8       10     1   34410   10      E                Aube   19602
+## NA.9       11     1    2807   11      S                Aude   15647
+## NA.10      12     1    3369   12      S             Aveyron    8236
+## NA.11      13     1    3515   13      S    Bouches-du-Rhone   13409
+## NA.12      14     1    3667   14      N            Calvados   17577
+## NA.13      15     1    4268   15      C              Cantal   18070
+## NA.14      16     1    4527   16      W            Charente   24964
+## NA.15      17     1    5205   17      W Charente-Inferieure   18712
+## NA.16      18     1    5417   18      C                Cher   21934
+## NA.17      19     1    5942   19      C             Correze   15262
+## NA.18      21     1    6174   21      E           Cote-d&#39;Or   32256
+## NA.19      22     1   33634   22      W       Cotes-du-Nord   28607
+## NA.20      23     1    6735   23      C              Creuse   37014
+## NA.21      24     1    7186   24      W            Dordogne   21585
+## NA.22      25     1    7482   25      E               Doubs   11560
+## NA.23      26     1    8370   26      E               Drome   13396
+## NA.24      27     1    8612   27      N                Eure   14795
+## NA.25      28     1    9143   28      C        Eure-et-Loir   21368
+## NA.26      29     1    9659   29      W           Finistere   29872
+## NA.27      30     1   10264   30      S                Gard   13115
+## NA.28      31     1   10962   31      S       Haute-Garonne   18642
+## NA.29      32     1   11008   32      S                Gers   18642
+## NA.30      33     1   11520   33      W             Gironde   24096
+## NA.31      34     1   12162   34      S             Herault   12814
+## NA.32      35     1   12532   35      W     Ille-et-Vilaine   22138
+## NA.33      36     1   12687   36      C               Indre   32404
+## NA.34      37     1   13147   37      C      Indre-et-Loire   19131
+## NA.35      38     1   13341   38      E               Isere   18785
+## NA.36      39     1   13977   39      E                Jura   26221
+## NA.37      40     1   14431   40      W              Landes   17687
+## NA.38      41     1   14589   41      C        Loir-et-Cher   21292
+## NA.39      42     1   15070   42      C               Loire   27491
+## NA.40      43     1   15339   43      C         Haute-Loire   16170
+## NA.41      44     1   15550   44      W    Loire-Inferieure   19314
+## NA.42      45     1   15881   45      C              Loiret   17722
+## NA.43      46     1   16029   46      S                 Lot    5883
+## NA.44      47     1   16326   47      W      Lot-et-Garonne   22969
+## NA.45      48     1   16732   48      S              Lozere    7710
+## NA.46      49     1   16834   49      W      Maine-et-Loire   29692
+## NA.47      50     1   17502   50      N              Manche   31078
+## NA.48      51     1   36143   51      N               Marne   15602
+## NA.49      52     1   34913   52      E         Haute-Marne   26231
+## NA.50      53     1   17708   53      W             Mayenne   28331
+## NA.51      54     1   18215   54      E             Meurthe   26674
+## NA.52      55     1   18431   55      N               Meuse   24507
+## NA.53      56     1   19153   56      W            Morbihan   23316
+## NA.54      57     1   19575   57      N             Moselle   12153
+## NA.55      58     1   20037   58      C              Nievre   25087
+## NA.56      59     1   36521   59      N                Nord   26740
+## NA.57      60     1   20823   60      N                Oise   28180
+## NA.58      61     1   21456   61      N                Orne   28329
+## NA.59      62     1   21990   62      N       Pas-de-Calais   23101
+## NA.60      63     1   22829   63      C         Puy-de-Dome   17256
+## NA.61      64     1   23572   64      W     Basses-Pyrenees   16722
+## NA.62      65     1   24112   65      S     Hautes-Pyrenees   12223
+## NA.63      66     1   24280   66      S Pyrenees-Orientales    6728
+## NA.64      67     1   24814   67      E            Bas-Rhin   12309
+## NA.65      68     1   24947   68      E           Haut-Rhin    7343
+## NA.66      69     1   25381   69      E               Rhone   18793
+## NA.67      70     1   26063   70      E         Haute-Saone   22339
+## NA.68      71     1   26357   71      E      Saone-et-Loire   28391
+## NA.69      72     1   26842   72      C              Sarthe   33913
+## NA.70      75     4   31560   75      N               Seine   13945
+## NA.71      76     1   28118   76      N    Seine-Inferieure   18355
+## NA.72      77     1   28566   77      N      Seine-et-Marne   22201
+## NA.73      78     3   31598   78      N       Seine-et-Oise   12477
+## NA.74      79     1   29204   79      W         Deux-Sevres   18400
+## NA.75      80     1   29360   80      N               Somme   33592
+## NA.76      81     1   30128   81      S                Tarn   13019
+## NA.77      82     1   30546   82      S     Tarn-et-Garonne   14790
+## NA.78      83     1   30753   83      S                 Var   13145
+## NA.79      84     1   30777   84      S            Vaucluse   13576
+## NA.80      85     1   31097   85      W              Vendee   20827
+## NA.81      86     1   31387   86      W              Vienne   15010
+## NA.82      87     1   31564   87      C        Haute-Vienne   16256
+## NA.83      88     1   31810   88      E              Vosges   18835
+## NA.84      89     1   32129   89      C               Yonne   18006
+##       Crm_prp Litercy Donatns Infants Suicids MainCty Wealth Commerc
+## NA      15890      37    5098   33120   35039       2     73      58
+## NA.1     5521      51    8901   14572   12831       2     22      10
+## NA.2     7925      13   10973   17044  114121       2     61      66
+## NA.3     7289      46    2733   23018   14238       1     76      49
+## NA.4     8174      69    6962   23076   16171       1     83      65
+## NA.5    10263      27    3188   42117   52547       1     84       1
+## NA.6     8847      67    6400   16106   26198       2     33       4
+## NA.7     9597      18    3542   22916  123625       1     72      60
+## NA.8     4086      59    3608   18642   10989       2     14       3
+## NA.9    10431      34    2582   20225   66498       2     17      35
+## NA.10    6731      31    3211   21981  116671       2     50      70
+## NA.11    5291      38    2314    9325    8107       3      2      26
+## NA.12    4500      52   27830    8983   31807       2     10      48
+## NA.13   11645      31    4093   15335   87338       2     59       7
+## NA.14   13018      36   13602   19454   25720       2     86      47
+## NA.15    5357      39   13254   23999   16798       2     18       5
+## NA.16   10503      13    9561   23574   19497       2     63      56
+## NA.17   12949      12   14993   19330   47480       2     74      80
+## NA.18    9159      60    2540   15599   16128       2     16      12
+## NA.19    7050      16   10387   36098   75056       2     70      86
+## NA.20   20235      23   10997   14363   77823       1     78      82
+## NA.21   10237      18    4687   21375   36024       2     60      72
+## NA.22    5914      73    3436   12512   40690       2     31      57
+## NA.23    7759      42    2829   16348   23816       2     66      41
+## NA.24    4774      51   11712   16039   13493       2     20      17
+## NA.25    4016      54    4553   14475   15015       2     11      21
+## NA.26    6842      15   23945   28392   25143       2     36      84
+## NA.27    7990      40    3048   28726   18292       2     26      31
+## NA.28    7204      31    2286   15378   56140       3     23      40
+## NA.29   10486      38    2848   15250   61510       2     40      30
+## NA.30    7423      40    5076   10676   19220       3      8      20
+## NA.31   10954      45    1680   21346   30869       2     12      34
+## NA.32    6524      25    7686   40736   45180       2     55      77
+## NA.33    7624      17   11315   20046   25014       2     54      55
+## NA.34    6909      27    7254   16601   15272       2     27      25
+## NA.35    8326      29    4077   12236   36275       2     65      46
+## NA.36    8059      73    3012   20384   34476       2     62      54
+## NA.37    6170      28   12059   15302   35375       1     81      68
+## NA.38    6017      27    5626   13364   14417       2     19      23
+## NA.39   12665      29    3446   29605   71364       2     24      79
+## NA.40   18043      21    2746   31017  163241       2     75      85
+## NA.41    9392      24    8310   14097   27289       3     80      76
+## NA.42    5042      42    4753    9986   11813       2      9      24
+## NA.43    9049      24    5194   20383   48783       2     42      67
+## NA.44    8943      31    4432   17681   38501       2      7      53
+## NA.45    5990      27    2040   25157   11092       1     77      69
+## NA.46    8520      23    4410   18708   33358       2     34      52
+## NA.47    7424      43    5179   14281   55564       2     32      73
+## NA.48    4950      63    3963   11267    8334       2     13       6
+## NA.49    9539      72    4013   17507   19586       1     25       7
+## NA.50    9198      19    2107   18544   28331       2     38      75
+## NA.51    6831      68    3912   12355   15652       2     57      11
+## NA.52    9190      74    4196   17333   13463       2     52       2
+## NA.53    7940      14   14739   31754   34196       2     48      81
+## NA.54    4529      57    9515   13877   25572       3     53      19
+## NA.55    8236      20   10452   19747   29381       2     44      33
+## NA.56    6175      45    6092    8926   13851       3     28      38
+## NA.57    6659      54    5501   18021    5994       2     15      14
+## NA.58    8248      45    9242   20852   34069       2     35      62
+## NA.59    4040      49    5740   10575   15400       2     45      39
+## NA.60   12141      19    5963   22948   78148       2     51      78
+## NA.61    8533      47    3299   12393   65995       2     79      71
+## NA.62    9797      53    6001   12125  148039       2     85      51
+## NA.63    7632      31   11644   15167   37843       2     71      37
+## NA.64    4920      62   14472   14356   18623       3     46      16
+## NA.65    4915      71    6001   14783   21233       2     58      29
+## NA.66    4504      45    1983    3910   17003       3      6      18
+## NA.67    7770      59   11701   11850   39714       1     69      27
+## NA.68   10708      32    3710   20442   22184       2     49      61
+## NA.69    8294      30    3357   10779   29280       2     41      45
+## NA.70    1368      71    4204    2660    3632       3      1       9
+## NA.71    2906      43    7245    7506    9523       3      3      22
+## NA.72    5786      54    5303   16324    7315       2      4      13
+## NA.73    3879      56    4007   16303    3460       2      5       8
+## NA.74    6863      41   16956   25461   24533       2     39      59
+## NA.75    7144      44    4964   12447   12836       2     21      36
+## NA.76    6241      20    3449   29305   68980       2     47      44
+## NA.77    8680      25    4558   23771   48317       2     29      50
+## NA.78    9572      23    2449   14800   13380       2     43      39
+## NA.79    5731      37    1246   17239   19024       2     64      28
+## NA.80    7566      28   14035   62486   67963       1     56      64
+## NA.81    4710      25    8922   35224   21851       2     68      43
+## NA.82    6402      13   13817   19940   33497       2     67      63
+## NA.83    9044      62    4040   14978   33029       2     82      42
+## NA.84    6516      47    4276   16616   12789       2     30      15
+##       Clergy Crm_prn Infntcd Dntn_cl Lottery Desertn Instrct Prsttts
+## NA        11      71      60      69      41      55      46      13
+## NA.1      82       4      82      36      38      82      24     327
+## NA.2      68      46      42      76      66      16      85      34
+## NA.3       5      70      12      37      80      32      29       2
+## NA.4      10      22      23      64      79      35       7       1
+## NA.5      28      76      47      67      70      19      62       1
+## NA.6      50      53      85      49      31      62       9      83
+## NA.7      39      74      28      63      75      22      77       3
+## NA.8      42      77      54       9      28      86      15     207
+## NA.9      15      80      35      27      50      63      48       1
+## NA.10      3      51       5      23      81      10      44       4
+## NA.11     30      45      74      55       3      23      43      25
+## NA.12      7      57      56      11      13      12      22     194
+## NA.13      6      79      83      66      82       1      51      20
+## NA.14     79       2       7      81      60      61      47       8
+## NA.15     86       3      38      72      35      74      42      27
+## NA.16     83      69      11      86      44      51      83      26
+## NA.17     46      86      16      82      84       2      86       3
+## NA.18     37      49      27      18      33      78      13     206
+## NA.19     30       6      69      15      72      47      80      16
+## NA.20     75      75      24      75      85       4      71      12
+## NA.21     77      64      18      79      77      44      78       3
+## NA.22     24      38      25       6      18      73       2      65
+## NA.23     22      21      13      62      54      46      38       8
+## NA.24     27      39      45      45      47      27      23     179
+## NA.25     16      18      62      14      48      72      18     180
+## NA.26     66      24      78      25      36      77      81      42
+## NA.27     81      15      39      59      20      40      40       5
+## NA.28     23      62      59      13      25      15      33       8
+## NA.29     12      43      13      32      74      30      44       1
+## NA.30     69      27      80      48       4      13      41      39
+## NA.31     67      47      51      28      19      43      32       9
+## NA.32     19      12      31      22      37      50      66      77
+## NA.33     84      82      19      83      69      29      79      14
+## NA.34     58      48       3      41      15      49      63      59
+## NA.35     53      52      27      73      23      26      57      12
+## NA.36     32      84      66      43      39      71       3      32
+## NA.37     63       1      43      56      73      28      58       3
+## NA.38     57      65      37      70      46      54      61      54
+## NA.39     34      78      77      34      42       6      56      14
+## NA.40      8      73      17      65      62       3      72      10
+## NA.41     73      56      52      29      12      45      67      63
+## NA.42     54      44      22      16      17      60      37     256
+## NA.43     20      54      15      68      78      24      68       1
+## NA.44     49      26      32      46      52      34      50       5
+## NA.45      2      72      45      42      86       5      60       0
+## NA.46     43      19      36      20      24      76      70      35
+## NA.47      9      33      70       3      59      21      36      98
+## NA.48     47       8      58      39      22      81      10     262
+## NA.49     18      63      55       4      56      65       4     138
+## NA.50     40      59      40       8      61      58      75      46
+## NA.51     26       5      71       1      21      70       8     154
+## NA.52     33      17      65      12      58      59       1     131
+## NA.53     31       9      29       7      32      69      82      38
+## NA.54     13      35       9       2      16      68      16     165
+## NA.55     80      83      20      80      63      37      74      39
+## NA.56     74      14      81      38       7      64      30     308
+## NA.57     60      31      86      50      43      57      20     337
+## NA.58     21      29      50      31      57      25      33     117
+## NA.59     44      36      79      10      27      48      26     163
+## NA.60     52      42      63      61      53       8      76      62
+## NA.61     38      34      72      60      34       7      28      12
+## NA.62     17      85      75      71      76      20      21       5
+## NA.63      4      67      84      77      11      18      52       5
+## NA.64     64      23      48      51       5      53      12     101
+## NA.65     65      40      53      17      10      56       5      26
+## NA.66     35      37      33      21       2      14      31     104
+## NA.67     25      25      68      57      65      83      14      99
+## NA.68     59      11      10      58      45      31      49      40
+## NA.69     41      41      57      19      49      75      35      79
+## NA.70     85      60      67      53       1      33       6    4744
+## NA.71     62      28      61      74       9      36      35     546
+## NA.72     56      16      73      26      29      67      37     453
+## NA.73     45      10      30      24       6      42      17     874
+## NA.74     72      30       4      85      71      84      39       6
+## NA.75     48       7      64      33      30      80      34     302
+## NA.76     14      13       9      47      67      17      73       3
+## NA.77     29      66      41      52      64      39      64       4
+## NA.78     61      55      49      40      26      52      69       6
+## NA.79     78      61      76      54       8      41      45       2
+## NA.80     70      50      44      30      68      79      59       4
+## NA.81     71      20       1      44      40      38      65      18
+## NA.82     76      68       6      78      55      11      84       7
+## NA.83     51      58      34       5      14      85      11      43
+## NA.84     55      32      22      35      51      66      27     272
+##       Distanc  Area Pop1831
+## NA    218.372  5762  346.03
+## NA.1   65.945  7369  513.00
+## NA.2  161.927  7340  298.26
+## NA.3  351.399  6925  155.90
+## NA.4  320.280  5549  129.10
+## NA.5  279.413  5529  340.73
+## NA.6  105.694  5229  289.62
+## NA.7  385.313  4890  253.12
+## NA.8   83.244  6004  246.36
+## NA.9  370.949  6139  270.13
+## NA.10 296.089  8735  359.06
+## NA.11 362.568  5087  359.47
+## NA.12 117.487  5548  494.70
+## NA.13 245.849  5726  258.59
+## NA.14 224.339  5956  362.53
+## NA.15 238.538  6864  445.25
+## NA.16 116.257  7235  256.06
+## NA.17 227.899  5857  294.83
+## NA.18 136.109  8763  375.88
+## NA.19 225.161  6878  598.87
+## NA.20 180.846  5565  265.38
+## NA.21 253.776  9060  482.75
+## NA.22 202.065  5234  265.54
+## NA.23 295.543  6530  299.56
+## NA.24  61.863  6040  424.25
+## NA.25  54.558  5880  278.82
+## NA.26 276.210  6733  524.40
+## NA.27 323.004  5853  357.38
+## NA.28 361.668  6257  427.86
+## NA.29 343.569  6309  312.16
+## NA.30 291.624 10000  554.23
+## NA.31 344.030  6101  346.30
+## NA.32 179.379  6775  547.05
+## NA.33 139.587  6791  245.29
+## NA.34 126.468  6127  297.02
+## NA.35 268.661  7431  550.26
+## NA.36 197.155  4999  312.50
+## NA.37 344.676  9243  281.50
+## NA.38  90.735  6343  235.75
+## NA.39 215.598  4781  391.22
+## NA.40 248.877  4977  292.08
+## NA.41 199.167  6815  470.09
+## NA.42  61.106  6775  305.28
+## NA.43 275.725  5217  283.83
+## NA.44 302.345  5361  346.89
+## NA.45 283.810  5167  140.35
+## NA.46 157.437  7166  467.87
+## NA.47 157.187  5938  591.28
+## NA.48  77.364  6211  337.08
+## NA.49 129.765  8162  249.83
+## NA.50 139.999  5175  352.59
+## NA.51 159.648  5241  415.57
+## NA.52 126.378  6216  314.59
+## NA.53 230.531  6823  433.52
+## NA.54 180.462  6216  417.00
+## NA.55 119.718  6817  282.52
+## NA.56 106.335  5743  989.94
+## NA.57  33.768  5860  397.73
+## NA.58  97.554  6103  441.88
+## NA.59 104.400  6671  655.22
+## NA.60 205.218  7970  573.11
+## NA.61 387.935  7645  428.40
+## NA.62 386.559  4464  233.03
+## NA.63 403.445  4116  157.05
+## NA.64 217.752  4755  540.21
+## NA.65 217.971  3525  424.26
+## NA.66 213.032  3249  434.43
+## NA.67 176.135  5360  338.91
+## NA.68 168.713  8575  523.97
+## NA.69 108.294  6206  457.37
+## NA.70   0.000   762  935.11
+## NA.71  75.658  6278  693.68
+## NA.72  27.647  5915  323.89
+## NA.73  16.888  5334  448.18
+## NA.74 188.474  5999  297.85
+## NA.75  69.520  6170  543.70
+## NA.76 328.146  5758  333.84
+## NA.77 313.090  3718  242.51
+## NA.78 389.512  5973  317.50
+## NA.79 337.215  3567  239.11
+## NA.80 212.459  6720  330.36
+## NA.81 170.523  6990  282.73
+## NA.82 198.874  5520  285.13
+## NA.83 174.477  5874  397.99
+## NA.84  81.797  7427  352.49</code></pre>
+<div class="rmdinfo">
+<p>
+Alternatively, you can read a shapefile, geojson (and other spatial file formats) directly into R, with <code>geoda_open()</code>:
+</p>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r">chicago_libraries &lt;-<span class="st"> </span><span class="kw">geoda_open</span>(<span class="st">&quot;https://data.cityofchicago.org/resource/x8fc-8rcq.geojson&quot;</span>)
+chicago_libraries</code></pre>
+<p>```</p>
+</div>
+<div id="looking-at-the-rgeoda-object" class="section level3">
+<h3><span class="header-section-number">15.4.2</span> Looking at the rgeoda object</h3>
+<p>Currently, rgeoda is structured more like Python; we may change this in a future implementation but it’s what we have so far.</p>
+<p>Try out the following:</p>
+<pre class="sourceCode r"><code class="sourceCode r">guerry<span class="op">$</span>field_names</code></pre>
+<pre><code>##  [1] &quot;CODE_DE&quot; &quot;COUNT&quot;   &quot;AVE_ID_&quot; &quot;dept&quot;    &quot;Region&quot;  &quot;Dprtmnt&quot; &quot;Crm_prs&quot;
+##  [8] &quot;Crm_prp&quot; &quot;Litercy&quot; &quot;Donatns&quot; &quot;Infants&quot; &quot;Suicids&quot; &quot;MainCty&quot; &quot;Wealth&quot; 
+## [15] &quot;Commerc&quot; &quot;Clergy&quot;  &quot;Crm_prn&quot; &quot;Infntcd&quot; &quot;Dntn_cl&quot; &quot;Lottery&quot; &quot;Desertn&quot;
+## [22] &quot;Instrct&quot; &quot;Prsttts&quot; &quot;Distanc&quot; &quot;Area&quot;    &quot;Pop1831&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">guerry<span class="op">$</span>field_types</code></pre>
+<pre><code>##  [1] &quot;string&quot;  &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;string&quot;  &quot;string&quot;  &quot;numeric&quot;
+##  [8] &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot;
+## [15] &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot;
+## [22] &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot; &quot;numeric&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">guerry<span class="op">$</span>n_cols</code></pre>
+<pre><code>## [1] 26</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">guerry<span class="op">$</span>n_obs</code></pre>
+<pre><code>## [1] 85</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">guerry<span class="op">$</span>table</code></pre>
+<pre><code>##       CODE_DE COUNT AVE_ID_ dept Region             Dprtmnt Crm_prs
+## NA         01     1      49    1      E                 Ain   28870
+## NA.1       02     1     812    2      N               Aisne   26226
+## NA.2       03     1    1418    3      C              Allier   26747
+## NA.3       04     1    1603    4      E        Basses-Alpes   12935
+## NA.4       05     1    1802    5      E        Hautes-Alpes   17488
+## NA.5       07     1    2249    7      S             Ardeche    9474
+## NA.6       08     1   35395    8      N            Ardennes   35203
+## NA.7       09     1    2526    9      S              Ariege    6173
+## NA.8       10     1   34410   10      E                Aube   19602
+## NA.9       11     1    2807   11      S                Aude   15647
+## NA.10      12     1    3369   12      S             Aveyron    8236
+## NA.11      13     1    3515   13      S    Bouches-du-Rhone   13409
+## NA.12      14     1    3667   14      N            Calvados   17577
+## NA.13      15     1    4268   15      C              Cantal   18070
+## NA.14      16     1    4527   16      W            Charente   24964
+## NA.15      17     1    5205   17      W Charente-Inferieure   18712
+## NA.16      18     1    5417   18      C                Cher   21934
+## NA.17      19     1    5942   19      C             Correze   15262
+## NA.18      21     1    6174   21      E           Cote-d&#39;Or   32256
+## NA.19      22     1   33634   22      W       Cotes-du-Nord   28607
+## NA.20      23     1    6735   23      C              Creuse   37014
+## NA.21      24     1    7186   24      W            Dordogne   21585
+## NA.22      25     1    7482   25      E               Doubs   11560
+## NA.23      26     1    8370   26      E               Drome   13396
+## NA.24      27     1    8612   27      N                Eure   14795
+## NA.25      28     1    9143   28      C        Eure-et-Loir   21368
+## NA.26      29     1    9659   29      W           Finistere   29872
+## NA.27      30     1   10264   30      S                Gard   13115
+## NA.28      31     1   10962   31      S       Haute-Garonne   18642
+## NA.29      32     1   11008   32      S                Gers   18642
+## NA.30      33     1   11520   33      W             Gironde   24096
+## NA.31      34     1   12162   34      S             Herault   12814
+## NA.32      35     1   12532   35      W     Ille-et-Vilaine   22138
+## NA.33      36     1   12687   36      C               Indre   32404
+## NA.34      37     1   13147   37      C      Indre-et-Loire   19131
+## NA.35      38     1   13341   38      E               Isere   18785
+## NA.36      39     1   13977   39      E                Jura   26221
+## NA.37      40     1   14431   40      W              Landes   17687
+## NA.38      41     1   14589   41      C        Loir-et-Cher   21292
+## NA.39      42     1   15070   42      C               Loire   27491
+## NA.40      43     1   15339   43      C         Haute-Loire   16170
+## NA.41      44     1   15550   44      W    Loire-Inferieure   19314
+## NA.42      45     1   15881   45      C              Loiret   17722
+## NA.43      46     1   16029   46      S                 Lot    5883
+## NA.44      47     1   16326   47      W      Lot-et-Garonne   22969
+## NA.45      48     1   16732   48      S              Lozere    7710
+## NA.46      49     1   16834   49      W      Maine-et-Loire   29692
+## NA.47      50     1   17502   50      N              Manche   31078
+## NA.48      51     1   36143   51      N               Marne   15602
+## NA.49      52     1   34913   52      E         Haute-Marne   26231
+## NA.50      53     1   17708   53      W             Mayenne   28331
+## NA.51      54     1   18215   54      E             Meurthe   26674
+## NA.52      55     1   18431   55      N               Meuse   24507
+## NA.53      56     1   19153   56      W            Morbihan   23316
+## NA.54      57     1   19575   57      N             Moselle   12153
+## NA.55      58     1   20037   58      C              Nievre   25087
+## NA.56      59     1   36521   59      N                Nord   26740
+## NA.57      60     1   20823   60      N                Oise   28180
+## NA.58      61     1   21456   61      N                Orne   28329
+## NA.59      62     1   21990   62      N       Pas-de-Calais   23101
+## NA.60      63     1   22829   63      C         Puy-de-Dome   17256
+## NA.61      64     1   23572   64      W     Basses-Pyrenees   16722
+## NA.62      65     1   24112   65      S     Hautes-Pyrenees   12223
+## NA.63      66     1   24280   66      S Pyrenees-Orientales    6728
+## NA.64      67     1   24814   67      E            Bas-Rhin   12309
+## NA.65      68     1   24947   68      E           Haut-Rhin    7343
+## NA.66      69     1   25381   69      E               Rhone   18793
+## NA.67      70     1   26063   70      E         Haute-Saone   22339
+## NA.68      71     1   26357   71      E      Saone-et-Loire   28391
+## NA.69      72     1   26842   72      C              Sarthe   33913
+## NA.70      75     4   31560   75      N               Seine   13945
+## NA.71      76     1   28118   76      N    Seine-Inferieure   18355
+## NA.72      77     1   28566   77      N      Seine-et-Marne   22201
+## NA.73      78     3   31598   78      N       Seine-et-Oise   12477
+## NA.74      79     1   29204   79      W         Deux-Sevres   18400
+## NA.75      80     1   29360   80      N               Somme   33592
+## NA.76      81     1   30128   81      S                Tarn   13019
+## NA.77      82     1   30546   82      S     Tarn-et-Garonne   14790
+## NA.78      83     1   30753   83      S                 Var   13145
+## NA.79      84     1   30777   84      S            Vaucluse   13576
+## NA.80      85     1   31097   85      W              Vendee   20827
+## NA.81      86     1   31387   86      W              Vienne   15010
+## NA.82      87     1   31564   87      C        Haute-Vienne   16256
+## NA.83      88     1   31810   88      E              Vosges   18835
+## NA.84      89     1   32129   89      C               Yonne   18006
+##       Crm_prp Litercy Donatns Infants Suicids MainCty Wealth Commerc
+## NA      15890      37    5098   33120   35039       2     73      58
+## NA.1     5521      51    8901   14572   12831       2     22      10
+## NA.2     7925      13   10973   17044  114121       2     61      66
+## NA.3     7289      46    2733   23018   14238       1     76      49
+## NA.4     8174      69    6962   23076   16171       1     83      65
+## NA.5    10263      27    3188   42117   52547       1     84       1
+## NA.6     8847      67    6400   16106   26198       2     33       4
+## NA.7     9597      18    3542   22916  123625       1     72      60
+## NA.8     4086      59    3608   18642   10989       2     14       3
+## NA.9    10431      34    2582   20225   66498       2     17      35
+## NA.10    6731      31    3211   21981  116671       2     50      70
+## NA.11    5291      38    2314    9325    8107       3      2      26
+## NA.12    4500      52   27830    8983   31807       2     10      48
+## NA.13   11645      31    4093   15335   87338       2     59       7
+## NA.14   13018      36   13602   19454   25720       2     86      47
+## NA.15    5357      39   13254   23999   16798       2     18       5
+## NA.16   10503      13    9561   23574   19497       2     63      56
+## NA.17   12949      12   14993   19330   47480       2     74      80
+## NA.18    9159      60    2540   15599   16128       2     16      12
+## NA.19    7050      16   10387   36098   75056       2     70      86
+## NA.20   20235      23   10997   14363   77823       1     78      82
+## NA.21   10237      18    4687   21375   36024       2     60      72
+## NA.22    5914      73    3436   12512   40690       2     31      57
+## NA.23    7759      42    2829   16348   23816       2     66      41
+## NA.24    4774      51   11712   16039   13493       2     20      17
+## NA.25    4016      54    4553   14475   15015       2     11      21
+## NA.26    6842      15   23945   28392   25143       2     36      84
+## NA.27    7990      40    3048   28726   18292       2     26      31
+## NA.28    7204      31    2286   15378   56140       3     23      40
+## NA.29   10486      38    2848   15250   61510       2     40      30
+## NA.30    7423      40    5076   10676   19220       3      8      20
+## NA.31   10954      45    1680   21346   30869       2     12      34
+## NA.32    6524      25    7686   40736   45180       2     55      77
+## NA.33    7624      17   11315   20046   25014       2     54      55
+## NA.34    6909      27    7254   16601   15272       2     27      25
+## NA.35    8326      29    4077   12236   36275       2     65      46
+## NA.36    8059      73    3012   20384   34476       2     62      54
+## NA.37    6170      28   12059   15302   35375       1     81      68
+## NA.38    6017      27    5626   13364   14417       2     19      23
+## NA.39   12665      29    3446   29605   71364       2     24      79
+## NA.40   18043      21    2746   31017  163241       2     75      85
+## NA.41    9392      24    8310   14097   27289       3     80      76
+## NA.42    5042      42    4753    9986   11813       2      9      24
+## NA.43    9049      24    5194   20383   48783       2     42      67
+## NA.44    8943      31    4432   17681   38501       2      7      53
+## NA.45    5990      27    2040   25157   11092       1     77      69
+## NA.46    8520      23    4410   18708   33358       2     34      52
+## NA.47    7424      43    5179   14281   55564       2     32      73
+## NA.48    4950      63    3963   11267    8334       2     13       6
+## NA.49    9539      72    4013   17507   19586       1     25       7
+## NA.50    9198      19    2107   18544   28331       2     38      75
+## NA.51    6831      68    3912   12355   15652       2     57      11
+## NA.52    9190      74    4196   17333   13463       2     52       2
+## NA.53    7940      14   14739   31754   34196       2     48      81
+## NA.54    4529      57    9515   13877   25572       3     53      19
+## NA.55    8236      20   10452   19747   29381       2     44      33
+## NA.56    6175      45    6092    8926   13851       3     28      38
+## NA.57    6659      54    5501   18021    5994       2     15      14
+## NA.58    8248      45    9242   20852   34069       2     35      62
+## NA.59    4040      49    5740   10575   15400       2     45      39
+## NA.60   12141      19    5963   22948   78148       2     51      78
+## NA.61    8533      47    3299   12393   65995       2     79      71
+## NA.62    9797      53    6001   12125  148039       2     85      51
+## NA.63    7632      31   11644   15167   37843       2     71      37
+## NA.64    4920      62   14472   14356   18623       3     46      16
+## NA.65    4915      71    6001   14783   21233       2     58      29
+## NA.66    4504      45    1983    3910   17003       3      6      18
+## NA.67    7770      59   11701   11850   39714       1     69      27
+## NA.68   10708      32    3710   20442   22184       2     49      61
+## NA.69    8294      30    3357   10779   29280       2     41      45
+## NA.70    1368      71    4204    2660    3632       3      1       9
+## NA.71    2906      43    7245    7506    9523       3      3      22
+## NA.72    5786      54    5303   16324    7315       2      4      13
+## NA.73    3879      56    4007   16303    3460       2      5       8
+## NA.74    6863      41   16956   25461   24533       2     39      59
+## NA.75    7144      44    4964   12447   12836       2     21      36
+## NA.76    6241      20    3449   29305   68980       2     47      44
+## NA.77    8680      25    4558   23771   48317       2     29      50
+## NA.78    9572      23    2449   14800   13380       2     43      39
+## NA.79    5731      37    1246   17239   19024       2     64      28
+## NA.80    7566      28   14035   62486   67963       1     56      64
+## NA.81    4710      25    8922   35224   21851       2     68      43
+## NA.82    6402      13   13817   19940   33497       2     67      63
+## NA.83    9044      62    4040   14978   33029       2     82      42
+## NA.84    6516      47    4276   16616   12789       2     30      15
+##       Clergy Crm_prn Infntcd Dntn_cl Lottery Desertn Instrct Prsttts
+## NA        11      71      60      69      41      55      46      13
+## NA.1      82       4      82      36      38      82      24     327
+## NA.2      68      46      42      76      66      16      85      34
+## NA.3       5      70      12      37      80      32      29       2
+## NA.4      10      22      23      64      79      35       7       1
+## NA.5      28      76      47      67      70      19      62       1
+## NA.6      50      53      85      49      31      62       9      83
+## NA.7      39      74      28      63      75      22      77       3
+## NA.8      42      77      54       9      28      86      15     207
+## NA.9      15      80      35      27      50      63      48       1
+## NA.10      3      51       5      23      81      10      44       4
+## NA.11     30      45      74      55       3      23      43      25
+## NA.12      7      57      56      11      13      12      22     194
+## NA.13      6      79      83      66      82       1      51      20
+## NA.14     79       2       7      81      60      61      47       8
+## NA.15     86       3      38      72      35      74      42      27
+## NA.16     83      69      11      86      44      51      83      26
+## NA.17     46      86      16      82      84       2      86       3
+## NA.18     37      49      27      18      33      78      13     206
+## NA.19     30       6      69      15      72      47      80      16
+## NA.20     75      75      24      75      85       4      71      12
+## NA.21     77      64      18      79      77      44      78       3
+## NA.22     24      38      25       6      18      73       2      65
+## NA.23     22      21      13      62      54      46      38       8
+## NA.24     27      39      45      45      47      27      23     179
+## NA.25     16      18      62      14      48      72      18     180
+## NA.26     66      24      78      25      36      77      81      42
+## NA.27     81      15      39      59      20      40      40       5
+## NA.28     23      62      59      13      25      15      33       8
+## NA.29     12      43      13      32      74      30      44       1
+## NA.30     69      27      80      48       4      13      41      39
+## NA.31     67      47      51      28      19      43      32       9
+## NA.32     19      12      31      22      37      50      66      77
+## NA.33     84      82      19      83      69      29      79      14
+## NA.34     58      48       3      41      15      49      63      59
+## NA.35     53      52      27      73      23      26      57      12
+## NA.36     32      84      66      43      39      71       3      32
+## NA.37     63       1      43      56      73      28      58       3
+## NA.38     57      65      37      70      46      54      61      54
+## NA.39     34      78      77      34      42       6      56      14
+## NA.40      8      73      17      65      62       3      72      10
+## NA.41     73      56      52      29      12      45      67      63
+## NA.42     54      44      22      16      17      60      37     256
+## NA.43     20      54      15      68      78      24      68       1
+## NA.44     49      26      32      46      52      34      50       5
+## NA.45      2      72      45      42      86       5      60       0
+## NA.46     43      19      36      20      24      76      70      35
+## NA.47      9      33      70       3      59      21      36      98
+## NA.48     47       8      58      39      22      81      10     262
+## NA.49     18      63      55       4      56      65       4     138
+## NA.50     40      59      40       8      61      58      75      46
+## NA.51     26       5      71       1      21      70       8     154
+## NA.52     33      17      65      12      58      59       1     131
+## NA.53     31       9      29       7      32      69      82      38
+## NA.54     13      35       9       2      16      68      16     165
+## NA.55     80      83      20      80      63      37      74      39
+## NA.56     74      14      81      38       7      64      30     308
+## NA.57     60      31      86      50      43      57      20     337
+## NA.58     21      29      50      31      57      25      33     117
+## NA.59     44      36      79      10      27      48      26     163
+## NA.60     52      42      63      61      53       8      76      62
+## NA.61     38      34      72      60      34       7      28      12
+## NA.62     17      85      75      71      76      20      21       5
+## NA.63      4      67      84      77      11      18      52       5
+## NA.64     64      23      48      51       5      53      12     101
+## NA.65     65      40      53      17      10      56       5      26
+## NA.66     35      37      33      21       2      14      31     104
+## NA.67     25      25      68      57      65      83      14      99
+## NA.68     59      11      10      58      45      31      49      40
+## NA.69     41      41      57      19      49      75      35      79
+## NA.70     85      60      67      53       1      33       6    4744
+## NA.71     62      28      61      74       9      36      35     546
+## NA.72     56      16      73      26      29      67      37     453
+## NA.73     45      10      30      24       6      42      17     874
+## NA.74     72      30       4      85      71      84      39       6
+## NA.75     48       7      64      33      30      80      34     302
+## NA.76     14      13       9      47      67      17      73       3
+## NA.77     29      66      41      52      64      39      64       4
+## NA.78     61      55      49      40      26      52      69       6
+## NA.79     78      61      76      54       8      41      45       2
+## NA.80     70      50      44      30      68      79      59       4
+## NA.81     71      20       1      44      40      38      65      18
+## NA.82     76      68       6      78      55      11      84       7
+## NA.83     51      58      34       5      14      85      11      43
+## NA.84     55      32      22      35      51      66      27     272
+##       Distanc  Area Pop1831
+## NA    218.372  5762  346.03
+## NA.1   65.945  7369  513.00
+## NA.2  161.927  7340  298.26
+## NA.3  351.399  6925  155.90
+## NA.4  320.280  5549  129.10
+## NA.5  279.413  5529  340.73
+## NA.6  105.694  5229  289.62
+## NA.7  385.313  4890  253.12
+## NA.8   83.244  6004  246.36
+## NA.9  370.949  6139  270.13
+## NA.10 296.089  8735  359.06
+## NA.11 362.568  5087  359.47
+## NA.12 117.487  5548  494.70
+## NA.13 245.849  5726  258.59
+## NA.14 224.339  5956  362.53
+## NA.15 238.538  6864  445.25
+## NA.16 116.257  7235  256.06
+## NA.17 227.899  5857  294.83
+## NA.18 136.109  8763  375.88
+## NA.19 225.161  6878  598.87
+## NA.20 180.846  5565  265.38
+## NA.21 253.776  9060  482.75
+## NA.22 202.065  5234  265.54
+## NA.23 295.543  6530  299.56
+## NA.24  61.863  6040  424.25
+## NA.25  54.558  5880  278.82
+## NA.26 276.210  6733  524.40
+## NA.27 323.004  5853  357.38
+## NA.28 361.668  6257  427.86
+## NA.29 343.569  6309  312.16
+## NA.30 291.624 10000  554.23
+## NA.31 344.030  6101  346.30
+## NA.32 179.379  6775  547.05
+## NA.33 139.587  6791  245.29
+## NA.34 126.468  6127  297.02
+## NA.35 268.661  7431  550.26
+## NA.36 197.155  4999  312.50
+## NA.37 344.676  9243  281.50
+## NA.38  90.735  6343  235.75
+## NA.39 215.598  4781  391.22
+## NA.40 248.877  4977  292.08
+## NA.41 199.167  6815  470.09
+## NA.42  61.106  6775  305.28
+## NA.43 275.725  5217  283.83
+## NA.44 302.345  5361  346.89
+## NA.45 283.810  5167  140.35
+## NA.46 157.437  7166  467.87
+## NA.47 157.187  5938  591.28
+## NA.48  77.364  6211  337.08
+## NA.49 129.765  8162  249.83
+## NA.50 139.999  5175  352.59
+## NA.51 159.648  5241  415.57
+## NA.52 126.378  6216  314.59
+## NA.53 230.531  6823  433.52
+## NA.54 180.462  6216  417.00
+## NA.55 119.718  6817  282.52
+## NA.56 106.335  5743  989.94
+## NA.57  33.768  5860  397.73
+## NA.58  97.554  6103  441.88
+## NA.59 104.400  6671  655.22
+## NA.60 205.218  7970  573.11
+## NA.61 387.935  7645  428.40
+## NA.62 386.559  4464  233.03
+## NA.63 403.445  4116  157.05
+## NA.64 217.752  4755  540.21
+## NA.65 217.971  3525  424.26
+## NA.66 213.032  3249  434.43
+## NA.67 176.135  5360  338.91
+## NA.68 168.713  8575  523.97
+## NA.69 108.294  6206  457.37
+## NA.70   0.000   762  935.11
+## NA.71  75.658  6278  693.68
+## NA.72  27.647  5915  323.89
+## NA.73  16.888  5334  448.18
+## NA.74 188.474  5999  297.85
+## NA.75  69.520  6170  543.70
+## NA.76 328.146  5758  333.84
+## NA.77 313.090  3718  242.51
+## NA.78 389.512  5973  317.50
+## NA.79 337.215  3567  239.11
+## NA.80 212.459  6720  330.36
+## NA.81 170.523  6990  282.73
+## NA.82 198.874  5520  285.13
+## NA.83 174.477  5874  397.99
+## NA.84  81.797  7427  352.49</code></pre>
+<p>Note that this is not really a data frame - rgeoda right now is optimized to help you do spatial weights, autocorrelation and clustering.</p>
+<p>So let’s do those things!</p>
+</div>
+</div>
+<div id="spatial-analysis-with-rgeoda" class="section level2">
+<h2><span class="header-section-number">15.5</span> Spatial Analysis with rgeoda</h2>
+<p>Let’s create weights from an rgeoda object:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queen_weights</span>(guerry)</code></pre>
+<pre><code>## Reference class object of class &quot;Weight&quot;
+## Field &quot;gda_w&quot;:
+## An object of class &quot;_p_GeoDaWeight&quot;
+## Slot &quot;ref&quot;:
+## &lt;pointer: 0x7feff20596b0&gt;
+## 
+## Field &quot;is_symmetric&quot;:
+## [1] TRUE
+## Field &quot;sparsity&quot;:
+## [1] 0
+## Field &quot;density&quot;:
+## [1] 5.813149
+## Field &quot;min_neighbors&quot;:
+## [1] 2
+## Field &quot;max_neighbors&quot;:
+## [1] 8
+## Field &quot;num_obs&quot;:
+## [1] 85
+## Field &quot;mean_neighbors&quot;:
+## [1] 4.941176
+## Field &quot;median_neighbors&quot;:
+## [1] 5</code></pre>
+<p>Much easier than spdep, eh?</p>
+<p>You can change the order from first to second:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">queen_weights</span>(guerry, <span class="dt">order =</span> <span class="dv">2</span>)</code></pre>
+<pre><code>## Reference class object of class &quot;Weight&quot;
+## Field &quot;gda_w&quot;:
+## An object of class &quot;_p_GeoDaWeight&quot;
+## Slot &quot;ref&quot;:
+## &lt;pointer: 0x7feff3a34c30&gt;
+## 
+## Field &quot;is_symmetric&quot;:
+## [1] TRUE
+## Field &quot;sparsity&quot;:
+## [1] 0
+## Field &quot;density&quot;:
+## [1] 10.46367
+## Field &quot;min_neighbors&quot;:
+## [1] 2
+## Field &quot;max_neighbors&quot;:
+## [1] 14
+## Field &quot;num_obs&quot;:
+## [1] 85
+## Field &quot;mean_neighbors&quot;:
+## [1] 8.894118
+## Field &quot;median_neighbors&quot;:
+## [1] 9</code></pre>
+<p>We can save the original weights:</p>
+<pre class="sourceCode r"><code class="sourceCode r">queen_w &lt;-<span class="st"> </span><span class="kw">queen_weights</span>(guerry)</code></pre>
+<p>Then take a look at the class:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(queen_w)</code></pre>
+<pre><code>## [1] &quot;Weight&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;rgeoda&quot;</code></pre>
+<div class="learncheck">
+<p>
+<strong>Question</strong>
+</p>
+</div>
+<p>Try out the following functions:</p>
+<ul>
+<li><code>queen_w$is_symmetric</code></li>
+<li><code>min_nbrs</code></li>
+<li><code>max_nbrs</code></li>
+<li><code>GetNeighbors(0)</code></li>
+</ul>
+Find more listed here: <a href="https://rgeoda.github.io/rgeoda-book/spatial-weights.html#attributes-of-weight-object">Attributes of <code>Weight</code> object</a>
+<div class="learncheck">
+
+</div>
+<p>Many more types of weights can be found <a href="https://rgeoda.github.io/rgeoda-book/spatial-weights.html#attributes-of-weight-object">here</a>.</p>
+<div id="detour-saving-your-weights" class="section level3">
+<h3><span class="header-section-number">15.5.1</span> Detour: saving your weights</h3>
+<p>To save contiguity-based weights, use the <code>SaveToFile()</code> function in rgeoda.</p>
+<p>The four arguments you need for <code>SaveToFile()</code> are the:</p>
+<ul>
+<li>path/name of the file you’re going to create (ends in .gal for contiguity-based weights, .gwt for distance-based weights)</li>
+<li>layer name (aka file name without suffix, ie XXX.shp )</li>
+<li>id column name, a unique value for each observation</li>
+<li>id column itself</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">id_names &lt;-<span class="st"> </span>guerry<span class="op">$</span><span class="kw">GetIntegerCol</span>(<span class="st">&quot;CODE_DE&quot;</span>)
+queen_w<span class="op">$</span><span class="kw">SaveToFile</span>(<span class="st">&quot;guerry_queen.gal&quot;</span>, <span class="st">&quot;Guerry&quot;</span>, <span class="st">&quot;CODE_DE&quot;</span>, id_names)</code></pre>
+</div>
+</div>
+<div id="calculating-the-local-moran-statistic" class="section level2">
+<h2><span class="header-section-number">15.6</span> Calculating the Local Moran statistic</h2>
+<p>You can then calculate the Local Moran statistic once you have your weights:</p>
+<pre class="sourceCode r"><code class="sourceCode r">crm_prp &lt;-<span class="st"> </span>guerry_sf<span class="op">$</span>Crm_prp
+
+lisa &lt;-<span class="st"> </span><span class="kw">local_moran</span>(queen_w, crm_prp)</code></pre>
+<p>And make a map!</p>
+<pre class="sourceCode r"><code class="sourceCode r">lisa_colors &lt;-<span class="st"> </span>lisa<span class="op">$</span><span class="kw">GetColors</span>() 
+lisa_labels &lt;-<span class="st"> </span>lisa<span class="op">$</span><span class="kw">GetLabels</span>()
+lisa_clusters &lt;-<span class="st"> </span>lisa<span class="op">$</span><span class="kw">GetClusterIndicators</span>()
+
+<span class="kw">plot</span>(<span class="kw">st_geometry</span>(guerry_sf), 
+     <span class="dt">col=</span><span class="kw">sapply</span>(lisa_clusters, <span class="cf">function</span>(x){<span class="kw">return</span>(lisa_colors[[x<span class="op">+</span><span class="dv">1</span>]])}), 
+     <span class="dt">border =</span> <span class="st">&quot;#333333&quot;</span>, <span class="dt">lwd=</span><span class="fl">0.2</span>)
+<span class="kw">title</span>(<span class="dt">main =</span> <span class="st">&quot;Local Moran Map of Crm_prp&quot;</span>)
+<span class="kw">legend</span>(<span class="st">&#39;bottomleft&#39;</span>, <span class="dt">legend =</span> lisa_labels, <span class="dt">fill =</span> lisa_colors, <span class="dt">border =</span> <span class="st">&quot;#eeeeee&quot;</span>)</code></pre>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-226-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="spatial-autocorrelation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/spatialanalysis/workshop-notes/edit/master/15-rgeoda-walkthrough.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
