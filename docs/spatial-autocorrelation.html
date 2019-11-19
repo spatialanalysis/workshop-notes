@@ -429,7 +429,7 @@ remotes<span class="op">::</span><span class="kw">install_github</span>(<span cl
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
 <span class="kw">tm_shape</span>(ncovr) <span class="op">+</span>
 <span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;HR60&quot;</span>)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-182-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-183-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">ncovr_rook &lt;-<span class="st"> </span><span class="kw">st_rook</span>(ncovr)</code></pre>
 <pre><code>## although coordinates are longitude/latitude, st_relate_pattern assumes that they are planar</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">ncovr_queen &lt;-<span class="st"> </span><span class="kw">st_queen</span>(ncovr)</code></pre>
@@ -476,7 +476,7 @@ rook_nb &lt;-<span class="st"> </span><span class="kw">st_as_nb</span>(ncovr_roo
 <pre class="sourceCode r"><code class="sourceCode r">centroid_coords &lt;-<span class="st"> </span><span class="kw">st_centroid_coords</span>(ncovr)
 
 <span class="kw">plot</span>(queen_nb, centroid_coords, <span class="dt">lwd =</span> <span class="fl">0.2</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-182-2.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-183-2.png" width="672" /></p>
 </div>
 <div id="second-order-contiguity-weights" class="section level2">
 <h2><span class="header-section-number">14.5</span> Second order contiguity weights</h2>
@@ -560,7 +560,7 @@ rook_nb &lt;-<span class="st"> </span><span class="kw">st_as_nb</span>(ncovr_roo
 <p>We can plot this to get a sense of what’s going on. Remember, the syntax for <code>plot()</code> is <code>plot(nb, coord_matrix, options)</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">dist_<span class="dv">1000</span>_nb &lt;-<span class="st"> </span><span class="kw">dnearneigh</span>(clev_pts, <span class="dv">0</span>, <span class="dv">1000</span>)
 <span class="kw">plot</span>(dist_<span class="dv">1000</span>_nb, <span class="kw">st_coordinates</span>(clev_pts), <span class="dt">lwd=</span>.<span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">cex =</span> <span class="fl">.5</span>)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-192-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-193-1.png" width="672" /></p>
 <p>Notice how a lot of points are missing neighbors? They’re referred to as “isolates”.</p>
 <p>Maybe we want to specify a minimum distance so that each point has a neighbor. This is referred to as the <strong>critical threshold</strong>.</p>
 <p>If we want each point to have one neighbor, we can use <code>knearneigh</code>. This (older function) takes in a matrix and returns a matrix, so we need to convert formats.</p>
@@ -576,7 +576,7 @@ rook_nb &lt;-<span class="st"> </span><span class="kw">st_as_nb</span>(ncovr_roo
 <p>Now when we plot again, we see each point has a neighbor:</p>
 <pre class="sourceCode r"><code class="sourceCode r">k1_nb &lt;-<span class="st"> </span><span class="kw">knn2nb</span>(knn_matrix)
 <span class="kw">plot</span>(k1_nb, <span class="kw">st_coordinates</span>(clev_pts), <span class="dt">lwd=</span>.<span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">cex =</span> <span class="fl">.5</span>)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-195-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-196-1.png" width="672" /></p>
 <p>Each point has exactly one neighbor here.</p>
 <div class="learncheck">
 <p>

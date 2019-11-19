@@ -331,10 +331,10 @@ ward86 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class
 ## dimension:      XY
 ## bbox:           xmin: -87.9402 ymin: 41.6443 xmax: -87.524 ymax: 42.0231
 ## epsg (SRID):    4269
-## proj4string:    +proj=longlat +datum=NAD83 +no_defs</code></pre>
+## proj4string:    +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">ward86 &lt;-<span class="st"> </span><span class="kw">st_transform</span>(ward86, <span class="dv">32616</span>)
 <span class="kw">plot</span>(ward86)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <ul>
 <li>Calculate centroids of wards with <code>st_centroid</code></li>
 </ul>
@@ -345,10 +345,10 @@ centroids &lt;-<span class="st"> </span><span class="kw">st_centroid</span>(ward
 ## constant over geometries of x</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(centroids), <span class="dt">cex =</span> <span class="fl">0.1</span>)
 <span class="kw">plot</span>(<span class="kw">st_geometry</span>(ward86), <span class="dt">add =</span> T)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(ward86))
 <span class="kw">plot</span>(<span class="kw">st_geometry</span>(centroids), <span class="dt">cex =</span> <span class="fl">0.1</span>, <span class="dt">add =</span> T)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <ul>
 <li>Calculate bounding box with <code>st_bbox</code></li>
 <li>Plot centroids, buffered centroids, and wards for each year</li>

@@ -300,11 +300,6 @@ remotes<span class="op">::</span><span class="kw">install_github</span>(<span cl
 <p>This will install a package that has the same internals as GeoDa, but can be accessed from R. It exposes a lot of functionality that can be hard to manage in R.</p>
 <p>You should now be able to load the package with:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgeoda)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;rgeoda&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:spdep&#39;:
-## 
-##     skater</code></pre>
 </div>
 <div id="r-markdown" class="section level2">
 <h2><span class="header-section-number">15.2</span> R Markdown</h2>
@@ -354,14 +349,13 @@ This workshop is based off of the <a href="https://rgeoda.github.io/rgeoda-book/
 <div id="convert-to-rgeoda-object" class="section level3">
 <h3><span class="header-section-number">15.4.1</span> Convert to rgeoda object</h3>
 <p>We can convert an sf object into a rgeoda object:</p>
-<pre class="sourceCode r"><code class="sourceCode r">guerry &lt;-<span class="st"> </span><span class="kw">sf_to_geoda</span>(guerry_sf)</code></pre>
-<pre><code>## Loading required package: wkb</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">guerry</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">guerry &lt;-<span class="st"> </span><span class="kw">sf_to_geoda</span>(guerry_sf)
+guerry</code></pre>
 <pre><code>## Reference class object of class &quot;geoda&quot;
 ## Field &quot;gda&quot;:
 ## An object of class &quot;_p_GeoDa&quot;
 ## Slot &quot;ref&quot;:
-## &lt;pointer: 0x7feffe016560&gt;
+## &lt;pointer: 0x7f8f40617cd0&gt;
 ## 
 ## Field &quot;map_type&quot;:
 ## [1] &quot;polygon_type&quot;
@@ -382,7 +376,7 @@ guerry</code></pre>
 ## Field &quot;gda&quot;:
 ## An object of class &quot;_p_GeoDa&quot;
 ## Slot &quot;ref&quot;:
-## &lt;pointer: 0x7feff214fd10&gt;
+## &lt;pointer: 0x7f8f4b67eba0&gt;
 ## 
 ## Field &quot;map_type&quot;:
 ## [1] &quot;polygon_type&quot;
@@ -1129,7 +1123,7 @@ chicago_libraries</code></pre>
 ## Field &quot;gda_w&quot;:
 ## An object of class &quot;_p_GeoDaWeight&quot;
 ## Slot &quot;ref&quot;:
-## &lt;pointer: 0x7feff20596b0&gt;
+## &lt;pointer: 0x7f8f4bc2d890&gt;
 ## 
 ## Field &quot;is_symmetric&quot;:
 ## [1] TRUE
@@ -1154,7 +1148,7 @@ chicago_libraries</code></pre>
 ## Field &quot;gda_w&quot;:
 ## An object of class &quot;_p_GeoDaWeight&quot;
 ## Slot &quot;ref&quot;:
-## &lt;pointer: 0x7feff3a34c30&gt;
+## &lt;pointer: 0x7f8f362c2ae0&gt;
 ## 
 ## Field &quot;is_symmetric&quot;:
 ## [1] TRUE
@@ -1226,7 +1220,7 @@ lisa_clusters &lt;-<span class="st"> </span>lisa<span class="op">$</span><span c
      <span class="dt">border =</span> <span class="st">&quot;#333333&quot;</span>, <span class="dt">lwd=</span><span class="fl">0.2</span>)
 <span class="kw">title</span>(<span class="dt">main =</span> <span class="st">&quot;Local Moran Map of Crm_prp&quot;</span>)
 <span class="kw">legend</span>(<span class="st">&#39;bottomleft&#39;</span>, <span class="dt">legend =</span> lisa_labels, <span class="dt">fill =</span> lisa_colors, <span class="dt">border =</span> <span class="st">&quot;#eeeeee&quot;</span>)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-226-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-227-1.png" width="672" /></p>
 
 </div>
 </div>

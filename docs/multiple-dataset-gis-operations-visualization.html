@@ -334,7 +334,7 @@ ward98 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class
 ## dimension:      XY
 ## bbox:           xmin: -87.94021 ymin: 41.64434 xmax: -87.52404 ymax: 42.02313
 ## epsg (SRID):    4269
-## proj4string:    +proj=longlat +datum=NAD83 +no_defs</code></pre>
+## proj4string:    +proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">ward98 &lt;-<span class="st"> </span><span class="kw">st_transform</span>(ward98, <span class="dv">32616</span>)
 centroids &lt;-<span class="st"> </span><span class="kw">st_centroid</span>(ward98)</code></pre>
 <pre><code>## Warning in st_centroid.sf(ward98): st_centroid assumes attributes are
@@ -346,7 +346,7 @@ centroids &lt;-<span class="st"> </span><span class="kw">st_centroid</span>(ward
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">ggplot</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>()</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <div class="learncheck">
 <p>
 <strong>Challenge</strong>
@@ -355,7 +355,7 @@ centroids &lt;-<span class="st"> </span><span class="kw">st_centroid</span>(ward
 <p>Use <code>geom_sf</code> to make a ggplot of the centroids data.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> centroids) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>()</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <div class="rmdwarning">
 <p>
 Note: If you keep getting the following error message, try reversing the <code>geom_sf</code>s again and/or highlighting/re-running the lines of code multiple times.
@@ -370,12 +370,12 @@ Error in grid.Call(C_textBounds, as.graphicsAnnot(x<span class="math inline"><sp
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> centroids)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <p>I can also change colors and other settings.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98, <span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> centroids, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <p>So far, we’ve plotted data that was from the same original dataset. What if we want to add a layer with Chicago’s waterways?</p>
 <p>First we download, import, and project data from the Chicago Data Portal. As an exercise, I’m going to download a <a href="https://data.cityofchicago.org/Parks-Recreation/Waterways/eg9f-z3t6">Chicago waterways data</a> GeoJSON, which <code>st_read</code> can also interpret and convert into an <code>sf</code> object.</p>
 <p><img src="figs/waterways-data.png" /></p>
@@ -386,7 +386,7 @@ Error in grid.Call(C_textBounds, as.graphicsAnnot(x<span class="math inline"><sp
 </div>
 <p>Read and project the waterways JSON. Hint: save your JSON file in the data/ folder in your workspace.</p>
 <pre class="sourceCode r"><code class="sourceCode r">water &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;data/Waterways.geojson&quot;</span>)</code></pre>
-<pre><code>## Reading layer `OGRGeoJSON&#39; from data source `/Users/angela/Desktop/Spatial Data Science/workshop-notes/data/Waterways.geojson&#39; using driver `GeoJSON&#39;
+<pre><code>## Reading layer `Waterways&#39; from data source `/Users/angela/Desktop/Spatial Data Science/workshop-notes/data/Waterways.geojson&#39; using driver `GeoJSON&#39;
 ## Simple feature collection with 605 features and 6 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
@@ -397,7 +397,7 @@ Error in grid.Call(C_textBounds, as.graphicsAnnot(x<span class="math inline"><sp
 <p>Now, plot it to see if things are looking alright.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 <p>Uh oh, looks like we have Lake Michigan with everything else. We want to filter out that feature. We’ll use the <code>filter()</code> command from <code>dplyr</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 water_clean &lt;-<span class="st"> </span><span class="kw">filter</span>(water, name <span class="op">!=</span><span class="st"> &quot;LAKE MICHIGAN&quot;</span>)</code></pre>
@@ -405,7 +405,7 @@ water_clean &lt;-<span class="st"> </span><span class="kw">filter</span>(water, 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <div class="rmdwarning">
 <p>
 Note that order matters here! ggplot plots in the order that you give your functions to it, so if you reorder the <code>geom_sf</code> calls, the wards are mapped after - and on top of! - the rivers.
@@ -415,7 +415,7 @@ Note that order matters here! ggplot plots in the order that you give your funct
 <span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>The last thing we’ll do is figure out which wards intersect with waterways, using a powerful <code>sf</code> function called <code>st_intersects</code>. The output of <code>st_intersects</code> is a bit strange: it’s a list of indexes of the intersected features for each ward.</p>
 <p>The main thing you need to know is: if there is nothing in the list for a feature, that means nothing intersects with it.</p>
 <pre class="sourceCode r"><code class="sourceCode r">intersects &lt;-<span class="st"> </span><span class="kw">st_intersects</span>(ward98, water_clean)
@@ -509,7 +509,7 @@ Can you plot the wards, the rivers, and the wards that intersect with a river?
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> ward98) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_wards, <span class="dt">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> water_clean, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre>
-<p><img src="workshop-notes_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="workshop-notes_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p>Remember to push your work to Github to back it up!</p>
 </div>
 <div id="links-2" class="section level2">
