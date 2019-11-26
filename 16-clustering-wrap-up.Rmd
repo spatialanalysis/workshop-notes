@@ -1,0 +1,98 @@
+# Spatial Clustering
+
+**Update**: [Spatial Weights Tutorials](https://spatialanalysis.github.io/tutorials/#spatial-weights-tutorials-new) have been uploaded to the Tutorials site! Spatial autocorrelation tutorials will likely be posted the week after Thanksgiving, please use the [rgeoda documentation](https://rgeoda.github.io/rgeoda-book/spatial-autocorrelation.html) in the meantime or reach out to Angela with questions.
+
+We'll finish up this quarter's workshop with a brief overview of spatial clustering in R.
+
+## Spatial Clustering in rgeoda
+
+Let's first do it in `rgeoda`. This is based off of the rgeoda [spatial clustering documentation](https://rgeoda.github.io/rgeoda-book/spatial-clustering.html).
+
+Load packages:
+```{r}
+library(rgeoda)
+library(sf)
+library(geodaData)
+```
+
+
+Load guerry data:
+```{r}
+guerry_sf <- geodaData::guerry
+```
+
+Do you remember how to convert an sf object into a geoda object?
+
+```{r}
+guerry <- sf_to_geoda(guerry_sf, with_table = TRUE)
+```
+
+We need to get the data into a format that is compatible with the `skater()` function in rgeoda, aka a list of numeric vectors of the variables we want cluster on:
+
+```{r}
+data <- list(guerry$table$Crm_prs, guerry$table$Crm_prp, guerry$table$Litercy, guerry$table$Donatns, guerry$table$Infants, guerry$table$Suicids)
+
+data
+```
+
+Make our queen weights from before:
+
+```{r}
+queen_w <- queen_weights(guerry)
+```
+
+Now, we use the SKATER function. The first argument is the number of clusters we want, the second is the weights we created, and the third is the list of numeric vectors of the variables we want to cluster on:
+
+```{r}
+?skater
+```
+
+Run it, and take a look at the output:
+
+```{r}
+guerry_clusters <- skater(4, queen_w, data)
+
+guerry_clusters
+```
+
+This returns a list, where the length is the number of clusters, and the numbers are the indexes of the observations that are in each cluster.
+
+You could then create a map in base R - note, this is taken from the rgeoda documentation, and I don't necessarily support this entirely.
+
+```{r}
+# Get some colors for each clusters
+skater_colors <- palette()[2:5]
+skater_labels <- c("c1","c2","c3","c4")
+
+# Assign a color for each observation
+colors <- rep("#000000", queen_w$num_obs)
+for (i in 1:4) {
+  for (j in guerry_clusters[i]) {
+    colors[j+1] <- skater_colors[i]
+  }
+}
+
+# plot
+plot(st_geometry(guerry_sf),  col=colors, border = "#333333", lwd=0.2)
+title(main = "SKATER Clustering Map")
+legend('bottomleft', legend = skater_labels, fill = skater_colors, border = "#eeeeee")
+```
+
+```{block type="learncheck"}
+```
+This is hard in terms of mapping (especially with the tmap workflow), so one challenge / open question for today: can we think of a way to create a column name called "cluster", with values for each cluster, and color the map based on that?
+```{block type="learncheck"}
+```
+
+### Other algorithms
+
+```{block type="learncheck"}
+```
+SKATER isn't the only algorithm we can use for spatially-constrained clustering. Try out one of the algorithms listed in the rgeoda documentation, [REDCAP](https://rgeoda.github.io/rgeoda-book/spatial-clustering.html#redcap) and [Max-P](https://rgeoda.github.io/rgeoda-book/spatial-clustering.html#max-p) - or both!
+```{block type="learncheck"}
+```
+
+
+## Clustering analysis with other R packages
+
+I can't cover everything in this workshop, but notes on PCA and clustering with non-rgeoda R packages can be found on the [Tutorials page](https://spatialanalysis.github.io/tutorials/#cluster-analysis-in-r) of the Spatial Analysis in R site.
